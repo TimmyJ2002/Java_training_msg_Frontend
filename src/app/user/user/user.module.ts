@@ -28,13 +28,9 @@ import {MatSelectModule} from "@angular/material/select";
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
-
-
   ],
   exports: [
-    UserListComponent,
-    UserCreationComponent,
-    UserChangePasswordComponent
+    UserRoutingModule
   ]
 })
 export class UserModule { }

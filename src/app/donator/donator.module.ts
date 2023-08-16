@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {AppModule} from "../app.module";
 import {DonatorRoutingModule} from "./donator-routing.module";
-import {CreateDonatorComponent} from "./components/createDonator/createdonator.component";
-
+import {EditDonatorComponent} from "./components/edit-donator/edit-donator.component";
+import {DonatorListComponent} from "./components/donator-list/donator-list.component";
 
 
 @NgModule({
   declarations: [
+    EditDonatorComponent,
+    DonatorListComponent
   ],
   imports: [
     CommonModule,
@@ -17,9 +18,8 @@ import {CreateDonatorComponent} from "./components/createDonator/createdonator.c
     HttpClientModule,
     DonatorRoutingModule,
     ReactiveFormsModule,
-    AppModule,
   ],
-  exports: [
-  ]
+  exports: [DonatorRoutingModule]
 })
-export class DonatorModule { }
+export class DonatorModule {
+}

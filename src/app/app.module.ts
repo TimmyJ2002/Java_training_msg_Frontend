@@ -7,20 +7,20 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule, RouterOutlet} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app-routing.module";
-import {UserRoutingModule} from "./user/user-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import {CreateDonatorComponent} from "./donator/components/createDonator/createdonator.component";
-import { DonatorRoutingModule } from './donator/donator-routing.module';
-import { DonatorListComponent } from './donator/components/donator-list/donator-list.component';
-import { EditDonatorComponent } from './donator/components/edit-donator/edit-donator.component';
-import { UserChangePasswordComponent } from './user/components/user-change-password/user-change-password.component';
-import { LogoutComponent } from './components/logout/logout.component';
+import {DonatorListComponent} from './donator/components/donator-list/donator-list.component';
+import {LogoutComponent} from './components/logout/logout.component';
 // import { UserDetailsComponent } from './user/components/user-details/user-details.component';
-import { PermissionManagementComponent } from './components/permission_management/components/permission-management/permission-management.component';
+import {
+  PermissionManagementComponent
+} from './components/permission_management/components/permission-management/permission-management.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
-import { DonationReportingComponent } from './donation/donation-reporting/donation-reporting.component';
+import {DonationReportingComponent} from './donation/donation-reporting/donation-reporting.component';
+import {UserModule} from "./user/user/user.module";
+import {DonatorModule} from "./donator/donator.module";
 
 
 @NgModule({
@@ -29,30 +29,26 @@ import { DonationReportingComponent } from './donation/donation-reporting/donati
     LoginComponent,
     PermissionManagementComponent,
     CreateDonatorComponent,
-    DonatorListComponent,
-    EditDonatorComponent,
-    UserChangePasswordComponent,
     LogoutComponent,
     DonationReportingComponent,
-    // UserDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UserRoutingModule,
+    UserModule,
+    DonatorModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     RouterOutlet,
     RouterModule,
     HttpClientModule,
     MatTableModule,
     MatListModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     RouterModule,
-    // UserDetailsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

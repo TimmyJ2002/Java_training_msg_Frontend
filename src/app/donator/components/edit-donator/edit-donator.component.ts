@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Donator} from "../../models/donator";
 import {CreateDonatorService} from "../../services/createdonator.service";
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-edit-donator',
