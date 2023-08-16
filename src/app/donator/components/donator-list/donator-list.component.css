@@ -1,0 +1,36 @@
+#donorTable {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 2px solid #e64a19;
+}
+
+#donorTable th,
+#donorTable td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+#donorTable th {
+  background-color: #e64a19;
+  color: white;
+}
+
+#donorTable a {
+  color: #000000;
+  text-decoration: none;
+}
+
+#donorTable a:hover {
+  text-decoration: underline;
+  color: #FFFFFF;
+}
+
+#donorRow:hover {
+  background-color: #e64a19;
+  color: white;
+}
+.selected-row {
+  background-color: #e64a19;
+}

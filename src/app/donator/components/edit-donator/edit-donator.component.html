@@ -1,0 +1,21 @@
+<h2>Edit donator</h2>
+<form>
+  <label for="firstName">First Name<span style="color: red;">*</span>:</label>
+  <input type="text" id="firstName" [(ngModel)]="donatorDetails.firstName" name="firstName" required><br>
+
+  <label for="lastName">Last Name<span style="color: red;">*</span>:</label>
+  <input type="text" id="lastName" [(ngModel)]="donatorDetails.lastName" name="lastName" required><br>
+
+  <label for="additionalName">Additional Name:</label>
+  <input type="text" id="additionalName" [(ngModel)]="donatorDetails.additionalName" name="additionalName"><br>
+
+  <label for="maidenName">Maiden Name:</label>
+  <input type="text" id="maidenName" [(ngModel)]="donatorDetails.maidenName" name="maidenName"><br>
+
+  <!-- Add more input fields for other properties -->
+  <div *ngIf="isSuccess" style="color: green;">Donor successfully edited!</div>
+  <div *ngIf="missingFields" style="color: red;">Required fields are still empty !</div>
+  <button class="button-style" (click)="saveDonator()">Save</button><br>
+
+  <button class="button-style" (click)="navigateToEditDonator()">See list of all users</button>
+</form>

@@ -1,0 +1,14 @@
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" formControlName="username" required>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password" required>
+  </div>
+  <p>Complete the form to enable button.</p>
+  <button class="loginButton" mat-fab color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+</form>
+

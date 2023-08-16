@@ -1,0 +1,20 @@
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: lightgreen;
+  border-top-style: solid;
+  border-bottom-style: solid;
+}
+
+#roles_table_div {
+  display:inline-block;
+  width: 40%;
+}
+
+#rights_div {
+  display:inline-block;
+  align-self: end;
+  width: 40%;
+}
+
+.role-row-is-clicked {
+  background-color: lightgreen;
+}

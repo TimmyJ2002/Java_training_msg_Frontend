@@ -1,0 +1,25 @@
+<h2>Add a donor</h2>
+<form [formGroup] = "donorForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="firstname">First name<span style="color: red;">*</span>:</label>
+    <input id="firstname" type="text" formControlName="firstName" (focus)="clearSuccessMessage()">
+  </div>
+
+  <div>
+    <label for="lastname">Last name<span style="color: red;">*</span>:</label>
+    <input id="lastname" type="text" formControlName="lastName" (focus)="clearSuccessMessage()">
+  </div>
+  <div>
+    <label for="additionalname">Additional name:</label>
+    <input id="additionalname" type="text" formControlName="additionalName">
+  </div>
+  <div>
+    <label for="maidenname">Maiden name:</label>
+    <input id="maidenname" type="text" formControlName="maidenName">
+  </div>
+
+  <p>Complete the mandatory fields to enable the button!</p>
+  <div *ngIf="isSuccess" style="color: green;">Donor successfully added!</div>
+  <button class="createButton" mat-fab color="primary" type="submit" [disabled]="!donorForm.valid">Add a donor!</button>
+
+</form>

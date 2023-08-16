@@ -1,0 +1,20 @@
+<h2>Please choose a donor to edit</h2>
+<table id="donorTable">
+  <thead>
+  <tr>
+    <th id="fullNameHeader">Full Name</th>
+    <th id="additionalNameHeader">Additional Name</th>
+    <th id="maidenNameHeader">Maiden Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let donor of donors" id="donorRow"
+      (dblclick)="navigateToEditDonator(donor)">
+    <td>
+        {{ donor.firstName + ' ' + donor.lastName }}
+    </td>
+    <td id="additionalName">{{ donor.additionalName }}</td>
+    <td id="maidenName">{{ donor.maidenName }}</td>
+  </tr>
+  </tbody>
+</table>
