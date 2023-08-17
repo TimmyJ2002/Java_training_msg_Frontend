@@ -10,6 +10,7 @@ export class CreateDonatorService {
 
   private apiUrl = 'http://localhost:8080/donator/create'; // Adjust the URL as needed
   private editUrl = 'http://localhost:8080/donator/edit';
+  private deleteUrl = 'http://localhost:8080/donator/delete';
 
   constructor(private http: HttpClient) {
 
@@ -33,6 +34,16 @@ export class CreateDonatorService {
         console.error('Error updating donator information:', error);
       }
     );
+  }
+  deleteDonor(donor: Donator): boolean {
+    if (confirm(`Are you sure you want to delete ${donor.firstName} ${donor.lastName}?`)) {
+      console.log(donor);
+      this.http.post(this.deleteUrl, donor).subscribe(() => {
+        // Do something after successful deletion, such as updating the donor list
+      });
+      return true; //adik s-o sters cv
+    }
+    return false;
   }
 
 }
