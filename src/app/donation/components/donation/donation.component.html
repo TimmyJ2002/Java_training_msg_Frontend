@@ -1,1 +1,35 @@
-<p>donation works!</p>
+<form [formGroup]="donationForm" (ngSubmit)="onSubmit()" class="donationForm">
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Select</mat-label>
+    <mat-select>
+      <mat-option value="EUR">EUR</mat-option>
+      <mat-option value="RON">RON</mat-option>
+      <mat-option value="USD">USD</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Donators</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let donator of donatorList" [value]="donator.firstName">{{donator.lastName + " " + donator.firstName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Campaign</mat-label>
+    <mat-select>
+
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Notes</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+  <button type="submit" [disabled]=!donationForm.valid>Create new User</button>
+</form>
