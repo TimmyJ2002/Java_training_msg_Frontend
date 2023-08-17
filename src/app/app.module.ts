@@ -24,6 +24,7 @@ import {DonatorModule} from "./donator/donator.module";
 import {
   PermissionManagementModule
 } from "./components/permission_management/permission-management/permission-management.module";
+import {DonationModule} from "./donation/donation/donation.module";
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {
     AppRoutingModule,
     UserModule,
     DonatorModule,
+    DonationModule,
     PermissionManagementModule,
     BrowserAnimationsModule,
     RouterOutlet,
