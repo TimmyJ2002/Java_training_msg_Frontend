@@ -1,0 +1,16 @@
+<h2>Create new Campaign</h2>
+<form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Campaign Name *:</label>
+    <input type="text" id="name" formControlName="name">
+  </div>
+  <div>
+    <label for="purpose">Purpose *:</label>
+    <input type="text" id="purpose" formControlName="purpose">
+  </div>
+  <p>Complete the form to enable button.</p>
+  <p>*all fields are required.</p>
+  <div *ngIf="isSuccess">Campaign successfully created!</div>
+  <div *ngIf="isDuplicate">Campaign already exists!</div>
+  <button class="addButton" mat-fab color="primary" type="submit" [disabled]="!campaignForm.valid">Add Campaign</button>
+</form>
