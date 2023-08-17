@@ -40,13 +40,13 @@ export class AuthService implements OnInit{
 
   logout(): Observable<any> {
     const token = this.getAccessToken();
-    const username = this.username;
-    
+    // const username = this.username;
+
     const headers = {
       Authorization: `Bearer ${token}`
     };
 
-    this.isLoggedInSubject.next(false); // Update the isLoggedIn status
+    this.isLoggedInSubject.next(false);
 
     return this.http.post(`${this.apiUrl}/auth/logout`, {  }, { headers, responseType: 'text' });
   }
@@ -61,9 +61,16 @@ export class AuthService implements OnInit{
   }
 
   // Retrieve the accessToken from localStorage
+  // getAccessToken(): string | null {
+  //   return sessionStorage.getItem('accessToken');
+  // }
+
   getAccessToken(): string | null {
-    return sessionStorage.getItem('accessToken');
+    const token = sessionStorage.getItem('accessToken');
+    return token ? token.trim() : null;
   }
+
+
 
   // Clear the accessToken from localStorage on logout
   clearAccessToken(): void {
