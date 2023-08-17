@@ -24,6 +24,10 @@ import {DonatorModule} from "./donator/donator.module";
 import {
   PermissionManagementModule
 } from "./components/permission_management/permission-management/permission-management.module";
+import {CampaignEditComponent} from "./campaign/component/campaign-edit/campaign-edit.component";
+import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/campaign-delete.component";
+import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
+import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
 
 
 @NgModule({
@@ -34,10 +38,14 @@ import {
     CreateDonatorComponent,
     LogoutComponent,
     DonationReportingComponent,
+    CampaignEditComponent,
+    CampaignDeleteComponent,
+    CampaignCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CampaignRoutingModule,
     UserModule,
     DonatorModule,
     PermissionManagementModule,
