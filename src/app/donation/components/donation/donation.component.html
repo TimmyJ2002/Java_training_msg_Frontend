@@ -1,35 +1,68 @@
 <form [formGroup]="donationForm" (ngSubmit)="onSubmit()" class="donationForm">
   <mat-form-field>
     <mat-label>Amount</mat-label>
-    <input matInput>
+    <input formControlName="amount" matInput>
   </mat-form-field>
   <br>
   <mat-form-field>
     <mat-label>Select</mat-label>
-    <mat-select>
+    <mat-select formControlName="currency">
       <mat-option value="EUR">EUR</mat-option>
       <mat-option value="RON">RON</mat-option>
       <mat-option value="USD">USD</mat-option>
     </mat-select>
   </mat-form-field>
   <br>
+<!--  <mat-form-field>-->
+<!--    <mat-label>Donator</mat-label>-->
+<!--    <mat-select formControlName="donator">-->
+<!--      <mat-option *ngFor="let donator of donatorList" [value]="donator.id">{{donator.lastName + " " + donator.firstName}}</mat-option>-->
+<!--    </mat-select>-->
+<!--  </mat-form-field>-->
+
   <mat-form-field>
     <mat-label>Donators</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let donator of donatorList" [value]="donator.firstName">{{donator.lastName + " " + donator.firstName}}</mat-option>
-    </mat-select>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="Number"
+           matInput
+           [formControl]="donatorControl"
+           [matAutocomplete]="auto1"
+            formControlName="donator">
+    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="donatorDisplayFn" (optionSelected)="onChange($event.option.value)">
+      <mat-option *ngFor="let donator of filteredDonators | async" [value]="donator">
+        {{donator.lastName + " " + donator.firstName}}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
   <br>
-  <mat-form-field>
-    <mat-label>Campaign</mat-label>
-    <mat-select>
+<!--  <mat-form-field>-->
+<!--    <mat-label>Campaign</mat-label>-->
+<!--    <mat-select formControlName="campaign">-->
+<!--      <mat-option *ngFor="let campaign of campaignList" [value]="campaign.id">{{campaign.name}}</mat-option>-->
+<!--    </mat-select>-->
+<!--  </mat-form-field>-->
 
-    </mat-select>
+  <mat-form-field>
+    <mat-label>Campaigns</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="Number"
+           matInput
+           [formControl]="campaignControl"
+           [matAutocomplete]="auto2"
+            formControlName="campaign">
+    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="campaignDisplayFn">
+      <mat-option *ngFor="let campaign of filteredCampaigns | async" [value]="campaign">
+        {{campaign.name}}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
+
   <br>
   <mat-form-field>
     <mat-label>Notes</mat-label>
-    <textarea matInput></textarea>
+    <textarea matInput formControlName="notes"></textarea>
   </mat-form-field>
   <button type="submit" [disabled]=!donationForm.valid>Create new User</button>
 </form>

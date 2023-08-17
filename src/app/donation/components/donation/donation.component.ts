@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Donator} from "../../../donator/models/donator";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../../user/services/user.service";
-import {
-  PermissionManagementService
-} from "../../../components/permission_management/services/permission-management.service";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {CreateDonatorService} from "../../../donator/services/createdonator.service";
+import {Campaign} from "../../../campaign/model/campaign";
+import {CampaignService} from "../../../campaign/services/campaign.service";
+import {Donation} from "../../models/donation";
+import {DonationService} from "../../services/donation.service";
+import {map, Observable, startWith} from "rxjs";
 
 @Component({
   selector: 'app-donation',
@@ -15,27 +16,101 @@ import {CreateDonatorService} from "../../../donator/services/createdonator.serv
 export class DonationComponent {
   donationForm!: FormGroup;
   donatorList: Donator[] = [];
+  campaignList: Campaign[] = [];
+  donatorControl = new FormControl('');
+  campaignControl = new FormControl('');
+  filteredDonators: Observable<Donator[]> | null = null;
+  filteredCampaigns: Observable<Campaign[]> | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
-    private donatorService: CreateDonatorService
+    private donatorService: CreateDonatorService,
+    private campaignService: CampaignService,
+    private donationService: DonationService
   ) {
   }
 
   ngOnInit(): void {
-    this.initUserForm();
+    this.initDonationForm();
     this.donatorService.getDonors().subscribe((donator) => {
       this.donatorList = donator;
     });
+    this.campaignService.getCampaigns().subscribe((campaign) => {
+      this.campaignList = campaign;
+    })
+    this.filteredDonators = this.donatorControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterDonators(value || '')),
+    );
+    this.filteredCampaigns = this.campaignControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterCampaigns(value || '')),
+    );
   }
 
-  private initUserForm() {
+  private initDonationForm() {
     this.donationForm = this.formBuilder.group({
-      // amount: ['', [Validators.required]]
+      amount: ['', [Validators.required, this.validateNumber(), Validators.pattern(/^(?!0\d)(\d+)$/)]],
+      currency: ['', [Validators.required]],
+      donator: ['', [Validators.required]],
+      campaign: ['', ],
+      notes: ['']
     })
   }
 
-  onSubmit() {
-    console.log("yay")
+  validateNumber(): ValidatorFn {
+    return (control: AbstractControl) => control.value === "" ? {isValid: true} : null;
   }
+
+  onSubmit() {
+    if (this.donationForm.valid) {
+      const donation: Donation = {
+        amount: this.donationForm.get('amount')?.value,
+        currency: this.donationForm.get('currency')?.value,
+        campaignID: this.donationForm.get('campaign')?.value.id,
+        donatorID: this.donationForm.get('donator')?.value.id,
+        notes: this.donationForm.get('notes')?.value
+      };
+      this.donationService.addDonation(donation).subscribe();
+    }
+    this.initDonationForm();
+  }
+
+  private _filterDonators(value: string | Donator): Donator[] {
+
+    if (typeof value === 'string'){
+      const filterValueDonator = value.toLowerCase();
+
+      return this.donatorList
+        .filter(option =>
+          option.firstName.toLowerCase().includes(filterValueDonator) ||
+          option.lastName.toLowerCase().includes(filterValueDonator)
+        )
+        .map(option => option);
+    } else return [];
+
+  }
+
+  private _filterCampaigns(value: string): Campaign[] {
+    const filterValue = value.toLowerCase();
+
+    return this.campaignList
+      .filter(campaign =>
+        campaign.name.toLowerCase().includes(filterValue)
+      )
+      .map(campaign => campaign);
+  }
+
+  public donatorDisplayFn(donator: Donator) {
+    return donator && donator.lastName + " " + donator.firstName;
+  }
+
+  public campaignDisplayFn(campaign: Campaign) {
+    return campaign && campaign.name;
+  }
+
+  public onChange(value: Donator) {
+    this.donationForm.controls['donator'].setValue(value);
+  }
+
 }

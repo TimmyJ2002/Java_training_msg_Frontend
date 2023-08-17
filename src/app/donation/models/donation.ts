@@ -4,8 +4,8 @@ export class Donation {
   constructor(
     public amount: number,
     public currency: string,
-    public campaignName: string,
-    public donator: Donator,
+    public campaignID: number,
+    public donatorID: number,
     public notes: string
   ){
   }

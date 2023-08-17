@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule, RouterOutlet} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app-routing.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CreateDonatorComponent} from "./donator/components/createDonator/createdonator.component";
 import {DonatorListComponent} from './donator/components/donator-list/donator-list.component';
 import {LogoutComponent} from './components/logout/logout.component';
@@ -29,6 +29,7 @@ import {CampaignEditComponent} from "./campaign/component/campaign-edit/campaign
 import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/campaign-delete.component";
 import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
+import {Interceptor} from "../../util/interceptors/interceptor";
 
 
 @NgModule({
@@ -64,7 +65,9 @@ import {CampaignCreateComponent} from "./campaign/component/campaign-create/camp
   exports: [
     RouterModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
