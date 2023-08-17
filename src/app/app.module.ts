@@ -21,6 +21,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {DonationReportingComponent} from './donation/donation-reporting/donation-reporting.component';
 import {UserModule} from "./user/user/user.module";
 import {DonatorModule} from "./donator/donator.module";
+import {
+  PermissionManagementModule
+} from "./components/permission_management/permission-management/permission-management.module";
 
 
 @NgModule({
@@ -37,6 +40,7 @@ import {DonatorModule} from "./donator/donator.module";
     AppRoutingModule,
     UserModule,
     DonatorModule,
+    PermissionManagementModule,
     BrowserAnimationsModule,
     RouterOutlet,
     RouterModule,
