@@ -22,8 +22,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   // { path: '**', redirectTo: 'login', pathMatch: 'full'}
   { path: 'create-user', component: UserCreationComponent },
-  { path: '**', redirectTo: 'login', pathMatch: 'full'},
-  { path: 'campaign/create', loadChildren: () => import('./campaign/campaign/campaign.module').then(m => m.CampaignModule) }
+  { path: 'campaign', loadChildren: () => import('./campaign/campaign/campaign.module').then(m => m.CampaignModule) },
+  { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
