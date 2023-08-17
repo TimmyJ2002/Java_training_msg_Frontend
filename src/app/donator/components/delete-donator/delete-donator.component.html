@@ -10,7 +10,10 @@
   <tr *ngFor="let donor of donors" id="donorRow">
       <!--(dblclick)="navigateToEditDonator(donor)"> -->
     <td>
-      {{ donor.firstName + ' ' + donor.lastName + ' ' + donor.additionalName + ' ' + donor.maidenName }}
+      {{ (donor.firstName ? donor.firstName + ' ' : '') +
+    (donor.lastName ? donor.lastName + ' ' : '') +
+    (donor.additionalName ? donor.additionalName + ' ' : '') +
+    (donor.maidenName ? donor.maidenName : '') }}
     </td>
     <td><button class="deleteButton" (click)="deleteDonor(donor)">Delete</button></td>
   </tr>
