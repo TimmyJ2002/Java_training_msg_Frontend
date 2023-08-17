@@ -39,13 +39,11 @@ import {CampaignCreateComponent} from "./campaign/component/campaign-create/camp
     LogoutComponent,
     DonationReportingComponent,
     CampaignEditComponent,
-    CampaignDeleteComponent,
-    CampaignCreateComponent
+    CampaignDeleteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CampaignRoutingModule,
     UserModule,
     DonatorModule,
     PermissionManagementModule,
