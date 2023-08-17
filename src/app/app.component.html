@@ -1,17 +1,19 @@
+
 <nav>
-  <a *ngIf="isLoggedIn; else loginLink" (click)="logout()" aria-current="page">Logout</a>
+  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">Rights</a>
+    <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async)">
+      <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">Donor</a>
+      <div class="dropdown-content">
+        <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">Create</a>
+        <a routerLink="/donator/edit" routerLinkActive="active" ariaCurrentWhenActive="page">Edit</a>
+        <a routerLink="/donator/delete" routerLinkActive="active" ariaCurrentWhenActive="page">Delete</a>
+      </div>
+    </div>
+    <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">Donation Reporting</a>
+  <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">Logout</a>
   <ng-template #loginLink>
     <a routerLink="/login" routerLinkActive="active" aria-current="page">Login</a>
   </ng-template>
-  <a routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">Rights</a>
-  <div class="dropdown">
-    <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">Donor</a>
-    <div class="dropdown-content">
-      <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">Create</a>
-      <a routerLink="/donator/edit" routerLinkActive="active" ariaCurrentWhenActive="page">Edit</a>
-      <a routerLink="/donator/delete" routerLinkActive="active" ariaCurrentWhenActive="page">Delete</a>
-    </div>
-  </div>
-  <a routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">Donation Reporting</a>
 </nav>
 <router-outlet></router-outlet>
+

@@ -1,39 +1,61 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, tap} from "rxjs";
+import {BehaviorSubject, Observable, tap} from "rxjs";
 import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit{
 
-  private apiUrl = 'http://localhost:8080'; // Adjust the URL as needed
+  private apiUrl = 'http://localhost:8080';
+
+  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticated());
+
+  isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
+
+  private username = '';
 
   constructor(private http: HttpClient, private router: Router) {
 
   }
 
   isAuthenticated(): boolean {
-    const accessToken = localStorage.getItem('accessToken');
-    return !!accessToken; // Return true if an access token exists, false otherwise
+    const accessToken = this.getAccessToken();
+    return !!accessToken;
   }
 
   login(credentials: any): Observable<any> {
-    // return this.http.post<any>(this.apiUrl + "/auth/login", credentials)
     return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
       .pipe(
         tap((response: any) => {
           if (response.message == "Password change required") {
-            // Redirect to password change page
-            // Replace 'change-password' with your actual route
             window.location.href = '/change-password';
+          } else {
+            this.isLoggedInSubject.next(true);
           }
         })
       );
   }
 
-  // Save the accessToken to localStorage
+  logout(): Observable<any> {
+    const token = this.getAccessToken();
+    const username = this.username;
+    
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+
+    this.isLoggedInSubject.next(false); // Update the isLoggedIn status
+
+    return this.http.post(`${this.apiUrl}/auth/logout`, {  }, { headers, responseType: 'text' });
+  }
+
+  getUsernameFromToken(token: string): Observable<string> {
+    const url = `${this.apiUrl}/auth/get-username?token=${token}`;
+    return this.http.get<string>(url);
+  }
+
   saveAccessToken(accessToken: string): void {
     sessionStorage.setItem('accessToken', accessToken);
   }
@@ -62,23 +84,17 @@ export class AuthService {
     return this.http.put(url, null, { params });
   }
 
-  // logout(): Observable<any> {
-  //   return this.http.post(this.apiUrl + '/auth/logout', {}, { responseType: 'text' }); // Specify 'text' as responseType
-  // }
-
-  // logout(): Observable<any> {
-  //   const username = 'admin'; // Modify this based on how you extract the username from the token
-  //   return this.http.post(this.apiUrl + '/auth/logout', { username }, { responseType: 'text' });
-  // }
-
-  logout(): Observable<any> {
-    const token = localStorage.getItem('auth_token'); // Get the token from your storage (localStorage, sessionStorage, etc.)
-    const username = 'admin'; // Modify this based on how you extract the username from the token
-
-    const headers = {
-      Authorization: `Bearer ${token}`
-    };
-
-    return this.http.post(`${this.apiUrl}/auth/logout`, { username }, { headers, responseType: 'text' });
+  ngOnInit(): void {
+    const token = this.getAccessToken(); // Get the token from your authentication service
+    if (token) {
+      this.getUsernameFromToken(token).subscribe(
+        (username: string) => {
+          this.username = username;
+        },
+        (error) => {
+          console.error('Error fetching username:', error);
+        }
+      );
+    }
   }
 }
