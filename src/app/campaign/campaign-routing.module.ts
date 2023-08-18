@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {CampaignCreateComponent} from "./component/campaign-create/campaign-create.component";
@@ -12,6 +13,18 @@ const routes: Routes = [
 ];
 
 @NgModule({
+import {RouterModule, Routes} from "@angular/router";
+import {CampaignReportingComponent} from "./campaign-reporting/campaign-reporting.component";
+import {NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
+
+
+const routes: Routes = [
+  { path: 'campaign-reporting', component: CampaignReportingComponent}
+];
+
+@NgModule({
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
@@ -20,4 +33,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
+
 export class CampaignRoutingModule { }

@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
 
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, private router: Router) {
     this.isLoggedIn = this.authService.isAuthenticated();
   }
 

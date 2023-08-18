@@ -9,8 +9,13 @@ import {
   PermissionManagementRoutingModule
 } from "./components/permission_management/permission-management-routing.module";
 import {DonationRoutingModule} from "./donation/donation-routing.module";
+
 import {DeleteDonatorComponent} from "./donator/components/delete-donator/delete-donator.component";
 import {UserCreationComponent} from "./user/components/user-creation/user-creation.component";
+
+import {UserRoutingModule} from "./user/user-routing.module";
+import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
+
 // import {DonationRoutingModule} from "./donation/donation-routing.module";
 
 
@@ -32,6 +37,8 @@ const routes: Routes = [
     CommonModule,
     PermissionManagementRoutingModule,
     DonationRoutingModule,
+    UserRoutingModule,
+    CampaignRoutingModule,
     RouterModule.forRoot(routes),
   ],
   exports: [

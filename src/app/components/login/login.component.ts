@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit{
         this.authService.saveAccessToken(accessToken); // Save the accessToken to localStorage
         console.log('Access Token:', accessToken);
         this.loginForm.reset();
-        this.router.navigate(['/rights']);
+        this.router.navigate(['/donation-reporting']);
       },
       (error) => {
         console.error('Login Error:', error);
