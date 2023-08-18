@@ -21,6 +21,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {DonationReportingComponent} from './donation/donation-reporting/donation-reporting.component';
 import {UserModule} from "./user/user/user.module";
 import {DonatorModule} from "./donator/donator.module";
+import {UserListComponent} from "./user/components/user-list/user-list.component";
+import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
+import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign-reporting.component";
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import {DonatorModule} from "./donator/donator.module";
     CreateDonatorComponent,
     LogoutComponent,
     DonationReportingComponent,
+    CampaignReportingComponent
   ],
   imports: [
     BrowserModule,

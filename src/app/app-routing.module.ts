@@ -9,6 +9,8 @@ import {
   PermissionManagementRoutingModule
 } from "./components/permission_management/permission-management-routing.module";
 import {DonationRoutingModule} from "./donation/donation-routing.module";
+import {UserRoutingModule} from "./user/user-routing.module";
+import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
 // import {DonationRoutingModule} from "./donation/donation-routing.module";
 
 
@@ -27,6 +29,8 @@ const routes: Routes = [
     CommonModule,
     PermissionManagementRoutingModule,
     DonationRoutingModule,
+    UserRoutingModule,
+    CampaignRoutingModule,
     RouterModule.forRoot(routes),
   ],
   exports: [

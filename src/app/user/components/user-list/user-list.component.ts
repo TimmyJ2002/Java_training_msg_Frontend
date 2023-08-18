@@ -9,26 +9,71 @@ import {UserService} from "../../services/user.service";
 })
 export class UserListComponent implements OnInit{
 
-  userList: User[] = [];
+  users: User[] = [];
+  editUserId: number | null = null;
+  userEditData: { [userId: number]: Partial<User> } = {};
 
   constructor(private userService:UserService) {
   }
-
   ngOnInit(): void {
-    this.userService.loadUsers().subscribe();
-    this.userService.getUsers().subscribe((users) => this.userList = users);
+    this.userService.getUsers().subscribe(users => {
+      // Sort the users array
+      this.users = users.sort((a, b) => {
+        // Place deactivated users at the bottom
+        if (a.active === b.active) {
+          return 0;
+        } else if (a.active) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+    });
   }
-/*
-  editUser(userToEdit: User) {
-    userToEdit.username = ((userToEdit.username) + 1).toString();
 
-    this.userService.updateUser(userToEdit).subscribe(
-      (updatedUser: User) => {
-        console.log('User updated:', updatedUser);
-      },
-      (error) => {
-        console.error('Error updating user:', error);
-      }
-    );
-  }*/
+
+  editOrSaveUser(user: User): void {
+    if (this.editUserId === user.id) {
+      this.saveUser(user);
+    } else {
+      this.editUserId = user.id!;
+    }
+  }
+
+  saveUser(user: User): void {
+    this.userService.updateUser(user.id, this.userEditData[user.id!])
+      .subscribe(
+        (response) => {
+          console.log('Response:', response);
+          // Update the local data in the users array
+          const updatedUserIndex = this.users.findIndex(u => u.id === user.id);
+          if (updatedUserIndex !== -1) {
+            this.users[updatedUserIndex] = <User>this.userEditData[user.id!];
+          }
+          this.editUserId = null;
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+  }
+
+  toggleActivation(user: User): void {
+    // Toggle the isActive property
+    user.active = !user.active;
+
+    // Update the user data in the API
+    this.userService.updateUser(user.id, user)
+      .subscribe(
+        (response) => {
+          console.log('Response:', response);
+        },
+        (error) => {
+          console.error('Error:', error);
+          // Revert the change if there was an error
+          user.active = !user.active;
+        }
+      );
+  }
+
 }

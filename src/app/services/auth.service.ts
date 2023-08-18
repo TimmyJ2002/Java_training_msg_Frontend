@@ -14,7 +14,7 @@ export class AuthService implements OnInit{
 
   isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
-  private username = '';
+  public username = '';
 
   constructor(private http: HttpClient, private router: Router) {
 
@@ -60,17 +60,10 @@ export class AuthService implements OnInit{
     sessionStorage.setItem('accessToken', accessToken);
   }
 
-  // Retrieve the accessToken from localStorage
-  // getAccessToken(): string | null {
-  //   return sessionStorage.getItem('accessToken');
-  // }
-
   getAccessToken(): string | null {
     const token = sessionStorage.getItem('accessToken');
     return token ? token.trim() : null;
   }
-
-
 
   // Clear the accessToken from localStorage on logout
   clearAccessToken(): void {
