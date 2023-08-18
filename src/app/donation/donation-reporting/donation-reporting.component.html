@@ -36,6 +36,8 @@
               Approved: {{ donation.approved }}
             </p>
             <p class="donation-notes">Notes: {{ donation.notes }}</p>
+            <!--trebe pusa o limitare ai butonu asta apare doar la cei cu dreptul de donation_management; vedem mai incolo cum-->
+            <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved">Delete</button>
           </div>
   </li>
 </ul>
