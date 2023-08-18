@@ -13,6 +13,7 @@ export class DonationReportingComponent implements OnInit{
   selectedFilterCriteria: string = '';
   selectedCurrency: string = '';
   searchQuery: string = '';
+  status: boolean = false;
 
   constructor(private donationService: DonationService) { }
 
@@ -44,6 +45,13 @@ export class DonationReportingComponent implements OnInit{
       this.filteredDonations = this.donations.filter(donation =>
         donation.notes.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
+    }
+  }
+  deleteDonation(id: string): void{
+    this.status = this.donationService.deleteDonation(id);
+    if(this.status) {
+      this.donations = this.donations.filter(donation => donation.id !== id);
+      this.filteredDonations = this.filteredDonations.filter(donation => donation.id !== id);
     }
   }
 
