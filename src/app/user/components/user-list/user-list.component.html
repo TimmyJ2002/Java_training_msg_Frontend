@@ -1,5 +1,61 @@
-<!--<ul *ngFor="let user of userList">-->
-<!--  <li class="red-li">-->
-<!--    <app-user-details [user]="user" (editUser)="editUser($event)"></app-user-details>-->
-<!--  </li>-->
-<!--</ul>-->
+<div class="users-list">
+  <h2>Users List</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>
+        <ng-container *ngIf="user.id !== editUserId; else editFirstNameField">
+          {{ user.firstName }}
+        </ng-container>
+        <ng-template #editFirstNameField>
+          <input type="text" [(ngModel)]="userEditData[user.id!].firstName" />
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="user.id !== editUserId; else editLastNameField">
+          {{ user.lastName }}
+        </ng-container>
+        <ng-template #editLastNameField>
+          <input type="text" [(ngModel)]="userEditData[user.id!].lastName" />
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="user.id !== editUserId; else editEmailField">
+          {{ user.email }}
+        </ng-container>
+        <ng-template #editEmailField>
+          <input type="email" [(ngModel)]="userEditData[user.id!].email" />
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="user.id !== editUserId; else editPhoneNumberField">
+          {{ user.mobileNumber }}
+        </ng-container>
+        <ng-template #editPhoneNumberField>
+          <input type="text" [(ngModel)]="userEditData[user.id!].mobileNumber" />
+        </ng-template>
+      </td>
+      <td>
+        <button class="edit-button" (click)="editOrSaveUser(user)">
+          {{ editUserId === user.id ? 'Save' : 'Edit' }}
+        </button>
+      </td>
+      <td>
+        <button [class]="user.active ? 'activation-button deactivate' : 'activation-button reactivate'" (click)="toggleActivation(user)">
+          {{ user.active ? 'Deactivate' : 'Reactivate' }}
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

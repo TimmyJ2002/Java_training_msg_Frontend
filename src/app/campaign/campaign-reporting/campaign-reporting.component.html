@@ -1,0 +1,37 @@
+<div class="filter-search-container">
+<!--  <div class="filter-container">-->
+<!--    <label class="filter-label" for="filterCriteria">Filter by:</label>-->
+<!--    <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">-->
+<!--      <option value="selectCriteria">Select criteria...</option>-->
+<!--      <option value="Approved">Approved</option>-->
+<!--      <option value="currency">Currency</option>-->
+<!--      &lt;!&ndash; Add more filtering criteria options here &ndash;&gt;-->
+<!--    </select>-->
+<!--  </div>-->
+
+  <div class="search-container">
+    <label class="search-label" for="searchInput">Search:</label>
+    <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
+  </div>
+</div>
+
+
+<!--<div *ngIf="selectedFilterCriteria === 'currency'">-->
+<!--  <label class="filter-label" for="currencyFilter">Select Currency:</label>-->
+<!--  <select class="filter-dropdown" id="currencyFilter" [(ngModel)]="selectedCurrency" (ngModelChange)="applyFilter()">-->
+<!--    <option value="EUR">EUR</option>-->
+<!--    <option value="USD">USD</option>-->
+<!--    <option value="RON">RON</option>-->
+<!--  </select>-->
+<!--</div>-->
+
+
+<ul>
+  <li class="campaign-item" *ngFor="let campaign of filteredCampaigns">
+    <div>
+      <p class="campaign-id">Campaign ID: {{ campaign.id }}</p>
+      <p class="campaign-purpose">Purpose: {{ campaign.purpose }}</p>
+      <p class="campaign-name">Name: {{ campaign.name }}</p>
+    </div>
+  </li>
+</ul>
