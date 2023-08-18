@@ -8,6 +8,10 @@ import {
   Validators
 } from '@angular/forms';
 import {ErrorStateMatcher} from "@angular/material/core";
+import {Role} from "../../../components/permission_management/models/role";
+import {
+  PermissionManagementService
+} from "../../../components/permission_management/services/permission-management.service";
 
 
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -22,21 +26,33 @@ class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './user-creation.component.html',
   styleUrls: ['./user-creation.component.css']
 })
-export class UserCreationComponent implements OnInit{
+export class UserCreationComponent implements OnInit {
   userForm!: FormGroup;
   errorMessage: any;
   successMessage: any;
+  rolesList: Role[] = [];
+  roles: string[] = [];
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
-  ) {}
-  ngOnInit(): void {
-    this.initUserForm();
+    private userService: UserService,
+    private permissionManagementService: PermissionManagementService
+  ) {
   }
 
-  private initUserForm(): void{
+  ngOnInit(): void {
+    this.initUserForm();
+    this.permissionManagementService.loadRoles().subscribe((role) => {
+      this.rolesList = role;
+      console.log(this.rolesList); //temporary
+      this.userForm.get('roles')?.valueChanges.subscribe((roles: string[]) => {
+        this.roles = roles;
+      });
+    });
+  }
+
+  private initUserForm(): void {
     this.userForm = this.formBuilder.group({
       firstName: ['', [
         Validators.required,
@@ -49,53 +65,36 @@ export class UserCreationComponent implements OnInit{
         Validators.pattern(/^[a-zA-Z\s]*$/) // Allows only alphabetic characters and spaces
       ]],
       email: ['', [Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]],
-      mobileNumber: ['', [Validators.required, Validators.pattern(/^(00407\d{8}|07\d{8}|\+407\d{8})$/)]]
+      mobileNumber: ['', [Validators.required, Validators.pattern(/^(00407\d{8}|07\d{8}|\+407\d{8})$/)]],
       // TODO:roles and other things i need to add later + Validators
+      roles: [[], [Validators.required, Validators.minLength(1)]]
     });
-
-/*
-  this.userForm = this.formBuilder.group({
-    emailFormControl : new FormControl('', [
-      Validators.required,
-      Validators.email]),
-    phoneNumberControl : new FormControl('',[Validators.required, Validators.pattern(/^(00407\d{8}|07\d{8}|\+407\d{8})$/)]),
-    matcher : new MyErrorStateMatcher()
-  });
-*/
-
-
-}
-
-onSubmit(): void {
-if (this.userForm.invalid) {
-  return;
-}
-this.successMessage = "";
-this.errorMessage = "";
-
-const user: User = this.userForm.value;
-
-this.userService.createUser(user).subscribe(
-  () => {
-    console.log('User created successfully');
-    this.successMessage = 'User created successfully!';
-
-    this.userForm.reset();
-  },
-  (error) => {
-    console.error('Failed to create User:', error);
-    this.errorMessage = error;
-    this.userForm.reset();
   }
-);
-}
 
-/*emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  phoneNumberControl = new FormControl('',[Validators.required, Validators.pattern(/^(00407\d{8}|07\d{8}|\+407\d{8})$/)]);
+  onSubmit(): void {
+    if (this.userForm.invalid) {
+      return;
+    }
+    this.successMessage = "";
+    this.errorMessage = "";
 
-matcher = new MyErrorStateMatcher();*/
+    const user: User = this.userForm.value;
 
-  toppings = new FormControl('');
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
+
+    this.userService.createUser(user).subscribe(
+
+      () => {
+        console.log('User created successfully');
+        this.successMessage = 'User created successfully!';
+
+        this.userForm.reset();
+      },
+      (error) => {
+        console.error('Failed to create User:', error);
+        this.errorMessage = error;
+        this.userForm.reset();
+
+    }
+    );}
 }

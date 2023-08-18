@@ -21,6 +21,13 @@ import {MatButtonModule} from "@angular/material/button";
 import {DonationReportingComponent} from './donation/donation-reporting/donation-reporting.component';
 import {UserModule} from "./user/user/user.module";
 import {DonatorModule} from "./donator/donator.module";
+import {
+  PermissionManagementModule
+} from "./components/permission_management/permission-management/permission-management.module";
+import {CampaignEditComponent} from "./campaign/component/campaign-edit/campaign-edit.component";
+import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/campaign-delete.component";
+import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
+import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
 import {UserListComponent} from "./user/components/user-list/user-list.component";
 import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
 import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign-reporting.component";
@@ -34,6 +41,8 @@ import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign
     CreateDonatorComponent,
     LogoutComponent,
     DonationReportingComponent,
+    CampaignEditComponent,
+    CampaignDeleteComponent
     CampaignReportingComponent
   ],
   imports: [
@@ -41,6 +50,7 @@ import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign
     AppRoutingModule,
     UserModule,
     DonatorModule,
+    PermissionManagementModule,
     BrowserAnimationsModule,
     RouterOutlet,
     RouterModule,

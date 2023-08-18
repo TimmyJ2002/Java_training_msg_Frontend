@@ -1,0 +1,82 @@
+h2 {
+  text-align: center;
+}
+
+form {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.editButton {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editButton:hover {background-color: #e64a19;
+}
+
+#campaignTable {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 2px solid #e64a19;
+}
+
+#campaignTable th,
+#campaignTable td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+#campaignTable th {
+  background-color: #e64a19;
+  color: white;
+}
+
+#campaignTable a {
+  color: #000000;
+  text-decoration: none;
+}
+
+#campaignTable a:hover {
+  text-decoration: underline;
+  color: #FFFFFF;
+}
+
+#campaignRow:hover {
+  background-color: #e64a19;
+  color: white;
+}
+.selected-row {
+  background-color: #e64a19;
+}
+
+
