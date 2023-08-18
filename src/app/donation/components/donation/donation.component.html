@@ -29,7 +29,7 @@
            [formControl]="donatorControl"
            [matAutocomplete]="auto1"
             formControlName="donator">
-    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="donatorDisplayFn" (optionSelected)="onChange($event.option.value)">
+    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="donatorDisplayFn" (optionSelected)="onDonatorChange($event.option.value)">
       <mat-option *ngFor="let donator of filteredDonators | async" [value]="donator">
         {{donator.lastName + " " + donator.firstName}}
       </mat-option>
@@ -52,7 +52,7 @@
            [formControl]="campaignControl"
            [matAutocomplete]="auto2"
             formControlName="campaign">
-    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="campaignDisplayFn">
+    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="campaignDisplayFn" (optionSelected)="onCampaignChange($event.option.value)">
       <mat-option *ngFor="let campaign of filteredCampaigns | async" [value]="campaign">
         {{campaign.name}}
       </mat-option>

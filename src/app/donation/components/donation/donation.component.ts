@@ -53,7 +53,7 @@ export class DonationComponent {
       amount: ['', [Validators.required, this.validateNumber(), Validators.pattern(/^(?!0\d)(\d+)$/)]],
       currency: ['', [Validators.required]],
       donator: ['', [Validators.required]],
-      campaign: ['', ],
+      campaign: ['', [Validators.required]],
       notes: ['']
     })
   }
@@ -109,8 +109,12 @@ export class DonationComponent {
     return campaign && campaign.name;
   }
 
-  public onChange(value: Donator) {
+  public onDonatorChange(value: Donator) {
     this.donationForm.controls['donator'].setValue(value);
+  }
+
+  public onCampaignChange(value: Campaign) {
+    this.donationForm.controls['campaign'].setValue(value);
   }
 
 }
