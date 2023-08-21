@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 
 export class DonationReportingComponent implements OnInit{
-  donations: any[] = [];
+  donations: Donation[] = [];
   filteredDonations: any[] = [];
   selectedFilterCriteria: string = '';
   selectedCurrency: string = '';

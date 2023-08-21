@@ -6,6 +6,7 @@ export class Donation {
     public campaignID: number,
     public donatorID: number,
     public notes: string,
+    public id?: number,
     public amount?: number,
   ) {
   }

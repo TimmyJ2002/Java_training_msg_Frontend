@@ -12,12 +12,23 @@ export class DonationService {
   donationsList$: BehaviorSubject<Donation[]> = new BehaviorSubject<Donation[]>([]);
 
   addDonation(donation: Donation) {
-
-    // const token = sessionStorage.getItem('accessToken'); // Replace with your sessionStorage key
-    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     return this.http.post<Donation>(this.url + "/addDonation", donation)
-}
+  }
+
+  updateDonation(donationID: number,
+                 amount: number,
+                 currency: string,
+                 donatorID: number,
+                 campaignID: number,
+                 notes: string){
+    console.log({donationID, amount, currency, campaignID, donatorID, notes})
+    return this.http.post<{donationID: number,
+      amount: number,
+      currency: string,
+      donatorID: number,
+      campaignID: number,
+      notes: string}>(this.url + "/updateDonation", {donationID, amount, currency, donatorID, campaignID, notes});
+  }
 
   constructor(private http: HttpClient) { }
 }

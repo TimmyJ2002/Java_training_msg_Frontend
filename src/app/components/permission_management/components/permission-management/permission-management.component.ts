@@ -62,6 +62,9 @@ export class PermissionManagementComponent implements OnInit {
         }
       }
     });
+    this.permissionManagementService.loadRoles().subscribe((role) => {
+      this.rolesList = role;
+    });
   }
 
   constructor(private permissionManagementService: PermissionManagementService) { }
