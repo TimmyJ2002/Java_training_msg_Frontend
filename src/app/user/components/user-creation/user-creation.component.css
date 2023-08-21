@@ -33,6 +33,42 @@ form {
     z-index: 2;
 }
 
+.userForm {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    text-align: center; /* Center align the form */
+}
+.form-title {
+    margin-top: 0; /* Remove default margin */
+    color: #333; /* Set the title color */
+    font-size: 24px; /* Adjust font size as needed */
+    font-weight: bold; /* Apply bold style */
+}
+
+
+input {
+    width: 50%; /* Adjust field width */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 auto; /* Center align the input within its container */
+}
+
+.mat-select {
+    width: 50%; /* Adjust field width */
+    margin: 0 auto; /* Center align the select within its container */
+}
+
+.form-field {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
 .spinner {
     width: 32px;
     height: 32px;
@@ -66,6 +102,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
+    margin-top: 10px;
 }
 
 .addButton:hover {background-color: #e64a19;

@@ -1,23 +1,48 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="userForm">
-  <div>
-  <label for="firstName">First Name *:</label>
-  <input type="text" id="firstName" formControlName="firstName">
+  <div class="form-field"></div>
+<!--  <label for="firstName">First Name *:</label>-->
+<!--  <input type="text" id="firstName" formControlName="firstName">-->
+
+  <div class="form-field"> <h2 class="form-title">User Creation</h2></div>
+    <div class="form-field">
+    <mat-form-field >
+      <input matInput placeholder="First Name" formControlName="firstName">
+      <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">FirstName is required</mat-error>
+      <mat-error *ngIf="userForm.get('firstName')?.hasError('pattern')">Please enter valid Name</mat-error>
+    </mat-form-field>
   </div>
 
-  <div>
-  <label for="lastName">Last Name *:</label>
-  <input type="text" id="lastName" formControlName="lastName" />
+  <div class="form-field">
+<!--  <label for="lastName">Last Name *:</label>-->
+<!--  <input type="text" id="lastName" formControlName="lastName" />-->
+
+    <mat-form-field >
+      <input matInput placeholder="Last Name" formControlName="lastName">
+      <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">FirstName is required</mat-error>
+      <mat-error *ngIf="userForm.get('lastName')?.hasError('pattern')">Please enter valid Name</mat-error>
+    </mat-form-field>
     </div>
 
-  <div>
-  <label for="email">Email *:</label>
-  <input type="email" id="email" formControlName="email" />
+  <div class="form-field">
+<!--  <label for="email">Email *:</label>-->
+<!--  <input type="email" id="email" formControlName="email" />-->
 
+    <mat-form-field >
+      <input matInput placeholder="E-mail" formControlName="email">
+      <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is requiered</mat-error>
+      <mat-error *ngIf="userForm.get('email')?.hasError('pattern')">Please enter valid E-mail</mat-error>
+    </mat-form-field>
   </div>
 
-  <div>
-  <label for="mobileNumber">Phone Number *:</label>
-  <input type="mobileNumber" id="mobileNumber" formControlName="mobileNumber" />
+  <div class="form-field">
+<!--  <label for="mobileNumber">Phone Number *:</label>-->
+<!--  <input type="mobileNumber" id="mobileNumber" formControlName="mobileNumber" />-->
+
+    <mat-form-field >
+      <input matInput placeholder="Phone Number" formControlName="mobileNumber">
+      <mat-error *ngIf="userForm.get('mobileNumber')?.hasError('required')">Phone Number is required</mat-error>
+      <mat-error *ngIf="userForm.get('mobileNumber')?.hasError('pattern')">Please enter Phone Number</mat-error>
+    </mat-form-field>
   </div>
 
  <!-- <mat-form-field>
@@ -29,10 +54,11 @@
 
 
 
-  <mat-form-field>
+  <mat-form-field class="form-field">
     <mat-label>Roluri</mat-label>
     <mat-select formControlName="roles" multiple >
       <mat-option *ngFor="let role of rolesList" [value]="role.name">{{role.name}}</mat-option>
+
     </mat-select>
   </mat-form-field>
 
