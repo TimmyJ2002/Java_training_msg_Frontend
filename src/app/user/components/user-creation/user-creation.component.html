@@ -1,22 +1,22 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="userForm">
   <div>
-  <label for="firstName">First Name:</label>
+  <label for="firstName">First Name *:</label>
   <input type="text" id="firstName" formControlName="firstName">
   </div>
 
   <div>
-  <label for="lastName">Last Name:</label>
+  <label for="lastName">Last Name *:</label>
   <input type="text" id="lastName" formControlName="lastName" />
     </div>
 
   <div>
-  <label for="email">Email:</label>
+  <label for="email">Email *:</label>
   <input type="email" id="email" formControlName="email" />
 
   </div>
 
   <div>
-  <label for="mobileNumber">Phone Number:</label>
+  <label for="mobileNumber">Phone Number *:</label>
   <input type="mobileNumber" id="mobileNumber" formControlName="mobileNumber" />
   </div>
 
@@ -27,13 +27,7 @@
     </mat-select>
   </mat-form-field>-->
 
-  <div *ngIf="successMessage" class="success-message">
-    {{ successMessage }}
-  </div>
 
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
 
   <mat-form-field>
     <mat-label>Roluri</mat-label>
@@ -42,8 +36,20 @@
     </mat-select>
   </mat-form-field>
 
+  <div class="spinner-overlay" *ngIf="isCreatingUser">
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
   <p>Complete the form to enable button</p>
-  <button type="submit" [disabled]=!userForm.valid>Create new User</button>
+  <button class="addButton" type="submit" [disabled]=!userForm.valid>Create new User</button>
 </form>
 
 

@@ -41,7 +41,8 @@ import {Interceptor} from "../../util/interceptors/interceptor";
     CampaignEditComponent,
     CampaignDeleteComponent,
     CampaignReportingComponent,
-    CampaignCreateComponent
+    CampaignCreateComponent,
+    
   ],
   imports: [
     BrowserModule,

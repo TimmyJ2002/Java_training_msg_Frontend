@@ -9,6 +9,7 @@ import {UserChangePasswordComponent} from "../components/user-change-password/us
 import {MatInputModule} from "@angular/material/input";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -19,16 +20,17 @@ import {MatSelectModule} from "@angular/material/select";
     UserCreationComponent,
     UserChangePasswordComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-    UserRoutingModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        HttpClientModule,
+        UserRoutingModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+    ],
   exports: [
     UserRoutingModule
   ]
