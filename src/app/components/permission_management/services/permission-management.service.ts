@@ -34,7 +34,7 @@ export class PermissionManagementService {
   }
 
   updateRight(role: Role) {
-    return this.http.put<Role>(this.url + "/updateRight", role);
+    return this.http.post<Role>(this.url + "/updateRight", role);
   }
 
   constructor(private http: HttpClient) { }

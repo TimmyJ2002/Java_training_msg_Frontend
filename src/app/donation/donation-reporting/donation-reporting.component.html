@@ -37,6 +37,7 @@
             </p>
             <p class="donation-notes">Notes: {{ donation.notes }}</p>
           </div>
+    <button mat-stroked-button disabled="{{donation.approved}}" (click)="editDonation()">Edit</button>
   </li>
 </ul>
 

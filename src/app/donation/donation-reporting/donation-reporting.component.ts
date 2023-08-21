@@ -47,4 +47,8 @@ export class DonationReportingComponent implements OnInit{
     }
   }
 
+  editDonation() {
+    
+  }
+
 }

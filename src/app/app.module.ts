@@ -30,6 +30,10 @@ import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/camp
 import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
 import {Interceptor} from "../../util/interceptors/interceptor";
+import { EditDonationComponent } from './donation/components/edit-donation/edit-donation.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 @NgModule({
@@ -42,7 +46,8 @@ import {Interceptor} from "../../util/interceptors/interceptor";
     DonationReportingComponent,
     CampaignEditComponent,
     CampaignDeleteComponent,
-    CampaignCreateComponent
+    CampaignCreateComponent,
+    EditDonationComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,10 @@ import {Interceptor} from "../../util/interceptors/interceptor";
     MatListModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports: [
     RouterModule,
