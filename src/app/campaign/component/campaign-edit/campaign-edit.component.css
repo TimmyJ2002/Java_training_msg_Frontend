@@ -41,6 +41,22 @@ input {
 
 .editButton:hover {background-color: #e64a19;
 }
+.seeButton {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seeButton:hover {background-color: #e64a19;
+}
 
 #campaignTable {
   width: 80%;

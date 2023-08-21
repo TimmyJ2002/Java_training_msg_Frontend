@@ -12,5 +12,5 @@
   <p>*all fields are required.</p>
   <div *ngIf="isSuccess">Campaign successfully created!</div>
   <div *ngIf="isDuplicate">Campaign already exists!</div>
-  <button class="addButton" mat-fab color="primary" type="submit" [disabled]="!campaignForm.valid">Add Campaign</button>
+  <button class="addButton" color="primary" type="submit" [disabled]="!campaignForm.valid">Add Campaign</button>
 </form>

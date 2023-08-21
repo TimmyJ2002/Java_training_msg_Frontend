@@ -1,17 +1,20 @@
 <h2>Delete a campaign</h2>
+
 <p>Please select the campaigns that you want to delete:</p>
+<div *ngIf="isSuccess">Campaign successfully deleted! </div>
+<div *ngIf="isFailure">Campaign could not be deleted! </div>
 <table id="campaignTable">
   <thead>
   <tr>
     <th id="nameH"> Name </th>
-    <th id="purposeH"> Purpose </th>
+    <th id="purposeH"> Choose </th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let campaign of campaigns" id="campaignRow" (dblclick)="toSeeCampaign(campaign)">
-    <td id="name"> {{campaign.name}} </td>
-    <td id="purpose"> {{campaign.purpose}} </td>
+  <tr *ngFor="let campaign of campaigns" id="campaignRow">
+    <td id="name"> <strong>{{campaign.name + ': '}}</strong>{{campaign.purpose}} </td>
+    <td><button class="deleteButton" type="submit" (click)="deleteCampaign(campaign)">Delete</button></td>
   </tr>
   </tbody>
 </table>
-<button class="deleteButton" mat-fab color="primary" type="submit" [disabled]="!campaignForm.valid">Delete Campaigns</button>
+

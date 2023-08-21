@@ -28,6 +28,7 @@ import {CampaignEditComponent} from "./campaign/component/campaign-edit/campaign
 import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/campaign-delete.component";
 import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
+import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {CampaignCreateComponent} from "./campaign/component/campaign-create/camp
     LogoutComponent,
     DonationReportingComponent,
     CampaignEditComponent,
-    CampaignDeleteComponent
+    CampaignDeleteComponent,
+    CampaignEditListComponent
   ],
   imports: [
     BrowserModule,

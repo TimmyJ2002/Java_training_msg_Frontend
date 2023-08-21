@@ -4,11 +4,14 @@ import {CampaignCreateComponent} from "./component/campaign-create/campaign-crea
 import {CommonModule} from "@angular/common";
 import {CampaignEditComponent} from "./component/campaign-edit/campaign-edit.component";
 import {CampaignDeleteComponent} from "./component/campaign-delete/campaign-delete.component";
+import {CampaignEditListComponent} from "./component/campaign-edit-list/campaign-edit-list.component";
 
 const routes: Routes = [
   {path: 'create', component: CampaignCreateComponent},
-  {path: 'update', component: CampaignEditComponent},
-  {path: 'delete', component: CampaignDeleteComponent}
+  {path: 'update/:id', component: CampaignEditComponent},
+  {path: 'delete', component: CampaignDeleteComponent},
+  {path: 'list', component: CampaignEditListComponent},
+
 ];
 
 @NgModule({
