@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-<<<<<<< Updated upstream
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
-=======
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map, Observable, Subject} from 'rxjs';
 import {UserService} from "../../user/services/user.service";
->>>>>>> Stashed changes
 
 @Injectable({
   providedIn: 'root'

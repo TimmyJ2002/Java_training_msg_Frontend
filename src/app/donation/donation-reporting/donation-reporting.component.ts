@@ -21,7 +21,7 @@ export class DonationReportingComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.fetchDonations(); 
+    this.fetchDonations();
   }
 
   fetchDonations(): void {
