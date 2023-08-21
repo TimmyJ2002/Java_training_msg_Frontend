@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DonationService} from "./donation-service";
+import {Donation} from "../models/donation";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -14,7 +16,8 @@ export class DonationReportingComponent implements OnInit{
   selectedCurrency: string = '';
   searchQuery: string = '';
 
-  constructor(private donationService: DonationService) { }
+  constructor(private donationService: DonationService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.donationService.getAllDonations().subscribe(data => {
@@ -47,8 +50,9 @@ export class DonationReportingComponent implements OnInit{
     }
   }
 
-  editDonation() {
-    
+  editDonation(donation: Donation) {
+    sessionStorage.setItem("donationToEdit", JSON.stringify(donation));
+    this.router.navigateByUrl("/donation/updateDonation")
   }
 
 }

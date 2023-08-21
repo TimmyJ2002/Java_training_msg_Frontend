@@ -28,12 +28,12 @@
            aria-label="Number"
            matInput
            formControlName="donator"
-           [formControl]="donatorControl"
            [matAutocomplete]="auto1"
            (focus)="filterDonators(donatorAutoCompleteInput.value)"
+           (input)="filterDonators(donatorAutoCompleteInput.value)"
     >
-    <mat-autocomplete #auto1="matAutocomplete">
-      <mat-option *ngFor="let donator of filteredDonators | async" [value]="donator">
+    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="donatorAutocompleteFormatterFn">
+      <mat-option *ngFor="let donator of filteredDonators" [value]="donator">
         {{donator.lastName + " " + donator.firstName}}
       </mat-option>
     </mat-autocomplete>
@@ -48,15 +48,18 @@
 
   <mat-form-field>
     <mat-label>Campaigns</mat-label>
-    <input type="text"
+    <input #campaignsAutoCompleteInput
+          type="text"
            placeholder="Pick one"
            aria-label="Number"
+           formControlName="campaign"
            matInput
-           [formControl]="campaignControl"
            [matAutocomplete]="auto2"
-           formControlName="campaign">
-    <mat-autocomplete #auto2="matAutocomplete">
-      <mat-option *ngFor="let campaign of filteredCampaigns | async" [value]="campaign">
+           (focus)="filterCampaigns(campaignsAutoCompleteInput.value)"
+           (input)="filterCampaigns(campaignsAutoCompleteInput.value)"
+    >
+    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="campaignAutocompleteFormatterFn">
+      <mat-option *ngFor="let campaign of filteredCampaigns" [value]="campaign">
         {{campaign.name}}
       </mat-option>
     </mat-autocomplete>

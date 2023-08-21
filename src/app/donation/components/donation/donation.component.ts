@@ -6,7 +6,15 @@ import {Campaign} from "../../../campaign/model/campaign";
 import {CampaignService} from "../../../campaign/services/campaign.service";
 import {Donation} from "../../models/donation";
 import {DonationService} from "../../services/donation.service";
-import {combineLatest, map, Observable, startWith, take} from "rxjs";
+import {combineLatest, take} from "rxjs";
+
+interface AddDonationForm {
+  amount: FormControl<string>;
+  currency: FormControl<string>;
+  donator?: FormControl<Donator | null>;
+  campaign?: FormControl<Campaign | null>;
+  notes: FormControl<string>;
+}
 
 @Component({
   selector: 'app-donation',
@@ -14,13 +22,11 @@ import {combineLatest, map, Observable, startWith, take} from "rxjs";
   styleUrls: ['./donation.component.css']
 })
 export class DonationComponent {
-  donationForm!: FormGroup;
+  donationForm!: FormGroup<AddDonationForm>;
   donatorList: Donator[] = [];
   campaignList: Campaign[] = [];
-  donatorControl = new FormControl('');
-  campaignControl = new FormControl('');
-  filteredDonators: Observable<Donator[]> | null = null;
-  filteredCampaigns: Observable<Campaign[]> | null = null;
+  filteredDonators: Donator[] = [];
+  filteredCampaigns: Campaign[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,26 +41,23 @@ export class DonationComponent {
     combineLatest([this.donatorService.getDonors(), this.campaignService.getCampaigns()])
       .pipe(take(1))
       .subscribe(([donors, campaigns]) => {
-
-        this.filteredDonators = this.donatorControl.valueChanges.pipe(
-          startWith(''),
-          map(value => this.filterDonators(value || '')),
-        );
-        this.filteredCampaigns = this.campaignControl.valueChanges.pipe(
-          startWith(''),
-          map(value => this.filterCampaigns(value || '')),
-        );
+        this.donatorList = donors;
+        this.campaignList = campaigns;
       })
 
   }
 
   private initDonationForm() {
-    this.donationForm = this.formBuilder.group({
-      amount: ['', [Validators.required, this.validateNumber(), Validators.pattern(/^(?!0\d)(\d+)$/)]],
-      currency: ['', [Validators.required]],
-      donator: [null, [Validators.required]],
-      campaign: [null, [Validators.required]],
-      notes: ['']
+    this.donationForm = this.formBuilder.group<AddDonationForm>({
+      amount: new FormControl('',
+        {
+          validators: [Validators.required, this.validateNumber(), Validators.pattern(/^(?!0\d)(\d+)$/)],
+          nonNullable: true
+        }),
+      currency: new FormControl('', {validators: Validators.required, nonNullable: true}),
+      donator: new FormControl(null, {validators: Validators.required}),
+      campaign: new FormControl(null, {validators: Validators.required}),
+      notes: new FormControl('', {nonNullable: true}),
     })
   }
 
@@ -65,48 +68,44 @@ export class DonationComponent {
   onSubmit() {
     if (this.donationForm.valid) {
       const formValue = this.donationForm.getRawValue();
-      console.log(formValue);
-      const donation: Donation = {
-        amount: this.donationForm.get('amount')?.value,
-        currency: this.donationForm.get('currency')?.value,
-        campaignID: this.donationForm.get('campaign')?.value.id,
-        donatorID: this.donationForm.get('donator')?.value.id,
-        notes: this.donationForm.get('notes')?.value
-      };
-      this.donationService.addDonation(donation).subscribe();
+
+      const campaignID = formValue.campaign?.id;
+      const donatorID = formValue.donator?.id;
+
+      if (campaignID && donatorID) {
+        delete formValue.donator;
+        delete formValue.campaign;
+        const donation: Donation = {
+          ...formValue,
+          amount: isNaN(Number.parseInt(formValue.amount)) ? undefined : Number.parseInt(formValue.amount),
+          campaignID,
+          donatorID
+        };
+        this.donationService.addDonation(donation).subscribe();
+      }
     }
-    this.initDonationForm();
+    this.donationForm.reset();
   }
 
-  filterDonators(value: string | Donator): Donator[] {
+  filterDonators(value: string): void {
+    const filterValueDonator = value.toLowerCase();
 
-    if (typeof value === 'string'){
-      const filterValueDonator = value.toLowerCase();
-
-      return this.donatorList
-        .filter(option =>
-          option.firstName.toLowerCase().includes(filterValueDonator) ||
-          option.lastName.toLowerCase().includes(filterValueDonator))
-    }
-    return [];
-
+    this.filteredDonators = this.donatorList
+      .filter(option =>
+        option.firstName.toLowerCase().includes(filterValueDonator) ||
+        option.lastName.toLowerCase().includes(filterValueDonator));
   }
 
-  filterCampaigns(value: string): Campaign[] {
+  filterCampaigns(value: string): void {
     const filterValue = value.toLowerCase();
 
-    return this.campaignList
+    this.filteredCampaigns = this.campaignList
       .filter(campaign =>
         campaign.name.toLowerCase().includes(filterValue)
       )
   }
 
-  // public donatorDisplayFn(donator: Donator) {
-  //   return donator && donator.lastName + " " + donator.firstName;
-  // }
-  //
-  // public campaignDisplayFn(campaign: Campaign) {
-  //   return campaign && campaign.name;
-  // }
+  donatorAutocompleteFormatterFn = (donator: Donator): string => donator ? `${donator.lastName} ${donator.firstName}` : '';
+  campaignAutocompleteFormatterFn = (campaign: Campaign): string => campaign ? `${campaign.name}` : '';
 
 }
