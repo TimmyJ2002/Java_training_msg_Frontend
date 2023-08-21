@@ -10,35 +10,42 @@ import {CreateDonatorService} from "../../services/createdonator.service";
 })
 export class CreateDonatorComponent implements OnInit{
   isSuccess: boolean = false;
+  missingFields: boolean = false;
   donorForm= this.fb.group(
     {
-      firstName: ['', Validators.required],
-      lastName:['',Validators.required],
+      firstName: [''],
+      lastName:[''],
       additionalName: [''],
       maidenName:['']
     });
   constructor(private fb: FormBuilder,
               private donatorService: CreateDonatorService) { }
   onSubmit() {
+    if (this.donorForm.value.firstName === '' || this.donorForm.value.lastName === '') {
+      this.missingFields = true;
+      return; // Exit the function without proceeding further
+    }
+    // If the form is valid and no missing fields, proceed with adding the donor
     if (this.donorForm.valid) {
       const formData = this.donorForm.value;
       //console.log(formData)
       this.donatorService.addDonor(formData).subscribe(
         (response) => {
           console.log('Donor added successfully:', response);
-          // You can reset the form or perform other actions here
         },
         (error) => {
           console.error('Error adding donor:', error);
-          // Handle the error as needed
         }
       );
       this.isSuccess = true;
       this.donorForm.reset();
+      this.missingFields = false; // Reset the missingFields flag
     }
   }
+
     clearSuccessMessage(){
       this.isSuccess = false;
+      this.missingFields = false;
     }
 
 
