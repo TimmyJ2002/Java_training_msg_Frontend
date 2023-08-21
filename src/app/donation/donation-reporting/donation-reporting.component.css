@@ -93,6 +93,7 @@
   color: red;
 }
 
+<<<<<<< Updated upstream
 .delete-button {
   padding: 8px 15px;
   background-color: #dc3545;
@@ -107,4 +108,20 @@
 .delete-button:hover {
   background-color: #c82333;
 }
+=======
+.approve-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.approve-button:hover {
+  background-color: #218838;
+}
+
+>>>>>>> Stashed changes
 

@@ -1,7 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, tap} from "rxjs";
-import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,7 @@ export class AuthService implements OnInit{
   isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
   public username = '';
-
-  constructor(private http: HttpClient, private router: Router) {
-
+  constructor(private http: HttpClient) {
   }
 
   isAuthenticated(): boolean {
@@ -36,6 +33,24 @@ export class AuthService implements OnInit{
           }
         })
       );
+  }
+
+  getCurrentUserUsername(): string | null {
+    try {
+      const accessToken = this.getAccessToken();
+      if (!accessToken) {
+        console.log('Access token is missing.');
+        return null;
+      }
+
+      const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]));
+      const userId = tokenPayload.sub; // Extract the user ID from the 'sub' field
+
+      return userId;
+    } catch (error) {
+      console.error('Error parsing token:', error);
+      return null;
+    }
   }
 
   logout(): Observable<any> {

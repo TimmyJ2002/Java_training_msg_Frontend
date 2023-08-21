@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
+<<<<<<< Updated upstream
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
+=======
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {map, Observable, Subject} from 'rxjs';
+import {UserService} from "../../user/services/user.service";
+>>>>>>> Stashed changes
 
 @Injectable({
   providedIn: 'root'
 })
 export class DonationService {
   private baseUrl = 'http://localhost:8080/donations';
+  private donationsChangedSource = new Subject<any[]>();
+  donationsChanged$ = this.donationsChangedSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   getAllDonations(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl);
+  }
+
+  approveDonation(donationId: number, p: { headers: HttpHeaders }): Observable<any> {
+    return this.http.put(`${this.baseUrl}/approve/${donationId}`, {});
   }
 
   getFilteredDonations(filterCriteria: string): Observable<any[]> {
