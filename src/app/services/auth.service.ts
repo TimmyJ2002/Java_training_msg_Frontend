@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable, tap} from "rxjs";
 
 @Injectable({
@@ -85,18 +85,18 @@ export class AuthService implements OnInit{
     sessionStorage.removeItem('accessToken');
   }
 
-  changePassword(userId: number, newPassword: string): Observable<any> {
+  changePassword(newPassword: string): Observable<any> {
     const url = `${this.apiUrl}/auth/change-password`;
-    const requestBody = { userId, newPassword };
+    const requestBody = { newPassword };
 
     return this.http.post(url, requestBody);
   }
 
-  updateUserLoginCount(userId: number, newLoginCount: number): Observable<any> {
-    const url = `${this.apiUrl}/auth/update-login-count`; // Replace with your actual endpoint
-    const params = { userId: userId.toString(), newLoginCount: newLoginCount.toString() };
+  updateUserLoginCount(newLoginCount: number): Observable<any> {
+    const url = `${this.apiUrl}/auth/update-login-count`;
+    const requestBody = { newLoginCount };
 
-    return this.http.put(url, null, { params });
+    return this.http.put(url, requestBody);
   }
 
   ngOnInit(): void {

@@ -39,6 +39,12 @@ export class DonationService {
     );
   }
 
+  filterByApproval2(approved: boolean): Observable<any[]> {
+    return this.getAllDonations().pipe(
+      map(donations => donations.filter(donation => donation.approved != approved))
+    );
+  }
+
   deleteDonation(id_donation: string): boolean {
     if (confirm(`Are you sure you want to delete the selected donation?`)) {
       console.log(id_donation);

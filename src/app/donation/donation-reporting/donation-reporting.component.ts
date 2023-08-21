@@ -41,7 +41,11 @@ export class DonationReportingComponent implements OnInit{
       this.donationService.filterByApproval(true).subscribe(filteredDonations => {
         this.filteredDonations = filteredDonations;
       });
-    }
+    } else if (this.selectedFilterCriteria === 'Not approved') {
+    this.donationService.filterByApproval2(true).subscribe(filteredDonations => {
+    this.filteredDonations = filteredDonations;
+  });
+}
   }
 
   applySearch() {

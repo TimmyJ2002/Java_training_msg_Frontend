@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
+import {Router} from "@angular/router";
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-user-change-password',
@@ -11,7 +13,7 @@ export class UserChangePasswordComponent implements OnInit{
 
   changePasswordForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.changePasswordForm = this.fb.group({
       password: [''],
       passwordConfirm: ['']
@@ -21,7 +23,6 @@ export class UserChangePasswordComponent implements OnInit{
   onSubmit() {
     const newPassword = this.changePasswordForm.value.password;
     const passwordConfirm = this.changePasswordForm.value.passwordConfirm;
-    const userId = 1; // Replace with the actual user's ID
 
     if (newPassword !== passwordConfirm) {
       // Passwords don't match, show error or handle accordingly
@@ -29,27 +30,26 @@ export class UserChangePasswordComponent implements OnInit{
       return;
     }
 
-    this.authService.changePassword(userId, newPassword).subscribe(
+    this.authService.changePassword(newPassword).subscribe(
       (response) => {
         console.log('Password changed successfully:', response.message);
 
         // Update the login count
-        this.authService.updateUserLoginCount(userId, 0).subscribe(
+        this.authService.updateUserLoginCount(0).subscribe(
           () => {
             console.log('Login count updated successfully');
-            // Handle the successful login count update if needed
+            this.router.navigate(['/users']);
           },
           (error) => {
             console.error('Error updating login count:', error);
-            // Handle error if needed
+            alert("Error updating logincount ");
           }
         );
-
-        // Handle success (e.g., show a success message, navigate to a new page, etc.)
+        this.router.navigate(['/users']);
       },
       (error) => {
         console.error('Error changing password:', error);
-        // Handle error (e.g., show an error message, handle specific errors, etc.)
+        alert("Error changing password");
       }
     );
   }
