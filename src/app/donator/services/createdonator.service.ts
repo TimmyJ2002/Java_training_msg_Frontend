@@ -18,7 +18,7 @@ export class CreateDonatorService {
   addDonor(data: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, data);
   }
-  getDonors(): Observable<any[]> {
+  getDonors(): Observable<Donator[]> {
     return this.http.get<any[]>(this.editUrl);
   }
   getDonor(userId: number): Observable<Donator> {

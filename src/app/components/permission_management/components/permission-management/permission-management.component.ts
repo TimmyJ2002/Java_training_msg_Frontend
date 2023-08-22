@@ -26,6 +26,7 @@ export class PermissionManagementComponent implements OnInit {
     'CAMP_IMPORT',
     'CAMP_REPORT_RESTRICTED'
   ];
+
   selected: Boolean = false;
 
   ngOnInit(): void {
@@ -69,4 +70,8 @@ export class PermissionManagementComponent implements OnInit {
   constructor(private permissionManagementService: PermissionManagementService) { }
 
   protected readonly screenLeft = screenLeft;
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 }

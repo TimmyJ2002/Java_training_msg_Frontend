@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DonationService} from "./donation-service";
+import {Donation} from "../models/donation";
+import {Router} from "@angular/router";
+import {HttpHeaders} from "@angular/common/http";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -13,11 +17,17 @@ export class DonationReportingComponent implements OnInit{
   selectedFilterCriteria: string = '';
   selectedCurrency: string = '';
   searchQuery: string = '';
+  status: boolean = false;
 
-  constructor(private donationService: DonationService) { }
+  constructor(private donationService: DonationService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.donationService.getAllDonations().subscribe(data => {
+    this.fetchDonations();
+  }
+
+  fetchDonations(): void {
+    this.donationService.getAllDonations().subscribe((data) => {
       this.donations = data;
       this.filteredDonations = data;
     });
@@ -34,7 +44,11 @@ export class DonationReportingComponent implements OnInit{
       this.donationService.filterByApproval(true).subscribe(filteredDonations => {
         this.filteredDonations = filteredDonations;
       });
-    }
+    } else if (this.selectedFilterCriteria === 'Not approved') {
+    this.donationService.filterByApproval2(true).subscribe(filteredDonations => {
+    this.filteredDonations = filteredDonations;
+  });
+}
   }
 
   applySearch() {
@@ -45,6 +59,44 @@ export class DonationReportingComponent implements OnInit{
         donation.notes.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
+  }
+  deleteDonation(id: string): void{
+    this.status = this.donationService.deleteDonation(id);
+    if(this.status) {
+      this.donations = this.donations.filter(donation => donation.id !== id);
+      this.filteredDonations = this.filteredDonations.filter(donation => donation.id !== id);
+    }
+  }
+
+
+  approveDonation(donation: any): void {
+
+    this.donationService.approveDonation(donation.id).subscribe(
+      () => {
+        console.log('Donation approved successfully');
+
+        // Update the approval status locally
+        const approvedDonationIndex = this.donations.findIndex((d) => d.id === donation.id);
+        if (approvedDonationIndex !== -1) {
+          this.donations[approvedDonationIndex].approved = true;
+        }
+
+        // Optionally, update filteredDonations as well
+        const approvedFilteredIndex = this.filteredDonations.findIndex((d) => d.id === donation.id);
+        if (approvedFilteredIndex !== -1) {
+          this.filteredDonations[approvedFilteredIndex].approved = true;
+        }
+      },
+      (error) => {
+        console.error('Error approving donation:', error);
+      }
+    );
+  }
+
+
+  editDonation(donation: Donation) {
+    sessionStorage.setItem("donationToEdit", JSON.stringify(donation));
+    this.router.navigateByUrl("/donation/updateDonation")
   }
 
 }

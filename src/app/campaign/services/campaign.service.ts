@@ -20,7 +20,7 @@ export class CampaignService {
     return this.http.get<Campaign>(`http://localhost:8080/campaign/{id}`);
   }
 
-  getCampaigns(): Observable<any[]> {
+  getCampaigns(): Observable<Campaign[]> {
     return this.http.get<any[]>(this.getURL);
   }
 

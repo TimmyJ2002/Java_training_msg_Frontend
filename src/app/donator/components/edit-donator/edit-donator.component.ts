@@ -19,7 +19,7 @@ export class EditDonatorComponent implements OnInit {
               private router: Router) {
   }
 
-  donatorDetails: Donator = new Donator(BigInt(-1),"Firstname","Lastname","Additionalname","Maidenname", true);
+  donatorDetails: Donator = new Donator(-1,"Firstname","Lastname","Additionalname","Maidenname", true);
   ngOnInit() {
     this.missingFields = false;
     this.route.paramMap.subscribe(params => {
