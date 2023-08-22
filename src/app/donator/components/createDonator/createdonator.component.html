@@ -20,6 +20,7 @@
 
   <p>Complete the mandatory fields to enable the button!</p>
   <div *ngIf="isSuccess" style="color: green;">Donor successfully added!</div>
-  <button class="createButton" mat-fab color="primary" type="submit" [disabled]="!donorForm.valid">Add a donor!</button>
+  <div *ngIf="missingFields" style="color: red;">Required fields are still missing!</div>
+  <button class="createButton" color="primary" type="submit" [disabled]="!donorForm.valid">Add a donor!</button>
 
 </form>
