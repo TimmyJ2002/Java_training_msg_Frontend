@@ -50,7 +50,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     CampaignEditListComponent,
     CampaignCreateComponent,
     EditDonationComponent,
-    CampaignReportingComponent
+    CampaignReportingComponent,
+    CampaignCreateComponent,
   ],
   imports: [
     BrowserModule,
