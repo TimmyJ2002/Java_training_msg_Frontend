@@ -37,7 +37,8 @@ export class UserService {
   }
 
   updateUser(id: number, user: Partial<User>): Observable<any> {
-    return this.http.put(`${this.apiUrl2}${user.id}`, user);
+    return this.http.put(`${this.apiUrl2}${id}`, user);
   }
+
 
 }

@@ -31,15 +31,6 @@ export class UserListComponent implements OnInit{
     });
   }
 
-
-  // editOrSaveUser(user: User): void {
-  //   if (this.editUserId === user.id) {
-  //     this.saveUser(user);
-  //   } else {
-  //     this.editUserId = user.id!;
-  //   }
-  // }
-
   editOrSaveUser(user: User): void {
     if (this.editUserId === user.id) {
       this.saveUser(user);
@@ -80,27 +71,6 @@ export class UserListComponent implements OnInit{
   }
 
 
-
-
-
-
-  // saveUser(user: User): void {
-  //   this.userService.updateUser(user.id, this.userEditData[user.id])
-  //     .subscribe(
-  //       (response) => {
-  //         console.log('Response:', response);
-  //         // Update the local data in the users array
-  //         const updatedUserIndex = this.users.findIndex(u => u.id === user.id);
-  //         if (updatedUserIndex !== -1) {
-  //           this.users[updatedUserIndex] = { ...this.users[updatedUserIndex], ...this.userEditData[user.id] };
-  //         }
-  //         this.editUserId = null;
-  //       },
-  //       (error) => {
-  //         console.error('Error:', error);
-  //       }
-  //     );
-  // }
 
 
   toggleActivation(user: User): void {

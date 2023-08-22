@@ -35,7 +35,7 @@ export class AuthService implements OnInit{
         })
       );
   }
-  
+
 
   logout(): Observable<any> {
     const token = this.getAccessToken();
