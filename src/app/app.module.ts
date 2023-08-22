@@ -35,6 +35,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {RightGuard} from "../../util/Guards/rights_guards";
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     RouterModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    RightGuard
   ],
   bootstrap: [AppComponent]
 })

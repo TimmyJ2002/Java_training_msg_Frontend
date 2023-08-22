@@ -44,27 +44,17 @@ export class PermissionManagementComponent implements OnInit {
   onNgModelChange() {
   }
 
-  saveRights() {
-    var exists = false;
-    this.selectedRole?.rights.forEach((right) => {
-      if (!this.selectedRights.includes(right.roleRight)) {
-        this.permissionManagementService.removeRight(this.selectedRole?.id, right.roleRight).subscribe();
-      }
-    })
-    this.selectedRights.forEach((right) => {
-      exists = false;
-      if (this.selectedRole?.rights) {
-        this.selectedRole.rights.forEach((existingRoleRight) => {
-          if (right == existingRoleRight.roleRight) exists = true;
+  updateRole() {
+    if (this.selectedRole) {
+      this.permissionManagementService.updateRole({
+        ...this.selectedRole,
+        rights: this.selectedRights.map(selectedRight => this.selectedRole?.rights.find((r) => r.roleRight === selectedRight) || {roleRight: selectedRight})
+      }).subscribe(() => {
+        this.permissionManagementService.loadRoles().subscribe((role) => {
+          this.rolesList = role;
         });
-        if (!exists) {
-          this.permissionManagementService.addRight(this.selectedRole?.id, right).subscribe();
-        }
-      }
-    });
-    this.permissionManagementService.loadRoles().subscribe((role) => {
-      this.rolesList = role;
-    });
+      })
+    }
   }
 
   constructor(private permissionManagementService: PermissionManagementService) { }
