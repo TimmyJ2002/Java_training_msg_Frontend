@@ -12,8 +12,6 @@ export class RightGuard implements CanActivate {
 
     let token = jwtDecode<{sub: string, permissions: string[]}>(sessionStorage.getItem("accessToken")!)
 
-    console.log(route.data['right'])
-
     let rightsList = token.permissions;
 
     return (route.data['right'] as string[]).some((right) => rightsList.includes(right))
