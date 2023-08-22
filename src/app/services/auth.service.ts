@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable, tap} from "rxjs";
+import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,9 @@ export class AuthService implements OnInit{
   isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
   public username = '';
+
+  private failedLogins = 0;
+
   constructor(private http: HttpClient) {
   }
 
@@ -22,6 +25,24 @@ export class AuthService implements OnInit{
     return !!accessToken;
   }
 
+  // login(credentials: any): Observable<any> {
+  //   return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
+  //     .pipe(
+  //       tap((response: any) => {
+  //         if (response.loginCount === -1) {
+  //           window.location.href = '/change-password';
+  //         } else {
+  //           this.isLoggedInSubject.next(true);
+  //         }
+  //       }),
+  //       catchError(error => {
+  //         if(error == 500 || error == 403){
+  //           alert("Incorrect username or password");
+  //         }
+  //         return throwError(error);
+  //       })
+  //     );
+  // }
 
   login(credentials: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
@@ -29,12 +50,23 @@ export class AuthService implements OnInit{
         tap((response: any) => {
           if (response.loginCount === -1) {
             window.location.href = '/change-password';
+          } else if (response.deactivated === true) {
+            alert("Your account has been deactivated. Please contact support.");
           } else {
             this.isLoggedInSubject.next(true);
           }
+        }),
+        catchError(error => {
+          alert("Incorrect username or password");
+          this.failedLogins++;
+          if (this.failedLogins >= 5){
+            alert("Your account has been deactivated, because you entered the wrong password for 5 times")
+          }
+          return throwError(error);
         })
       );
   }
+
 
 
   logout(): Observable<any> {
