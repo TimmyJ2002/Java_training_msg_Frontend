@@ -10,6 +10,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 
@@ -20,17 +21,18 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     UserCreationComponent,
     UserChangePasswordComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        HttpClientModule,
-        UserRoutingModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatOptionModule,
-        MatSelectModule,
-        MatProgressSpinnerModule,
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    UserRoutingModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+  ],
   exports: [
     UserRoutingModule
   ]

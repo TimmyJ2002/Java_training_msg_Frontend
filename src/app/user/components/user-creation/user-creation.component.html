@@ -7,7 +7,7 @@
     <div class="form-field">
     <mat-form-field >
       <input matInput placeholder="First Name" formControlName="firstName">
-      <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">FirstName is required</mat-error>
+      <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">First Name is required</mat-error>
       <mat-error *ngIf="userForm.get('firstName')?.hasError('pattern')">Please enter valid Name</mat-error>
     </mat-form-field>
   </div>
@@ -18,7 +18,7 @@
 
     <mat-form-field >
       <input matInput placeholder="Last Name" formControlName="lastName">
-      <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">FirstName is required</mat-error>
+      <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
       <mat-error *ngIf="userForm.get('lastName')?.hasError('pattern')">Please enter valid Name</mat-error>
     </mat-form-field>
     </div>
@@ -29,8 +29,8 @@
 
     <mat-form-field >
       <input matInput placeholder="E-mail" formControlName="email">
-      <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is requiered</mat-error>
-      <mat-error *ngIf="userForm.get('email')?.hasError('pattern')">Please enter valid E-mail</mat-error>
+      <mat-error *ngIf="userForm.get('email')?.hasError('required')">E-mail is requiered</mat-error>
+      <mat-error *ngIf="userForm.get('email')?.hasError('pattern')">Please enter valid E-mail (ex: abcd@mail.com)</mat-error>
     </mat-form-field>
   </div>
 
@@ -41,7 +41,7 @@
     <mat-form-field >
       <input matInput placeholder="Phone Number" formControlName="mobileNumber">
       <mat-error *ngIf="userForm.get('mobileNumber')?.hasError('required')">Phone Number is required</mat-error>
-      <mat-error *ngIf="userForm.get('mobileNumber')?.hasError('pattern')">Please enter Phone Number</mat-error>
+      <mat-error *ngIf="userForm.get('mobileNumber')?.hasError('pattern')">Please enter valid Phone Number (ex: +40712345678)</mat-error>
     </mat-form-field>
   </div>
 
@@ -55,27 +55,33 @@
 
 
   <mat-form-field class="form-field">
-    <mat-label>Roluri</mat-label>
+    <mat-label>Roles</mat-label>
     <mat-select formControlName="roles" multiple >
       <mat-option *ngFor="let role of rolesList" [value]="role.name">{{role.name}}</mat-option>
 
     </mat-select>
   </mat-form-field>
 
-  <div class="spinner-overlay" *ngIf="isCreatingUser">
-    <mat-spinner class="spinner"></mat-spinner>
-  </div>
 
   <div *ngIf="successMessage" class="success-message">
-    {{ successMessage }}
+    <strong>{{ successMessage }} </strong>
   </div>
 
   <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
+    <strong>{{ errorMessage }} </strong>
   </div>
 
-  <p>Complete the form to enable button</p>
+
+  <div class="form-message" *ngIf=" userForm.invalid && userForm.dirty">
+  Complete the form before submission.
+  </div>
+
+
   <button class="addButton" type="submit" [disabled]=!userForm.valid>Create new User</button>
+
+  <div class="spinner-overlay" *ngIf="isCreatingUser">
+    <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
+  </div>
 </form>
 
 

@@ -55,7 +55,10 @@ export class UserCreationComponent implements OnInit {
         });
     }
 
-    private initUserForm(): void {
+
+
+
+  private initUserForm(): void {
         this.userForm = this.formBuilder.group({
             firstName: ['', [
                 Validators.required,
@@ -75,6 +78,7 @@ export class UserCreationComponent implements OnInit {
     }
 
     onSubmit(): void {
+
         if (this.userForm.invalid) {
             return;
         }
