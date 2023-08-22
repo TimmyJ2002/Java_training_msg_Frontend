@@ -13,11 +13,20 @@
     </div>
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">Donation Reporting</a>
+  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/donation/addDonation" routerLinkActive="active" ariaCurrentWhenActive="page">Add Donation</a>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">Campaign Reporting</a>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">Logout</a>
 
   <ng-template #loginLink>
     <a routerLink="/login" routerLinkActive="active" aria-current="page">Login</a>
   </ng-template>
+  <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async)">
+    <a routerLink="campaign/create" routerLinkActive="active" ariaCurrentWhenActive="page">Campaign</a>
+    <div class="dropdown-content">
+      <a routerLink="/campaign/create">Create</a>
+      <a routerLink="/campaign/list">Edit</a>
+      <a routerLink="/campaign/delete">Delete</a>
+    </div>
+  </div>
 </nav>
 <router-outlet></router-outlet>

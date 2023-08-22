@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DonationService} from "./donation-service";
+import {Donation} from "../models/donation";
+import {Router} from "@angular/router";
 import {HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../../services/auth.service";
 
@@ -17,8 +19,8 @@ export class DonationReportingComponent implements OnInit{
   searchQuery: string = '';
   status: boolean = false;
 
-  constructor(private donationService: DonationService, private authService: AuthService) { }
-
+  constructor(private donationService: DonationService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.fetchDonations();
@@ -30,6 +32,7 @@ export class DonationReportingComponent implements OnInit{
       this.filteredDonations = data;
     });
   }
+
   applyFilter() {
     if (this.selectedFilterCriteria === 'selectCriteria') {
       this.filteredDonations = this.donations; // Reset to all donations
@@ -67,10 +70,8 @@ export class DonationReportingComponent implements OnInit{
 
 
   approveDonation(donation: any): void {
-    const token = this.authService.getAccessToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.donationService.approveDonation(donation.id, { headers }).subscribe(
+    this.donationService.approveDonation(donation.id).subscribe(
       () => {
         console.log('Donation approved successfully');
 
@@ -92,5 +93,10 @@ export class DonationReportingComponent implements OnInit{
     );
   }
 
+
+  editDonation(donation: Donation) {
+    sessionStorage.setItem("donationToEdit", JSON.stringify(donation));
+    this.router.navigateByUrl("/donation/updateDonation")
+  }
 
 }

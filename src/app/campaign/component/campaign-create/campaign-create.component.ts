@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CampaignService} from "../../services/campaign.service";
 
 @Component({
@@ -24,19 +24,24 @@ export class CampaignCreateComponent implements OnInit {
   onSubmit() {
     if (this.campaignForm.valid) {
       const campaignData = this.campaignForm.value;
-      this.campaignService.createCampaign(campaignData).subscribe(
-        (response) => {
-          console.log('Campaign created:', response);
-          this.isSuccess = true;
-        },
-        (error) => {
-          console.error('Error creating campaign: ', error);
-          this.isDuplicate = true;
-        }
-      );
-      this.campaignForm.reset();
-      this.clearBoolean();
+        this.campaignService.createCampaign(campaignData).subscribe(
+          (response) => {
+            console.log('Campaign created:', response);
+            this.isSuccess = true;
+            this.campaignForm.reset();
+            this.campaignForm.controls['name'].setErrors(null);
+            this.campaignForm.controls['purpose'].setErrors(null);
+          },
+          (error) => {
+            console.error('Error creating campaign: ', error);
+            this.isDuplicate = true;
+          }
+        );
+      }
+    else {
+      this.campaignForm.markAllAsTouched();
     }
+      this.clearBoolean();
   }
 
   clearBoolean(){
@@ -47,4 +52,10 @@ export class CampaignCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getErrorMessage() {
+    if (this.campaignForm.hasError('required')) {
+      return 'You must enter a value';
+    }
+    return this.campaignForm.hasError('name') ? 'Not a valid name' : '';
+  }
 }

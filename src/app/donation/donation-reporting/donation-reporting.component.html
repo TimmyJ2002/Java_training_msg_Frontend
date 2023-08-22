@@ -41,6 +41,7 @@
             <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved">Delete</button>
             <button class="approve-button" *ngIf="!donation.approved" (click)="approveDonation(donation)">Approve</button>
           </div>
+    <button mat-stroked-button disabled="{{donation.approved}}" (click)="editDonation(donation)">Edit</button>
   </li>
 </ul>
 

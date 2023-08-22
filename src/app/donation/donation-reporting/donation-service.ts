@@ -17,7 +17,7 @@ export class DonationService {
     return this.http.get<any[]>(this.baseUrl);
   }
 
-  approveDonation(donationId: number, p: { headers: HttpHeaders }): Observable<any> {
+  approveDonation(donationId: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/approve/${donationId}`, {});
   }
 

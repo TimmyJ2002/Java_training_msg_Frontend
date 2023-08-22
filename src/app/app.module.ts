@@ -23,11 +23,18 @@ import {DonatorModule} from "./donator/donator.module";
 import {
   PermissionManagementModule
 } from "./components/permission_management/permission-management/permission-management.module";
+import {DonationModule} from "./donation/donation/donation.module";
 import {CampaignEditComponent} from "./campaign/component/campaign-edit/campaign-edit.component";
 import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/campaign-delete.component";
 import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign-reporting.component";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
 import {Interceptor} from "../../util/interceptors/interceptor";
+import { EditDonationComponent } from './donation/components/edit-donation/edit-donation.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 @NgModule({
@@ -40,15 +47,17 @@ import {Interceptor} from "../../util/interceptors/interceptor";
     DonationReportingComponent,
     CampaignEditComponent,
     CampaignDeleteComponent,
-    CampaignReportingComponent,
+    CampaignEditListComponent,
     CampaignCreateComponent,
-    
+    EditDonationComponent,
+    CampaignReportingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     UserModule,
     DonatorModule,
+    DonationModule,
     PermissionManagementModule,
     BrowserAnimationsModule,
     RouterOutlet,
@@ -58,7 +67,11 @@ import {Interceptor} from "../../util/interceptors/interceptor";
     MatListModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports: [
     RouterModule,

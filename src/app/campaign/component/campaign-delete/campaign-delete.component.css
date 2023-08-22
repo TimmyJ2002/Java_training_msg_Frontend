@@ -29,15 +29,15 @@ input {
   background-color: #ff5722;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
-  display: flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  clear: right;
 }
 
 .deleteButton:hover {background-color: #e64a19;
@@ -72,12 +72,6 @@ input {
   color: #FFFFFF;
 }
 
-#campaignRow:hover {
-  background-color: #e64a19;
-  color: white;
-}
-.selected-row {
-  background-color: #e64a19;
-}
+
 
 

@@ -1,5 +1,7 @@
-export interface Campaign {
-   id: number,
-    name: string,
-    purpose: string
+export class Campaign {
+  constructor(
+    public id: number,
+    public name: string,
+    public purpose: string)
+  {}
 }
