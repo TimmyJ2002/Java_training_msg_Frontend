@@ -31,24 +31,36 @@ export class UserListComponent implements OnInit{
     });
   }
 
-
   editOrSaveUser(user: User): void {
     if (this.editUserId === user.id) {
       this.saveUser(user);
     } else {
-      this.editUserId = user.id!;
+      this.editUserId = user.id;
+      // Initialize userEditData with the properties you want to edit
+      this.userEditData[user.id] = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        mobileNumber: user.mobileNumber
+      };
     }
   }
 
+
+
   saveUser(user: User): void {
-    this.userService.updateUser(user.id, this.userEditData[user.id!])
+    const editedUserData = this.userEditData[user.id];
+    console.log('Saving user with ID:', user.id);
+    console.log('Edited user data:', editedUserData);
+
+    this.userService.updateUser(user.id, editedUserData)
       .subscribe(
         (response) => {
           console.log('Response:', response);
           // Update the local data in the users array
           const updatedUserIndex = this.users.findIndex(u => u.id === user.id);
           if (updatedUserIndex !== -1) {
-            this.users[updatedUserIndex] = <User>this.userEditData[user.id!];
+            this.users[updatedUserIndex] = { ...this.users[updatedUserIndex], ...editedUserData };
           }
           this.editUserId = null;
         },
@@ -57,6 +69,9 @@ export class UserListComponent implements OnInit{
         }
       );
   }
+
+
+
 
   toggleActivation(user: User): void {
     // Toggle the isActive property

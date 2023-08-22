@@ -66,7 +66,7 @@ export class UserCreationComponent implements OnInit {
       ]],
       email: ['', [Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]],
       mobileNumber: ['', [Validators.required, Validators.pattern(/^(00407\d{8}|07\d{8}|\+407\d{8})$/)]],
-      // TODO:roles and other things i need to add later + Validators
+
       roles: [[], [Validators.required, Validators.minLength(1)]]
     });
   }

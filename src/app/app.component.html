@@ -1,6 +1,9 @@
 <nav>
+
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">Users</a>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">Rights</a>
+  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">Create New User</a>
+
   <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async)">
     <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">Donor</a>
     <div class="dropdown-content">
@@ -10,8 +13,10 @@
     </div>
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">Donation Reporting</a>
+  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/donation/addDonation" routerLinkActive="active" ariaCurrentWhenActive="page">Add Donation</a>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">Campaign Reporting</a>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">Logout</a>
+
   <ng-template #loginLink>
     <a routerLink="/login" routerLinkActive="active" aria-current="page">Login</a>
   </ng-template>

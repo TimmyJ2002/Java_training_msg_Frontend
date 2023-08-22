@@ -1,7 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable, tap} from "rxjs";
-import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,7 @@ export class AuthService implements OnInit{
   isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
   public username = '';
-
-  constructor(private http: HttpClient, private router: Router) {
-
+  constructor(private http: HttpClient) {
   }
 
   isAuthenticated(): boolean {
@@ -25,11 +22,12 @@ export class AuthService implements OnInit{
     return !!accessToken;
   }
 
+
   login(credentials: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
       .pipe(
         tap((response: any) => {
-          if (response.message == "Password change required") {
+          if (response.loginCount === -1) {
             window.location.href = '/change-password';
           } else {
             this.isLoggedInSubject.next(true);
@@ -37,6 +35,7 @@ export class AuthService implements OnInit{
         })
       );
   }
+
 
   logout(): Observable<any> {
     const token = this.getAccessToken();
@@ -70,18 +69,31 @@ export class AuthService implements OnInit{
     sessionStorage.removeItem('accessToken');
   }
 
-  changePassword(userId: number, newPassword: string): Observable<any> {
+  changePassword(newPassword: string): Observable<any> {
     const url = `${this.apiUrl}/auth/change-password`;
-    const requestBody = { userId, newPassword };
+    const requestBody = { newPassword };
 
-    return this.http.post(url, requestBody);
+    const token = this.getAccessToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+
+    return this.http.post(url, requestBody, { headers });
   }
 
-  updateUserLoginCount(userId: number, newLoginCount: number): Observable<any> {
-    const url = `${this.apiUrl}/auth/update-login-count`; // Replace with your actual endpoint
-    const params = { userId: userId.toString(), newLoginCount: newLoginCount.toString() };
+  updateUserLoginCount(newLoginCount: number): Observable<any> {
+    const url = `${this.apiUrl}/auth/update-login-count`;
+    const requestBody = { newLoginCount };
 
-    return this.http.put(url, null, { params });
+    const token = this.getAccessToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.put(url, requestBody, { headers });
   }
 
   ngOnInit(): void {

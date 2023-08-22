@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule, RouterOutlet} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app-routing.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CreateDonatorComponent} from "./donator/components/createDonator/createdonator.component";
 import {LogoutComponent} from './components/logout/logout.component';
 // import { UserDetailsComponent } from './user/components/user-details/user-details.component';
@@ -23,10 +23,16 @@ import {DonatorModule} from "./donator/donator.module";
 import {
   PermissionManagementModule
 } from "./components/permission_management/permission-management/permission-management.module";
+import {DonationModule} from "./donation/donation/donation.module";
 import {CampaignEditComponent} from "./campaign/component/campaign-edit/campaign-edit.component";
 import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/campaign-delete.component";
 import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign-reporting.component";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
+import {Interceptor} from "../../util/interceptors/interceptor";
+import { EditDonationComponent } from './donation/components/edit-donation/edit-donation.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 @NgModule({
@@ -39,14 +45,16 @@ import {CampaignCreateComponent} from "./campaign/component/campaign-create/camp
     DonationReportingComponent,
     CampaignEditComponent,
     CampaignDeleteComponent,
-    CampaignReportingComponent,
-    CampaignCreateComponent
+    CampaignCreateComponent,
+    EditDonationComponent,
+    CampaignReportingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     UserModule,
     DonatorModule,
+    DonationModule,
     PermissionManagementModule,
     BrowserAnimationsModule,
     RouterOutlet,
@@ -56,12 +64,17 @@ import {CampaignCreateComponent} from "./campaign/component/campaign-create/camp
     MatListModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports: [
     RouterModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

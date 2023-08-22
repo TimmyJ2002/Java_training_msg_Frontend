@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit{
     this.authService.login(credentials).subscribe(
       (response) => {
         const accessToken = response.accessToken;
-        this.authService.saveAccessToken(accessToken); // Save the accessToken to localStorage
+        this.authService.saveAccessToken(accessToken);
         console.log('Access Token:', accessToken);
         this.loginForm.reset();
         this.router.navigate(['/donation-reporting']);

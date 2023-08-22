@@ -24,7 +24,7 @@ export class UserService {
       catchError((error) => {
         let errorMessage = 'An error occurred';
         if (error instanceof HttpErrorResponse) {
-          if (error.status === 500) {
+          if (error.status === 400) {
             errorMessage = 'Duplicate entry. This user already exists.';
           } else {
             errorMessage = `HTTP Error: ${error.status}`;
@@ -36,8 +36,9 @@ export class UserService {
 
   }
 
-  updateUser(id: number | undefined, user: Partial<User>): Observable<any> {
-    return this.http.put(`${this.apiUrl2}${user.id}`, user);
+  updateUser(id: number, user: Partial<User>): Observable<any> {
+    return this.http.put(`${this.apiUrl2}${id}`, user);
   }
+
 
 }

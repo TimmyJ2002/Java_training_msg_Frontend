@@ -26,17 +26,13 @@ input {
 }
 
 .createButton {
-  background-color: #ff5722;
+  padding: 10px 20px;
+  background-color: #e64a19;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 50px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .createButton:hover {background-color: #e64a19;
