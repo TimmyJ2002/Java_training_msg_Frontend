@@ -9,7 +9,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app-routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CreateDonatorComponent} from "./donator/components/createDonator/createdonator.component";
-import {DonatorListComponent} from './donator/components/donator-list/donator-list.component';
 import {LogoutComponent} from './components/logout/logout.component';
 // import { UserDetailsComponent } from './user/components/user-details/user-details.component';
 import {
@@ -27,7 +26,7 @@ import {
 import {DonationModule} from "./donation/donation/donation.module";
 import {CampaignEditComponent} from "./campaign/component/campaign-edit/campaign-edit.component";
 import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/campaign-delete.component";
-import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
+import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign-reporting.component";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
 import {Interceptor} from "../../util/interceptors/interceptor";
 import { EditDonationComponent } from './donation/components/edit-donation/edit-donation.component';
@@ -47,12 +46,12 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     CampaignEditComponent,
     CampaignDeleteComponent,
     CampaignCreateComponent,
-    EditDonationComponent
+    EditDonationComponent,
+    CampaignReportingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CampaignRoutingModule,
     UserModule,
     DonatorModule,
     DonationModule,

@@ -4,6 +4,7 @@
   <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">
     <option value="selectCriteria">Select criteria...</option>
     <option value="Approved">Approved</option>
+    <option value="Not approved">Not approved</option>
     <option value="currency">Currency</option>
     <!-- Add more filtering criteria options here -->
   </select>
@@ -36,6 +37,9 @@
               Approved: {{ donation.approved }}
             </p>
             <p class="donation-notes">Notes: {{ donation.notes }}</p>
+            <!--trebe pusa o limitare ai butonu asta apare doar la cei cu dreptul de donation_management; vedem mai incolo cum-->
+            <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved">Delete</button>
+            <button class="approve-button" *ngIf="!donation.approved" (click)="approveDonation(donation)">Approve</button>
           </div>
     <button mat-stroked-button disabled="{{donation.approved}}" (click)="editDonation(donation)">Edit</button>
   </li>

@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {CampaignRoutingModule} from "../campaign-routing.module";
+import {CampaignCreateComponent} from "../component/campaign-create/campaign-create.component";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CampaignCreateComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

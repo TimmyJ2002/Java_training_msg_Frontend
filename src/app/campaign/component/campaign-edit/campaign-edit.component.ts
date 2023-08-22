@@ -16,7 +16,6 @@ export class CampaignEditComponent implements OnInit {
   isDuplicate: boolean = false;
   campaignForm: FormGroup;
   campaigns: any[] = [];
-  selectedCampaign : Campaign | null = null;
   campaign: Campaign | null = null;
 
   constructor(private router: Router,
@@ -61,10 +60,6 @@ export class CampaignEditComponent implements OnInit {
     });
   }
 
-  selectCampaign(campaign: Campaign): void {
-    // @ts-ignore
-    this.selectCampaign = campaign;
-  }
 
   toSeeCampaign(campaign: Campaign): void {
     this.campaign = campaign;
