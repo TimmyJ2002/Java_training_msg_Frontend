@@ -17,7 +17,7 @@
           {{ user.firstName }}
         </ng-container>
         <ng-template #editFirstNameField>
-          <input type="text" [(ngModel)]="userEditData[user.id!].firstName" />
+          <input type="text" [(ngModel)]="userEditData[user.id].firstName" />
         </ng-template>
       </td>
       <td>
@@ -25,7 +25,7 @@
           {{ user.lastName }}
         </ng-container>
         <ng-template #editLastNameField>
-          <input type="text" [(ngModel)]="userEditData[user.id!].lastName" />
+          <input type="text" [(ngModel)]="userEditData[user.id].lastName" />
         </ng-template>
       </td>
       <td>
@@ -33,7 +33,7 @@
           {{ user.email }}
         </ng-container>
         <ng-template #editEmailField>
-          <input type="email" [(ngModel)]="userEditData[user.id!].email" />
+          <input type="email" [(ngModel)]="userEditData[user.id].email" />
         </ng-template>
       </td>
       <td>
@@ -41,7 +41,7 @@
           {{ user.mobileNumber }}
         </ng-container>
         <ng-template #editPhoneNumberField>
-          <input type="text" [(ngModel)]="userEditData[user.id!].mobileNumber" />
+          <input type="text" [(ngModel)]="userEditData[user.id].mobileNumber" />
         </ng-template>
       </td>
       <td>

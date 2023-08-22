@@ -56,10 +56,13 @@ export class UserListComponent implements OnInit{
   }
 
 
+
   saveUser(user: User): void {
     const editedUserData = this.userEditData[user.id];
-    this.userService.updateUser(user.id!, this.userEditData[user.id!])
+    console.log('Saving user with ID:', user.id);
+    console.log('Edited user data:', editedUserData);
 
+    this.userService.updateUser(user.id, editedUserData)
       .subscribe(
         (response) => {
           console.log('Response:', response);
@@ -75,6 +78,10 @@ export class UserListComponent implements OnInit{
         }
       );
   }
+
+
+
+
 
 
   // saveUser(user: User): void {

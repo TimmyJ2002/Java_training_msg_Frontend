@@ -45,6 +45,7 @@ export class UserChangePasswordComponent implements OnInit{
             alert("Error updating logincount ");
           }
         );
+        alert("Password changed successfully");
         this.router.navigate(['/users']);
       },
       (error) => {

@@ -22,11 +22,12 @@ export class AuthService implements OnInit{
     return !!accessToken;
   }
 
+
   login(credentials: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
       .pipe(
         tap((response: any) => {
-          if (response.message == "Password change required") {
+          if (response.loginCount === -1) {
             window.location.href = '/change-password';
           } else {
             this.isLoggedInSubject.next(true);
@@ -34,24 +35,7 @@ export class AuthService implements OnInit{
         })
       );
   }
-
-  getCurrentUserUsername(): string | null {
-    try {
-      const accessToken = this.getAccessToken();
-      if (!accessToken) {
-        console.log('Access token is missing.');
-        return null;
-      }
-
-      const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]));
-      const userId = tokenPayload.sub; // Extract the user ID from the 'sub' field
-
-      return userId;
-    } catch (error) {
-      console.error('Error parsing token:', error);
-      return null;
-    }
-  }
+  
 
   logout(): Observable<any> {
     const token = this.getAccessToken();
@@ -89,14 +73,27 @@ export class AuthService implements OnInit{
     const url = `${this.apiUrl}/auth/change-password`;
     const requestBody = { newPassword };
 
-    return this.http.post(url, requestBody);
+    const token = this.getAccessToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+
+    return this.http.post(url, requestBody, { headers });
   }
 
   updateUserLoginCount(newLoginCount: number): Observable<any> {
     const url = `${this.apiUrl}/auth/update-login-count`;
     const requestBody = { newLoginCount };
 
-    return this.http.put(url, requestBody);
+    const token = this.getAccessToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.put(url, requestBody, { headers });
   }
 
   ngOnInit(): void {

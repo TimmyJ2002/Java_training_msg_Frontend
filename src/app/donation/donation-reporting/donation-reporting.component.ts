@@ -88,11 +88,9 @@ export class DonationReportingComponent implements OnInit{
       },
       (error) => {
         console.error('Error approving donation:', error);
-        // Handle error cases here
       }
     );
   }
-
 
 
 }
