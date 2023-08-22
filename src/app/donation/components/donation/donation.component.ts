@@ -69,17 +69,17 @@ export class DonationComponent {
     if (this.donationForm.valid) {
       const formValue = this.donationForm.getRawValue();
 
-      const campaignID = formValue.campaign?.id;
-      const donatorID = formValue.donator?.id;
+      const campaign = formValue.campaign;
+      const donator = formValue.donator;
 
-      if (campaignID && donatorID) {
+      if (campaign && donator) {
         delete formValue.donator;
         delete formValue.campaign;
         const donation: Donation = {
           ...formValue,
           amount: isNaN(Number.parseInt(formValue.amount)) ? undefined : Number.parseInt(formValue.amount),
-          campaignID,
-          donatorID
+          campaign,
+          donator
         };
         this.donationService.addDonation(donation).subscribe();
       }

@@ -49,8 +49,8 @@ export class EditDonationComponent {
         this.donationForm.patchValue({
           amount: this.selectedDonation!.amount!.toString(),
           currency: this.selectedDonation?.currency,
-          donator: this.donatorList.filter(donator => donator.id === this.selectedDonation?.donatorID)[0],
-          campaign: this.campaignList.filter(campaign => campaign.id === this.selectedDonation?.campaignID)[0],
+          donator: this.selectedDonation?.donator,
+          campaign: this.selectedDonation?.campaign,
           notes: this.selectedDonation?.notes
         })
       });
