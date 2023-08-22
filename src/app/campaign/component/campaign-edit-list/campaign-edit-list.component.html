@@ -1,5 +1,6 @@
 <h2>Edit a Campaign</h2>
 <p>Please double click on the campaign that you want to edit:</p>
+<div *ngIf="successMessage" style="color: green;">{{ successMessage }}</div>
 <table id="campaignTable">
   <thead>
   <tr>
@@ -8,7 +9,9 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let campaign of campaigns" id="campaignRow" (dblclick)="navigateToEditCampaign(campaign)">
+  <tr *ngFor="let campaign of campaigns" id="campaignRow"
+      [ngClass]="{'edited-row': campaign.id === editedCampaignId}"
+      (dblclick)="navigateToEditCampaign(campaign)">
     <td id="name"> {{campaign.name}} </td>
     <td id="purpose"> {{campaign.purpose}} </td>
   </tr>

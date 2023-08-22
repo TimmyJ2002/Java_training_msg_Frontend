@@ -1,15 +1,19 @@
 <h2>Edit a Campaign</h2>
 <form>
-  <div>
-    <label for="newName"> Name: </label>
-    <input type="text" id="newName" [(ngModel)]="campaignDetails.name" name="name">
-
-    <label for="newPurpose"> Purpose:</label>
-    <input type="text" id="newPurpose" [(ngModel)]="campaignDetails.purpose" name="purpose">
+  <div class="example-container">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput id="newName" [(ngModel)]="campaignDetails.name" name="name">
+    </mat-form-field>
+  </div>
+  <div class="example-container">
+    <mat-form-field>
+      <mat-label>Purpose</mat-label>
+      <input matInput id="newPurpose" [(ngModel)]="campaignDetails.purpose" name="purpose">
+    </mat-form-field>
   </div>
   <p>Complete the form with the changes you want to make.</p>
-  <div *ngIf="isSuccess">Campaign successfully edited!</div>
-  <div *ngIf="isDuplicate">Campaign name already exists!</div>
+  <div *ngIf="isDuplicate" style="color: red;">Campaign name already exists!</div>
 
   <button class="editButton" color="primary" type="submit" (click)="updateCampaign()">Save changes</button><br>
   <button class="seeButton" color="primary" type="submit" (click)="navigateToSeeCampaign()" [disabled]="!campaignForm.valid">Go back to the list</button>

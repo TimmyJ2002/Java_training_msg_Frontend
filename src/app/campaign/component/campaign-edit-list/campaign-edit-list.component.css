@@ -58,6 +58,11 @@ input {
   background-color: #e64a19;
   color: white;
 }
+
 .selected-row {
+  background-color: #e64a19;
+}
+
+.edited-row {
   background-color: #e64a19;
 }

@@ -1,8 +1,8 @@
 <h2>Delete a campaign</h2>
 
 <p>Please select the campaigns that you want to delete:</p>
-<div *ngIf="isSuccess">Campaign successfully deleted! </div>
-<div *ngIf="isFailure">Campaign could not be deleted! </div>
+<div *ngIf="isSuccess" style="color: green;">Campaign successfully deleted! </div>
+<div *ngIf="isFailure" style="color: red;">Campaign could not be deleted, because it has donations! </div>
 <table id="campaignTable">
   <thead>
   <tr>

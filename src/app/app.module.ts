@@ -29,6 +29,8 @@ import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/camp
 import {CampaignRoutingModule} from "./campaign/campaign-routing.module";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
 import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
@@ -43,22 +45,24 @@ import { CampaignEditListComponent } from './campaign/component/campaign-edit-li
     CampaignDeleteComponent,
     CampaignEditListComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    UserModule,
-    DonatorModule,
-    PermissionManagementModule,
-    BrowserAnimationsModule,
-    RouterOutlet,
-    RouterModule,
-    HttpClientModule,
-    MatTableModule,
-    MatListModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        UserModule,
+        DonatorModule,
+        PermissionManagementModule,
+        BrowserAnimationsModule,
+        RouterOutlet,
+        RouterModule,
+        HttpClientModule,
+        MatTableModule,
+        MatListModule,
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule
+    ],
   exports: [
     RouterModule,
   ],

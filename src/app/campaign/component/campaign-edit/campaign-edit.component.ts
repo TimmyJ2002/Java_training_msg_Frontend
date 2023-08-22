@@ -48,6 +48,11 @@ export class CampaignEditComponent implements OnInit {
       (response) => {
         console.log('Campaign updated:', response);
         this.isSuccess = true;
+        setTimeout(() => {
+          this.router.navigate(['/campaign/list'], {
+            queryParams: { successMessage: 'Campaign successfully edited!' },
+          });
+        }, 500);
       },
       (error) => {
         console.error('Error updating campaign: ', error);
