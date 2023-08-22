@@ -45,12 +45,11 @@ export class EditDonationComponent {
       .subscribe(([donors, campaigns]) => {
         this.donatorList = donors;
         this.campaignList = campaigns;
-        console.log(this.selectedDonation);
         this.donationForm.patchValue({
           amount: this.selectedDonation!.amount!.toString(),
           currency: this.selectedDonation?.currency,
-          donator: this.selectedDonation?.donator,
-          campaign: this.selectedDonation?.campaign,
+          // donator: this.selectedDonation?.donator,
+          // campaign: this.selectedDonation?.campaign,
           notes: this.selectedDonation?.notes
         })
       });

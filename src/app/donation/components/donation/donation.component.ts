@@ -73,15 +73,15 @@ export class DonationComponent {
       const donator = formValue.donator;
 
       if (campaign && donator) {
-        delete formValue.donator;
-        delete formValue.campaign;
-        const donation: Donation = {
-          ...formValue,
-          amount: isNaN(Number.parseInt(formValue.amount)) ? undefined : Number.parseInt(formValue.amount),
-          campaign,
-          donator
-        };
-        this.donationService.addDonation(donation).subscribe();
+        // delete formValue.donator;
+        // delete formValue.campaign;
+        // const donation: Donation = {
+        //   ...formValue,
+        //   amount: isNaN(Number.parseInt(formValue.amount)) ? undefined : Number.parseInt(formValue.amount),
+        //   campaign,
+        //   donator
+        // };
+        this.donationService.addDonation(Number.parseInt(formValue.amount), formValue.currency, formValue.campaign!.id, formValue.donator!.id, formValue.notes).subscribe();
       }
     }
     this.donationForm.reset();

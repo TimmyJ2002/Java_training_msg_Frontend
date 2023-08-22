@@ -11,8 +11,16 @@ export class DonationService {
   url:string = "http://localhost:8080/donations"
   donationsList$: BehaviorSubject<Donation[]> = new BehaviorSubject<Donation[]>([]);
 
-  addDonation(donation: Donation) {
-    return this.http.post<Donation>(this.url + "/addDonation", donation)
+  addDonation(amount: number,
+              currency: string,
+              donatorID: number,
+              campaignID: number,
+              notes: string) {
+    return this.http.post<{amount: number,
+      currency: string,
+      donatorID: number,
+      campaignID: number,
+      notes: string}>(this.url + "/addDonation", {amount, currency, campaignID, donatorID, notes})
   }
 
   updateDonation(donationID: number,
