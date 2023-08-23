@@ -29,7 +29,7 @@ export class DonatorListComponent implements OnInit{
   }
   loadActiveDonors(): void {
     this.donorService.getDonors().subscribe(donors => {
-      this.donors = donors.filter(donator => donator.isActive); //nu stiu de ce nu merge cu isActive...ma rog, asa merge
+      this.donors = donors.filter(donator => donator.active); //nu stiu de ce nu merge cu isActive...ma rog, asa merge
     });
   }
   navigateToEditDonator(donor: Donator): void {
