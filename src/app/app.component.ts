@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "./services/auth.service";
+import {Router} from "@angular/router";
+import jwtDecode from "jwt-decode";
 import {LanguageService} from "./services/language.service";
 import {Subscription} from "rxjs";
 import {TranslateService} from '@ngx-translate/core';
@@ -19,9 +20,7 @@ export class AppComponent implements OnInit {
     { value: 'en', viewValue: 'English' },
     { value: 'ro', viewValue: 'Romanian' }
   ];
-  englishLink = document.getElementById('englishLink');
-  romanianLink = document.getElementById('romanianLink');
-  dropdownContent = document.querySelector('.dropdown-content');
+  rightsList: string[] = [];
   constructor(
     public authService: AuthService,
     private router: Router,
@@ -44,6 +43,17 @@ export class AppComponent implements OnInit {
     );
   }
 
+  hasPermission(requiredPermissions: string[]) {
+    return (requiredPermissions).some((right) => this.rightsList.includes(right))
+  }
+
+  ngOnInit(): void {
+    jwtDecode(sessionStorage.getItem("accessToken")!);
+    let token = jwtDecode<{sub: string, permissions: string[]}>(sessionStorage.getItem("accessToken")!)
+    let rightsList = token.permissions;
+    this.switchLanguage('en');
+  }
+
   switchLanguage(language: string) {
     console.log(this.languageService);
     this.languageService.setLanguage(language);
@@ -51,7 +61,5 @@ export class AppComponent implements OnInit {
   getTranslatedMessage(key: string): string {
     return this.languageService.getTranslation(key);
   }
-  ngOnInit(): void {
-    this.switchLanguage('en')
-  }
+
 }
