@@ -1,20 +1,20 @@
-<h2>Edit a Campaign</h2>
+<h2>{{getTranslatedMessage('@@editCampaign')}}</h2>
 <form>
   <div class="example-container">
     <mat-form-field>
-      <mat-label>Name</mat-label>
+      <mat-label>{{getTranslatedMessage('@@campaignName')}}</mat-label>
       <input matInput id="newName" [(ngModel)]="campaignDetails.name" name="name">
     </mat-form-field>
   </div>
   <div class="example-container">
     <mat-form-field>
-      <mat-label>Purpose</mat-label>
+      <mat-label>{{getTranslatedMessage('@@campaignPurpose')}}</mat-label>
       <input matInput id="newPurpose" [(ngModel)]="campaignDetails.purpose" name="purpose">
     </mat-form-field>
   </div>
-  <p>Complete the form with the changes you want to make.</p>
-  <div *ngIf="isDuplicate" style="color: red;">Campaign name already exists!</div>
+  <p>{{getTranslatedMessage('@@completeFormForEdit')}}</p>
+  <div *ngIf="isDuplicate" style="color: red;">{{getTranslatedMessage('@@duplicateCampaignName')}}</div>
 
-  <button class="editButton" color="primary" type="submit" (click)="updateCampaign()">Save changes</button><br>
-  <button class="seeButton" color="primary" type="submit" (click)="navigateToSeeCampaign()" [disabled]="!campaignForm.valid">Go back to the list</button>
+  <button class="editButton" color="primary" type="submit" (click)="updateCampaign()">{{getTranslatedMessage('@@saveButton')}}</button><br>
+  <button class="seeButton" color="primary" type="submit" (click)="navigateToSeeCampaign()" [disabled]="!campaignForm.valid">{{getTranslatedMessage('@@seeCampaignsListButton')}}</button>
 </form>
