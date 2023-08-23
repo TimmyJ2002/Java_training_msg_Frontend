@@ -1,11 +1,11 @@
-<h2>Edit a Campaign</h2>
-<p>Please double click on the campaign that you want to edit:</p>
+<h2>{{getTranslatedMessage('@@editCampaign')}}</h2>
+<p>{{getTranslatedMessage('@@selectCampaignToEdit')}}</p>
 <div *ngIf="successMessage" style="color: green;">{{ successMessage }}</div>
 <table id="campaignTable">
   <thead>
   <tr>
-    <th id="nameH"> Name </th>
-    <th id="purposeH"> Purpose </th>
+    <th id="nameH"> {{getTranslatedMessage('@@campaignName')}} </th>
+    <th id="purposeH"> {{getTranslatedMessage('@@campaignPurpose')}} </th>
   </tr>
   </thead>
   <tbody>
