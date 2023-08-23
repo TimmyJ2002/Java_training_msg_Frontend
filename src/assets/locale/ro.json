@@ -61,5 +61,9 @@
   "@@reactivateButton": "Reactiveaza",
   "@@usersList": "Lista de utilizatori",
   "@@seeUsersListButton": "Vedeți lista completă a utilizatorilor",
-  "@@editDonatorTitle": "Editare Donator"
+  "@@editDonatorTitle": "Editare Donator",
+  "@@addDonation": "Adauga o donație",
+  "@@campaigns": "Campanii",
+  "@@donators": "Donatori",
+  "@@createNewDonation": "Creeaza o noua donatie"
 }

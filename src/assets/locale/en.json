@@ -61,5 +61,9 @@
   "@@reactivateButton": "Reactivate",
   "@@usersList": "Users List",
   "@@seeUsersListButton": "See list of all users",
-  "@@editDonatorTitle": "Edit Donator"
+  "@@editDonatorTitle": "Edit Donator",
+  "@@addDonation": "Add donation",
+  "@@campaigns": "Campaigns",
+  "@@donators": "Donators",
+  "@@createNewDonation": "Create New Donation"
 }
