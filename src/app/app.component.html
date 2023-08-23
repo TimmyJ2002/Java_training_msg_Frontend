@@ -45,6 +45,10 @@
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">{{ getTranslatedMessage('@@logout') }}</a>
 
+  <mat-icon (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let notification of notifications" (click)="openDialog(notification)">{{notification.title}}</button>
+  </mat-menu>
 </nav>
 <router-outlet></router-outlet>
 

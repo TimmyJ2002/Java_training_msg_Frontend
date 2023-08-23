@@ -58,6 +58,9 @@ nav a:last-child {
   display: block;
 }
 
+mat-icon{
+  color: white;
+}
 .language-dropdown {
   position: relative;
   display: inline-block;
