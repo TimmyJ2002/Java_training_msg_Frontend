@@ -8,7 +8,7 @@ import {RightGuard} from "../../../util/Guards/rights_guards";
 
 
 const routes: Routes = [
-  { path: 'donation-reporting', component: DonationReportingComponent, canActivate: [RightGuard], data: {right:['PERMISSION_MANAGEMENT123']}},
+  { path: 'donation-reporting', component: DonationReportingComponent, canActivate: [RightGuard], data: {right:['PERMISSION_MANAGEMENT']}},
   { path: 'donation/addDonation', component: DonationComponent},
   { path: 'donation/updateDonation', component: EditDonationComponent}
 ];
