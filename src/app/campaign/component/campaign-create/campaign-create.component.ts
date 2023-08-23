@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CampaignService} from "../../services/campaign.service";
+import {LanguageService} from "../../../services/language.service";
 
 @Component({
   selector: 'app-campaign-create',
@@ -12,9 +13,11 @@ export class CampaignCreateComponent implements OnInit {
   isSuccess: boolean = false;
   isDuplicate: boolean = false;
   campaignForm: FormGroup;
+  translatedMessage: string = '';
 
   constructor(private formBuilder: FormBuilder,
-              private campaignService: CampaignService) {
+              private campaignService: CampaignService,
+              private languageService: LanguageService) {
     this.campaignForm = this.formBuilder.group( {
       name:['', Validators.required],
       purpose: ['', Validators.required]
@@ -50,6 +53,10 @@ export class CampaignCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.languageService.selectedLanguage$.subscribe((language) => {
+      // Fetch and set translated content based on the selected language
+      this.translatedMessage = this.getTranslatedMessage(language);
+    });
   }
 
   getErrorMessage() {
@@ -57,5 +64,9 @@ export class CampaignCreateComponent implements OnInit {
       return 'You must enter a value';
     }
     return this.campaignForm.hasError('name') ? 'Not a valid name' : '';
+  }
+
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 }
