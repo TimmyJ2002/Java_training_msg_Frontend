@@ -41,10 +41,9 @@ export class DonationComponent {
     combineLatest([this.donatorService.getDonors(), this.campaignService.getCampaigns()])
       .pipe(take(1))
       .subscribe(([donors, campaigns]) => {
-        this.donatorList = donors;
+        this.donatorList = donors.filter(donator => donator.active);
         this.campaignList = campaigns;
       })
-
   }
 
   private initDonationForm() {
