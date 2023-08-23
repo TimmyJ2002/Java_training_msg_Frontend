@@ -1,21 +1,21 @@
-<h2>Edit donator</h2>
+<h2>{{ getTranslatedMessage('@@editDonatorTitle') }}</h2>
 <form>
-  <label for="firstName">First Name<span style="color: red;">*</span>:</label>
+  <label for="firstName">{{ getTranslatedMessage('@@firstName') }}<span style="color: red;">*</span>:</label>
   <input type="text" id="firstName" [(ngModel)]="donatorDetails.firstName" name="firstName" required><br>
 
-  <label for="lastName">Last Name<span style="color: red;">*</span>:</label>
+  <label for="lastName">{{ getTranslatedMessage('@@lastName') }}<span style="color: red;">*</span>:</label>
   <input type="text" id="lastName" [(ngModel)]="donatorDetails.lastName" name="lastName" required><br>
 
-  <label for="additionalName">Additional Name:</label>
+  <label for="additionalName">{{ getTranslatedMessage('@@additionalName') }}:</label>
   <input type="text" id="additionalName" [(ngModel)]="donatorDetails.additionalName" name="additionalName"><br>
 
-  <label for="maidenName">Maiden Name:</label>
+  <label for="maidenName">{{ getTranslatedMessage('@@maidenName') }}:</label>
   <input type="text" id="maidenName" [(ngModel)]="donatorDetails.maidenName" name="maidenName"><br>
 
   <!-- Add more input fields for other properties -->
-  <div *ngIf="isSuccess" style="color: green;">Donor successfully edited!</div>
-  <div *ngIf="missingFields" style="color: red;">Required fields are still empty !</div>
-  <button class="button-style" (click)="saveDonator()">Save</button><br>
+  <div *ngIf="isSuccess" style="color: green;">{{ getTranslatedMessage('@@successMessage') }}</div>
+  <div *ngIf="missingFields" style="color: red;">{{ getTranslatedMessage('@@missingFieldsMessage') }}</div>
+  <button class="button-style" (click)="saveDonator()">{{ getTranslatedMessage('@@saveButton') }}</button><br>
 
-  <button class="button-style" (click)="navigateToEditDonator()">See list of all users</button>
+  <button class="button-style" (click)="navigateToEditDonator()">{{ getTranslatedMessage('@@seeUsersListButton') }}</button>
 </form>

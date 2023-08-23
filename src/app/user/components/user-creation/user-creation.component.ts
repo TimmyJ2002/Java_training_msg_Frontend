@@ -12,6 +12,7 @@ import {Role} from "../../../components/permission_management/models/role";
 import {
   PermissionManagementService
 } from "../../../components/permission_management/services/permission-management.service";
+import {LanguageService} from "../../../services/language.service";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
@@ -36,12 +37,13 @@ export class UserCreationComponent implements OnInit {
     isCreatingUser =  false;
 
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private userService: UserService,
-        private permissionManagementService: PermissionManagementService
-    ) {
-    }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private permissionManagementService: PermissionManagementService,
+    private languageService: LanguageService
+  ) {
+  }
 
     ngOnInit(): void {
         this.initUserForm();
@@ -101,4 +103,7 @@ export class UserCreationComponent implements OnInit {
             this.isCreatingUser = false;
         });
     }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
 }

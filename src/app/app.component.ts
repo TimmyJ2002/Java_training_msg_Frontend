@@ -1,18 +1,25 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "./services/auth.service";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
+import {LanguageService} from "./services/language.service";
+import {Subscription} from "rxjs";
+import {TranslateService} from '@ngx-translate/core';
+import {translate} from "@angular/localize/tools";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'untitled';
-
   isLoggedIn: boolean = false;
-
-  constructor(public authService: AuthService, private router: Router) {
+  selectedLanguage: string = 'ro';
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private languageService: LanguageService, // Inject LanguageService
+  ) {
     this.isLoggedIn = this.authService.isAuthenticated();
   }
 
@@ -29,6 +36,15 @@ export class AppComponent implements OnInit{
       }
     );
   }
-ngOnInit(): void {
+
+  switchLanguage(language: string) {
+    console.log(this.languageService);
+    this.languageService.setLanguage(language);
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
+  ngOnInit(): void {
+    this.switchLanguage('en')
   }
 }

@@ -1,26 +1,27 @@
-<h2>Add a donor</h2>
-<form [formGroup] = "donorForm" (ngSubmit)="onSubmit()">
+<h2>{{ getTranslatedMessage('@@addDonor') }}</h2>
+<form [formGroup]="donorForm" (ngSubmit)="onSubmit()">
   <div>
-    <label for="firstname">First name<span style="color: red;">*</span>:</label>
+    <label for="firstname">{{ getTranslatedMessage('@@firstName') }}<span style="color: red;">*</span>:</label>
     <input id="firstname" type="text" formControlName="firstName" (focus)="clearSuccessMessage()">
   </div>
 
   <div>
-    <label for="lastname">Last name<span style="color: red;">*</span>:</label>
+    <label for="lastname">{{ getTranslatedMessage('@@lastName') }}<span style="color: red;">*</span>:</label>
     <input id="lastname" type="text" formControlName="lastName" (focus)="clearSuccessMessage()">
   </div>
   <div>
-    <label for="additionalname">Additional name:</label>
+    <label for="additionalname">{{ getTranslatedMessage('@@additionalName') }}:</label>
     <input id="additionalname" type="text" formControlName="additionalName">
   </div>
   <div>
-    <label for="maidenname">Maiden name:</label>
+    <label for="maidenname">{{ getTranslatedMessage('@@maidenName') }}:</label>
     <input id="maidenname" type="text" formControlName="maidenName">
   </div>
 
-  <p>Complete the mandatory fields to enable the button!</p>
-  <div *ngIf="isSuccess" style="color: green;">Donor successfully added!</div>
-  <div *ngIf="missingFields" style="color: red;">Required fields are still missing!</div>
-  <button class="createButton" color="primary" type="submit" [disabled]="!donorForm.valid">Add a donor!</button>
-
+  <p>{{ getTranslatedMessage('@@mandatoryFieldsMessage') }}</p>
+  <div *ngIf="isSuccess" style="color: green;">{{ getTranslatedMessage('@@successMessage') }}</div>
+  <div *ngIf="missingFields" style="color: red;">{{ getTranslatedMessage('@@missingFieldsMessage') }}</div>
+  <button class="createButton" color="primary" type="submit" [disabled]="!donorForm.valid">
+    {{ getTranslatedMessage('@@addDonorButton') }}
+  </button>
 </form>

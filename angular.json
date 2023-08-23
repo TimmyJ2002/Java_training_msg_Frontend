@@ -3,7 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "untitled": {
+    "untitled":{
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ro": "src/locale/messages.ro.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -46,6 +52,11 @@
               ],
               "outputHashing": "all"
             },
+            "ro": {
+              "localize": ["ro"],
+              "outputPath": "dist/untitled/ro",
+              "i18nMissingTranslation": "error"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -65,6 +76,9 @@
             },
             "development": {
               "browserTarget": "untitled:build:development"
+            },
+            "ro": {
+              "browserTarget": "untitled:build:ro"
             }
           },
           "defaultConfiguration": "development"

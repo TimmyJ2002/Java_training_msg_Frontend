@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Role} from "../../models/role";
 import {PermissionManagementService} from "../../services/permission-management.service";
 import {RoleRight} from "../../models/right";
+import {LanguageService} from "../../../../services/language.service";
 
 @Component({
   selector: 'app-permission-management',
@@ -26,7 +27,6 @@ export class PermissionManagementComponent implements OnInit {
     'CAMP_IMPORT',
     'CAMP_REPORT_RESTRICTED'
   ];
-
   selected: Boolean = false;
 
   ngOnInit(): void {
@@ -57,11 +57,15 @@ export class PermissionManagementComponent implements OnInit {
     }
   }
 
-  constructor(private permissionManagementService: PermissionManagementService) { }
+  constructor(private permissionManagementService: PermissionManagementService,
+              private languageService: LanguageService) { }
 
   protected readonly screenLeft = screenLeft;
 
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 }

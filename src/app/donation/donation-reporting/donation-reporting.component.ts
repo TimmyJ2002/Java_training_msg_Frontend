@@ -4,6 +4,7 @@ import {Donation} from "../models/donation";
 import {Router} from "@angular/router";
 import {HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../../services/auth.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -19,8 +20,10 @@ export class DonationReportingComponent implements OnInit{
   searchQuery: string = '';
   status: boolean = false;
 
-  constructor(private donationService: DonationService,
+  constructor(private donationService: DonationService, private authService: AuthService,
+              private languageService: LanguageService,
               private router: Router) { }
+
 
   ngOnInit(): void {
     this.fetchDonations();
@@ -91,6 +94,9 @@ export class DonationReportingComponent implements OnInit{
         console.error('Error approving donation:', error);
       }
     );
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 
 

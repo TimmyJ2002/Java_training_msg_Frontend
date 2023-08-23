@@ -1,13 +1,13 @@
 <div class="users-list">
-  <h2>Users List</h2>
+  <h2>{{getTranslatedMessage("@@usersList")}}</h2>
   <table>
     <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Phone Number</th>
-      <th>Action</th>
+      <th>{{getTranslatedMessage('@@firstName')}}</th>
+      <th>{{getTranslatedMessage('@@lastName')}}</th>
+      <th>E-Mail</th>
+      <th>{{getTranslatedMessage('@@phoneNumber')}}</th>
+      <th>{{getTranslatedMessage('@@actionHeader')}}</th>
     </tr>
     </thead>
     <tbody>
@@ -46,13 +46,15 @@
       </td>
       <td>
         <button class="edit-button" (click)="editOrSaveUser(user)">
-          {{ editUserId === user.id ? 'Save' : 'Edit' }}
+          {{ editUserId === user.id ? getTranslatedMessage('@@save') : getTranslatedMessage('@@edit') }}
         </button>
+
       </td>
       <td>
         <button [class]="user.active ? 'activation-button deactivate' : 'activation-button reactivate'" (click)="toggleActivation(user)">
-          {{ user.active ? 'Deactivate' : 'Reactivate' }}
+          {{ user.active ? getTranslatedMessage('@@deactivateButton') : getTranslatedMessage('@@reactivateButton') }}
         </button>
+
       </td>
     </tr>
     </tbody>
