@@ -15,6 +15,13 @@ export class AppComponent implements OnInit {
   title = 'untitled';
   isLoggedIn: boolean = false;
   selectedLanguage: string = 'ro';
+  languages = [
+    { value: 'en', viewValue: 'English' },
+    { value: 'ro', viewValue: 'Romanian' }
+  ];
+  englishLink = document.getElementById('englishLink');
+  romanianLink = document.getElementById('romanianLink');
+  dropdownContent = document.querySelector('.dropdown-content');
   constructor(
     public authService: AuthService,
     private router: Router,
