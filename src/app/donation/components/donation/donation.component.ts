@@ -7,6 +7,7 @@ import {CampaignService} from "../../../campaign/services/campaign.service";
 import {Donation} from "../../models/donation";
 import {DonationService} from "../../services/donation.service";
 import {combineLatest, take} from "rxjs";
+import {LanguageService} from "../../../services/language.service";
 
 interface AddDonationForm {
   amount: FormControl<string>;
@@ -32,7 +33,8 @@ export class DonationComponent {
     private formBuilder: FormBuilder,
     private donatorService: CreateDonatorService,
     private campaignService: CampaignService,
-    private donationService: DonationService
+    private donationService: DonationService,
+    private languageService: LanguageService
   ) {
   }
 
@@ -44,7 +46,6 @@ export class DonationComponent {
         this.donatorList = donors;
         this.campaignList = campaigns;
       })
-
   }
 
   private initDonationForm() {
@@ -108,4 +109,8 @@ export class DonationComponent {
   donatorAutocompleteFormatterFn = (donator: Donator): string => donator ? `${donator.lastName} ${donator.firstName}` : '';
   campaignAutocompleteFormatterFn = (campaign: Campaign): string => campaign ? `${campaign.name}` : '';
 
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
 }
+
