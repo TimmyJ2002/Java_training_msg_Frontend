@@ -1,22 +1,22 @@
-<h2>Create new Campaign</h2>
+<h2>{{getTranslatedMessage('@@addCampaign')}}</h2>
 <form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
   <div class="example-container">
     <mat-form-field>
-      <mat-label>Name</mat-label>
+      <mat-label>{{getTranslatedMessage('@@campaignName')}}</mat-label>
       <input matInput id="name" formControlName="name" required>
       <mat-error *ngIf="campaignForm.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
   <div class="example-container">
     <mat-form-field>
-      <mat-label>Purpose</mat-label>
+      <mat-label>{{getTranslatedMessage('@@campaignPurpose')}}</mat-label>
       <input matInput id="purpose" formControlName="purpose" required>
       <mat-error *ngIf="campaignForm.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
-  <p>Complete the form to enable button.</p>
-  <p>*all fields are required.</p>
-  <div *ngIf="isSuccess" style="color: green;">Campaign successfully created!</div>
-  <div *ngIf="isDuplicate" style="color: red;">Campaign already exists!</div>
-  <button class="addButton" color="primary" type="submit">Add Campaign</button>
+  <p>{{getTranslatedMessage('@@completeForm')}}</p>
+  <p>{{getTranslatedMessage('@@requiredFields')}}</p>
+  <div *ngIf="isSuccess" style="color: green;">{{getTranslatedMessage('@@createCampaignSuccessfull')}}</div>
+  <div *ngIf="isDuplicate" style="color: red;">{{getTranslatedMessage('@@createCampaignDuplicate')}}</div>
+  <button class="addButton" color="primary" type="submit">{{getTranslatedMessage('@@addCampaignButton')}}</button>
 </form>
