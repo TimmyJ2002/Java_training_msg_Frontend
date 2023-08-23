@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Donator} from "../../models/donator";
 import {CreateDonatorService} from "../../services/createdonator.service";
 import {Router} from "@angular/router";
+import {LanguageService} from "../../../services/language.service";
 
 @Component({
   selector: 'app-delete-donator',
@@ -13,7 +14,8 @@ export class DeleteDonatorComponent implements OnInit{
   donator: Donator | null = null;
   status: boolean = false;
 
-  constructor(private donorService: CreateDonatorService) {}
+  constructor(private donorService: CreateDonatorService,
+              private languageService: LanguageService) {}
 
   ngOnInit(): void {
     this.status = false;
@@ -28,5 +30,8 @@ export class DeleteDonatorComponent implements OnInit{
     this.status = this.donorService.deleteDonor(d);
     if(this.status)
       this.donors = this.donors.filter(donator => donator.id !== d.id);
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 }
