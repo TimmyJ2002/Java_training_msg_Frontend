@@ -1,11 +1,11 @@
 <form [formGroup]="donationForm" (ngSubmit)="onSubmit()" class="donationForm">
   <mat-form-field>
-    <mat-label>Amount</mat-label>
+    <mat-label>{{getTranslatedMessage('@@amount')}}</mat-label>
     <input formControlName="amount" matInput>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <mat-label>Select</mat-label>
+    <mat-label>{{getTranslatedMessage('@@selectCurrency')}}</mat-label>
     <mat-select formControlName="currency">
       <mat-option value="EUR">EUR</mat-option>
       <mat-option value="RON">RON</mat-option>
@@ -21,7 +21,7 @@
   <!--  </mat-form-field>-->
 
   <mat-form-field>
-    <mat-label>Donators</mat-label>
+    <mat-label>{{getTranslatedMessage('@@donators')}}</mat-label>
     <input #donatorAutoCompleteInput
            type="text"
            placeholder="Pick one"
@@ -47,7 +47,7 @@
   <!--  </mat-form-field>-->
 
   <mat-form-field>
-    <mat-label>Campaigns</mat-label>
+    <mat-label>{{getTranslatedMessage('@@campaigns')}}</mat-label>
     <input #campaignsAutoCompleteInput
           type="text"
            placeholder="Pick one"
@@ -67,8 +67,8 @@
 
   <br>
   <mat-form-field>
-    <mat-label>Notes</mat-label>
+    <mat-label>{{getTranslatedMessage('@@notes')}}</mat-label>
     <textarea matInput formControlName="notes"></textarea>
   </mat-form-field>
-  <button type="submit" [disabled]=!donationForm.valid>Create new User</button>
+  <button type="submit" [disabled]=!donationForm.valid>{{getTranslatedMessage('@@createNewDonation')}}</button>
 </form>
