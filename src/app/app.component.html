@@ -1,13 +1,20 @@
 <nav>
-  <div class="language-dropdown">
-    <button class="language-button">
-      {{ selectedLanguage === 'en' ? getTranslatedMessage('@@english') : getTranslatedMessage('@@romanian') }}
-    </button>
-    <div class="dropdown-content">
-      <a (click)="switchLanguage('en')">{{ getTranslatedMessage('@@english') }}</a>
-      <a (click)="switchLanguage('ro')">{{ getTranslatedMessage('@@romanian') }}</a>
-    </div>
-  </div>
+<!--  <div class="language-dropdown">-->
+<!--    <button class="language-button">-->
+<!--      {{ selectedLanguage === 'en' ? getTranslatedMessage('@@english') : getTranslatedMessage('@@romanian') }}-->
+<!--    </button>-->
+<!--    <div class="dropdown-content">-->
+<!--      <a (click)="switchLanguage('en')" id="englishLink">{{ getTranslatedMessage('@@english') }}</a>-->
+<!--      <a (click)="switchLanguage('ro')" id="romanianLink">{{ getTranslatedMessage('@@romanian') }}</a>-->
+<!--    </div>-->
+<!--  </div>-->
+  <mat-form-field>
+    <mat-select placeholder="English">
+      <mat-option *ngFor="let language of languages" [value]="language.value" (click)="switchLanguage(language.value)">
+        {{ language.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@rights')}}</a>
@@ -28,14 +35,15 @@
     <a routerLink="/login" routerLinkActive="active" aria-current="page">{{ getTranslatedMessage('@@login') }}</a>
   </ng-template>
   <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async)">
-    <a routerLink="campaign/create" routerLinkActive="active" ariaCurrentWhenActive="page">Campaign</a>
+    <a routerLink="campaign/create" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaign') }}</a>
     <div class="dropdown-content">
-      <a routerLink="/campaign/create">Create</a>
-      <a routerLink="/campaign/list">Edit</a>
-      <a routerLink="/campaign/delete">Delete</a>
+      <a routerLink="/campaign/create">{{ getTranslatedMessage('@@create') }}</a>
+      <a routerLink="/campaign/list">{{ getTranslatedMessage('@@edit') }}</a>
+      <a routerLink="/campaign/delete">{{ getTranslatedMessage('@@delete') }}</a>
     </div>
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">{{ getTranslatedMessage('@@logout') }}</a>
 
 </nav>
 <router-outlet></router-outlet>
+

@@ -102,4 +102,19 @@ nav a:last-child {
 .language-dropdown:hover .dropdown-content {
   display: block;
 }
+/* In your component's CSS file or in a global CSS file */
+.mat-form-field {
+  margin: 0; /* Optional: adjust margins as needed */
+  font-size: 14px; /* Adjust font size as needed */
+  width: auto; /* Adjust width to fit content */
+}
 
+.mat-select {
+  padding: 4px 8px; /* Adjust padding as needed */
+  min-width: 100px; /* Adjust width as needed */
+}
+
+.mat-option {
+  font-size: 14px; /* Adjust font size as needed */
+  padding: 8px 16px; /* Adjust padding as needed */
+}
