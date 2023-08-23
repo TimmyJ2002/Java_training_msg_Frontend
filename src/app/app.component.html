@@ -28,5 +28,9 @@
       <a routerLink="/campaign/delete">Delete</a>
     </div>
   </div>
+  <mat-icon (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let notification of notifications" (click)="openDialog(notification)">{{notification.title}}</button>
+  </mat-menu>
 </nav>
 <router-outlet></router-outlet>

@@ -35,6 +35,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatDialogModule} from "@angular/material/dialog";
+import {NotificationModule} from "./notification/notification.module";
 
 
 @NgModule({
@@ -72,7 +76,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDialogModule,
+    NotificationModule
   ],
   exports: [
     RouterModule,
