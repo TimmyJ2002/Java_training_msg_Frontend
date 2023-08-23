@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {LanguageService} from "../../services/language.service";
+import {AppComponent} from "../../app.component";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
+              private languageService: LanguageService) {
     this.loginForm = this.fb.group({
       username: [''],
       password: ['']
@@ -34,6 +37,9 @@ export class LoginComponent implements OnInit{
     );
   }
   ngOnInit(): void {
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 
 }

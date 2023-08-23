@@ -40,5 +40,4 @@ export class UserService {
     return this.http.put(`${this.apiUrl2}${id}`, user);
   }
 
-
 }

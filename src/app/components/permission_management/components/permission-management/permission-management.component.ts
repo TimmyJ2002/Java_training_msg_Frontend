@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Role} from "../../models/role";
 import {PermissionManagementService} from "../../services/permission-management.service";
 import {RoleRight} from "../../models/right";
+import {LanguageService} from "../../../../services/language.service";
 
 @Component({
   selector: 'app-permission-management',
@@ -26,7 +27,6 @@ export class PermissionManagementComponent implements OnInit {
     'CAMP_IMPORT',
     'CAMP_REPORT_RESTRICTED'
   ];
-
   selected: Boolean = false;
 
   ngOnInit(): void {
@@ -44,34 +44,28 @@ export class PermissionManagementComponent implements OnInit {
   onNgModelChange() {
   }
 
-  saveRights() {
-    var exists = false;
-    this.selectedRole?.rights.forEach((right) => {
-      if (!this.selectedRights.includes(right.roleRight)) {
-        this.permissionManagementService.removeRight(this.selectedRole?.id, right.roleRight).subscribe();
-      }
-    })
-    this.selectedRights.forEach((right) => {
-      exists = false;
-      if (this.selectedRole?.rights) {
-        this.selectedRole.rights.forEach((existingRoleRight) => {
-          if (right == existingRoleRight.roleRight) exists = true;
+  updateRole() {
+    if (this.selectedRole) {
+      this.permissionManagementService.updateRole({
+        ...this.selectedRole,
+        rights: this.selectedRights.map(selectedRight => this.selectedRole?.rights.find((r) => r.roleRight === selectedRight) || {roleRight: selectedRight})
+      }).subscribe(() => {
+        this.permissionManagementService.loadRoles().subscribe((role) => {
+          this.rolesList = role;
         });
-        if (!exists) {
-          this.permissionManagementService.addRight(this.selectedRole?.id, right).subscribe();
-        }
-      }
-    });
-    this.permissionManagementService.loadRoles().subscribe((role) => {
-      this.rolesList = role;
-    });
+      })
+    }
   }
 
-  constructor(private permissionManagementService: PermissionManagementService) { }
+  constructor(private permissionManagementService: PermissionManagementService,
+              private languageService: LanguageService) { }
 
   protected readonly screenLeft = screenLeft;
 
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 }

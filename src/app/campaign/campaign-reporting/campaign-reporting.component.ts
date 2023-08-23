@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CampaignService} from "../campaign.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-campaign-reporting',
@@ -28,6 +29,9 @@ export class CampaignReportingComponent implements OnInit{
     }
   }
 
-  constructor(private campaignService: CampaignService) { }
-
+  constructor(private campaignService: CampaignService,
+              private languageService: LanguageService) { }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
 }

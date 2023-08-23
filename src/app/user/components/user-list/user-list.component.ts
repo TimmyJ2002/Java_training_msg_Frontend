@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
+import {LanguageService} from "../../../services/language.service";
 
 @Component({
   selector: 'app-user-list',
@@ -13,7 +14,8 @@ export class UserListComponent implements OnInit{
   editUserId: number | null = null;
   userEditData: { [userId: number]: Partial<User> } = {};
 
-  constructor(private userService:UserService) {
+  constructor(private userService:UserService,
+              private languageService: LanguageService) {
   }
   ngOnInit(): void {
     this.userService.getUsers().subscribe(users => {
@@ -89,6 +91,9 @@ export class UserListComponent implements OnInit{
           user.active = !user.active;
         }
       );
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 
 }

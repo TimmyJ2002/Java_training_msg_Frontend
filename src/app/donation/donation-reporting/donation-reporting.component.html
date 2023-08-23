@@ -1,48 +1,44 @@
 <div class="filter-search-container">
-<div class="filter-container">
-  <label class="filter-label" for="filterCriteria">Filter by:</label>
-  <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">
-    <option value="selectCriteria">Select criteria...</option>
-    <option value="Approved">Approved</option>
-    <option value="Not approved">Not approved</option>
-    <option value="currency">Currency</option>
-    <!-- Add more filtering criteria options here -->
-  </select>
-</div>
+  <div class="filter-container">
+    <label class="filter-label" for="filterCriteria">{{ getTranslatedMessage('@@filterBy') }}</label>
+    <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">
+      <option value="selectCriteria">{{ getTranslatedMessage('@@selectCriteria') }}</option>
+      <option value="Approved">{{ getTranslatedMessage('@@approved') }}</option>
+      <option value="Not approved">{{ getTranslatedMessage('@@notApproved') }}</option>
+      <option value="currency">{{ getTranslatedMessage('@@currency') }}</option>
+      <!-- Add more filtering criteria options here -->
+    </select>
+  </div>
 
-<div class="search-container">
-  <label class="search-label" for="searchInput">Search:</label>
-  <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
+  <div class="search-container">
+    <label class="search-label" for="searchInput">{{ getTranslatedMessage('@@search') }}</label>
+    <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
+  </div>
 </div>
-</div>
-
 
 <div *ngIf="selectedFilterCriteria === 'currency'">
-  <label class="filter-label" for="currencyFilter">Select Currency:</label>
+  <label class="filter-label" for="currencyFilter">{{ getTranslatedMessage('@@selectCurrency') }}</label>
   <select class="filter-dropdown" id="currencyFilter" [(ngModel)]="selectedCurrency" (ngModelChange)="applyFilter()">
-    <option value="EUR">EUR</option>
-    <option value="USD">USD</option>
-    <option value="RON">RON</option>
+    <option value="EUR">{{ getTranslatedMessage('@@eur') }}</option>
+    <option value="USD">{{ getTranslatedMessage('@@usd') }}</option>
+    <option value="RON">{{ getTranslatedMessage('@@ron') }}</option>
   </select>
 </div>
 
 <ul>
   <li class="donation-item" *ngFor="let donation of filteredDonations">
-          <div>
-            <p class="donation-id">Donation ID: {{ donation.id }}</p>
-            <p class="donation-amount">Amount: {{ donation.amount }}</p>
-            <p class="donation-currency">Currency: {{ donation.currency }}</p>
-            <p class="donation-created">Created at: {{ donation.createdDate }}</p>
-            <p class="donation-approval" [style.color]="donation.approved ? 'green' : 'red'">
-              Approved: {{ donation.approved }}
-            </p>
-            <p class="donation-notes">Notes: {{ donation.notes }}</p>
-            <!--trebe pusa o limitare ai butonu asta apare doar la cei cu dreptul de donation_management; vedem mai incolo cum-->
-            <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved">Delete</button>
-            <button class="approve-button" *ngIf="!donation.approved" (click)="approveDonation(donation)">Approve</button>
-          </div>
+    <div>
+      <p class="donation-id">{{ getTranslatedMessage('@@donationID') }}: {{ donation.id }}</p>
+      <p class="donation-amount">{{ getTranslatedMessage('@@amount') }}: {{ donation.amount }}</p>
+      <p class="donation-currency">{{ getTranslatedMessage('@@currency') }}: {{ donation.currency }}</p>
+      <p class="donation-created">{{ getTranslatedMessage('@@createdDate') }}: {{ donation.createdDate }}</p>
+      <p class="donation-approval" [style.color]="donation.approved ? 'green' : 'red'">
+        {{ getTranslatedMessage('@@approvedStatus') }}: {{ donation.approved }}
+      </p>
+      <p class="donation-notes">{{ getTranslatedMessage('@@notes') }}: {{ donation.notes }}</p>
+      <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved">{{ getTranslatedMessage('@@deleteButton') }}</button>
+      <button class="approve-button" *ngIf="!donation.approved" (click)="approveDonation(donation)">{{ getTranslatedMessage('@@approveButton') }}</button>
+    </div>
     <button mat-stroked-button disabled="{{donation.approved}}" (click)="editDonation(donation)">Edit</button>
   </li>
 </ul>
-
-

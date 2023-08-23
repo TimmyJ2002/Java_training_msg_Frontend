@@ -4,12 +4,13 @@ import {RouterModule, Routes} from "@angular/router";
 import {DonationReportingComponent} from "./donation-reporting/donation-reporting.component";
 import {DonationComponent} from "./components/donation/donation.component";
 import {EditDonationComponent} from "./components/edit-donation/edit-donation.component";
+import {RightGuard} from "../../../util/Guards/rights_guards";
 
 
 const routes: Routes = [
-  { path: 'donation-reporting', component: DonationReportingComponent},
-  { path: 'donation/addDonation', component: DonationComponent},
-  { path: 'donation/updateDonation', component: EditDonationComponent}
+  { path: 'donation-reporting', component: DonationReportingComponent, canActivate: [RightGuard], data: {right:['DONATION_REPORTING', 'DONATION_APPROVE', 'DONATION_MANAGEMENT']}},
+  { path: 'donation/addDonation', component: DonationComponent, canActivate: [RightGuard], data: {right:['DONATION_MANAGEMENT']}},
+  { path: 'donation/updateDonation', component: EditDonationComponent, canActivate: [RightGuard], data: {right:['DONATION_MANAGEMENT']}}
 ];
 @NgModule({
   declarations: [],

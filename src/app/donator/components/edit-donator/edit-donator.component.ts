@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Donator} from "../../models/donator";
 import {CreateDonatorService} from "../../services/createdonator.service";
+import {LanguageService} from "../../../services/language.service";
 
 @Component({
   selector: 'app-edit-donator',
@@ -16,7 +17,8 @@ export class EditDonatorComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private donatorService: CreateDonatorService,
-              private router: Router) {
+              private router: Router,
+              private languageService:LanguageService) {
   }
 
   donatorDetails: Donator = new Donator(-1,"Firstname","Lastname","Additionalname","Maidenname", true);
@@ -42,5 +44,8 @@ export class EditDonatorComponent implements OnInit {
   }
   navigateToEditDonator(): void {
     this.router.navigate(['/donator/edit']); // Navigate to the desired URL
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 }
