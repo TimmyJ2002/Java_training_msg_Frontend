@@ -44,14 +44,18 @@ export class AppComponent implements OnInit {
   }
 
   hasPermission(requiredPermissions: string[]) {
+    this.getPermission();
     return (requiredPermissions).some((right) => this.rightsList.includes(right))
   }
 
   ngOnInit(): void {
+    this.switchLanguage('en');
+  }
+
+  getPermission(): void {
     jwtDecode(sessionStorage.getItem("accessToken")!);
     let token = jwtDecode<{sub: string, permissions: string[]}>(sessionStorage.getItem("accessToken")!)
-    let rightsList = token.permissions;
-    this.switchLanguage('en');
+    this.rightsList = token.permissions;
   }
 
   switchLanguage(language: string) {

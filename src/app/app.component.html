@@ -16,11 +16,11 @@
     </mat-select>
   </mat-form-field>
 
-  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@rights')}}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@createUser')}}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@createUser')}}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['PERMISSION_MANAGEMENT'])" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@rights')}}</a>
 
-  <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async)">
+  <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['BENEF_MANAGEMENT'])">
     <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@donor') }}</a>
     <div class="dropdown-content">
       <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@create') }}</a>
@@ -31,6 +31,7 @@
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@donationReporting') }}</a>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/donation/addDonation" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@addDonation')}}</a>
   <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaignReporting') }}</a>
+
   <ng-template #loginLink>
     <a routerLink="/login" routerLinkActive="active" aria-current="page">{{ getTranslatedMessage('@@login') }}</a>
   </ng-template>
