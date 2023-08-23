@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
+import localeRo from '@angular/common/locales/ro';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -33,7 +33,13 @@ import { EditDonationComponent } from './donation/components/edit-donation/edit-
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {RightGuard} from "../../util/Guards/rights_guards";
+import {registerLocaleData} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
 
+registerLocaleData(localeRo);
 
 @NgModule({
   declarations: [
@@ -45,9 +51,12 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     DonationReportingComponent,
     CampaignEditComponent,
     CampaignDeleteComponent,
+    CampaignEditListComponent,
     CampaignCreateComponent,
     EditDonationComponent,
-    CampaignReportingComponent
+    CampaignReportingComponent,
+    CampaignCreateComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -65,15 +74,21 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    TranslateModule
   ],
   exports: [
     RouterModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
+    {provide: LOCALE_ID, useValue: 'ro'},
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    RightGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {CreateDonatorService} from "../../services/createdonator.service";
+import {LanguageService} from "../../../services/language.service";
 
 
 @Component({
@@ -11,6 +12,7 @@ import {CreateDonatorService} from "../../services/createdonator.service";
 export class CreateDonatorComponent implements OnInit{
   isSuccess: boolean = false;
   missingFields: boolean = false;
+  translatedMessage: string = '';
   donorForm= this.fb.group(
     {
       firstName: [''],
@@ -19,7 +21,8 @@ export class CreateDonatorComponent implements OnInit{
       maidenName:['']
     });
   constructor(private fb: FormBuilder,
-              private donatorService: CreateDonatorService) { }
+              private donatorService: CreateDonatorService,
+              private languageService: LanguageService) { }
   onSubmit() {
     if (this.donorForm.value.firstName === '' || this.donorForm.value.lastName === '') {
       this.missingFields = true;
@@ -47,9 +50,16 @@ export class CreateDonatorComponent implements OnInit{
       this.isSuccess = false;
       this.missingFields = false;
     }
-
-
-  ngOnInit(): void {
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
+
+  ngOnInit() {
+    this.languageService.selectedLanguage$.subscribe((language) => {
+      // Fetch and set translated content based on the selected language
+      this.translatedMessage = this.getTranslatedMessage(language);
+    });
+  }
+
 
 }

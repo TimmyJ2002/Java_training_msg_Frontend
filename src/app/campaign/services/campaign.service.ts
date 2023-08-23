@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpClient, HttpResponse} from "@angular/common/http";
+import {catchError, Observable, of} from "rxjs";
 import {Campaign} from "../model/campaign";
 
 @Injectable({
@@ -8,11 +8,13 @@ import {Campaign} from "../model/campaign";
 })
 
 export class CampaignService {
-  createURL =  'http://localhost:8080/campaign/create';
-  getURL = 'http://localhost:8080/campaign'
+  createURL = 'http://localhost:8080/campaign/create';
+  getURL = 'http://localhost:8080/campaign';
+  deleteURL = 'http://localhost:8080/campaign/delete'
   updateURL = 'http://localhost:8080/campaign/update';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getCampaign(id: number): Observable<Campaign> {
     return this.http.get<Campaign>(`http://localhost:8080/campaign/{id}`);
@@ -26,9 +28,11 @@ export class CampaignService {
     return this.http.post<String>(this.createURL, data);
   }
 
-  updateCampaign(campaign: Campaign): void {
-    this.http.post((`${this.updateURL}/${campaign.id}`), campaign);
+  updateCampaign(id: number, data: any): Observable<any> {
+    return this.http.post<any>((`${this.updateURL}/${id}`), data);
   }
 
- // deleteCampaign()
+  deleteCampaign(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.deleteURL}/${id}`);
+  }
 }

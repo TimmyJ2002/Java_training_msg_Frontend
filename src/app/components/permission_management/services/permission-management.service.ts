@@ -33,8 +33,8 @@ export class PermissionManagementService {
     return this.http.post<{roleRight: string, roleID: number}>(this.url + "/removeRight", {roleRight, roleID});
   }
 
-  updateRight(roleID: number, rights: string[]) {
-    return this.http.post<{roleID: number, rights: string[]}>(this.url + "/updateRight", {roleID, rights});
+  updateRole(role: Role) {
+    return this.http.put<Role>(this.url, role);
   }
 
   constructor(private http: HttpClient) { }
