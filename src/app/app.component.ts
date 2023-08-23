@@ -16,6 +16,10 @@ export class AppComponent implements OnInit {
   title = 'untitled';
   isLoggedIn: boolean = false;
   selectedLanguage: string = 'ro';
+  languages = [
+    { value: 'en', viewValue: 'English' },
+    { value: 'ro', viewValue: 'Romanian' }
+  ];
   rightsList: string[] = [];
   constructor(
     public authService: AuthService,
