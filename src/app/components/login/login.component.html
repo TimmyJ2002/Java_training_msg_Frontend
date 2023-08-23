@@ -1,14 +1,13 @@
-<h2>Login</h2>
+<h2>{{ getTranslatedMessage('@@loginTitle') }}</h2>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div>
-    <label for="username">Username:</label>
+    <label for="username">{{ getTranslatedMessage('@@username') }}:</label>
     <input type="text" id="username" formControlName="username" required>
   </div>
   <div>
-    <label for="password">Password:</label>
+    <label for="password">{{ getTranslatedMessage('@@password') }}:</label>
     <input type="password" id="password" formControlName="password" required>
   </div>
-  <p>Complete the form to enable button.</p>
-  <button class="loginButton" mat-fab color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+  <p>{{ getTranslatedMessage('@@completeForm') }}</p>
+  <button class="loginButton" mat-fab color="primary" type="submit" [disabled]="!loginForm.valid">{{ getTranslatedMessage('@@loginButton') }}</button>
 </form>
-

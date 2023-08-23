@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
+import localeRo from '@angular/common/locales/ro';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -36,7 +36,10 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {RightGuard} from "../../util/Guards/rights_guards";
+import {registerLocaleData} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
 
+registerLocaleData(localeRo);
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import {RightGuard} from "../../util/Guards/rights_guards";
     EditDonationComponent,
     CampaignReportingComponent,
     CampaignCreateComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -73,12 +77,16 @@ import {RightGuard} from "../../util/Guards/rights_guards";
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    TranslateModule
   ],
   exports: [
     RouterModule,
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
+    {provide: LOCALE_ID, useValue: 'ro'},
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
     RightGuard
   ],

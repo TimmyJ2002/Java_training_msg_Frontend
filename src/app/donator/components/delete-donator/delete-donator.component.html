@@ -1,21 +1,19 @@
-<h2>Please choose a donor to delete</h2>
+<h2>{{ getTranslatedMessage('@@selectDonorToDelete') }}</h2>
 <table id="donorTable">
   <thead>
   <tr>
-    <th id="fullNameHeader">Full Name</th>
-    <th>Action</th>
+    <th id="fullNameHeader">{{ getTranslatedMessage('@@fullName') }}</th>
+    <th>{{ getTranslatedMessage('@@actionHeader') }}</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let donor of donors" id="donorRow">
-      <!--(dblclick)="navigateToEditDonator(donor)"> -->
-    <td>
-      {{ (donor.firstName ? donor.firstName + ' ' : '') +
+    <td>{{ (donor.firstName ? donor.firstName + ' ' : '') +
     (donor.lastName ? donor.lastName + ' ' : '') +
     (donor.additionalName ? donor.additionalName + ' ' : '') +
     (donor.maidenName ? donor.maidenName : '') }}
     </td>
-    <td><button class="deleteButton" (click)="deleteDonor(donor)">Delete</button></td>
+    <td><button class="deleteButton" (click)="deleteDonor(donor)">{{ getTranslatedMessage('@@delete') }}</button></td>
   </tr>
   </tbody>
 </table>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CreateDonatorService} from "../../services/createdonator.service";
 import {Router} from "@angular/router";
 import {Donator} from "../../models/donator";
+import {LanguageService} from "../../../services/language.service";
 
 @Component({
   selector: 'app-donator-list',
@@ -14,7 +15,8 @@ export class DonatorListComponent implements OnInit{
   donator: Donator | null = null;
 
   constructor(private donorService: CreateDonatorService,
-              private router: Router) {}
+              private router: Router,
+              private languageService: LanguageService) {}
 
   ngOnInit(): void {
     this.loadActiveDonors();
@@ -33,6 +35,9 @@ export class DonatorListComponent implements OnInit{
   navigateToEditDonator(donor: Donator): void {
     this.donator = donor;
     this.router.navigate(['donator/edit', donor.id]);
+  }
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
   }
 
 }
