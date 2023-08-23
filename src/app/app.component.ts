@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./services/auth.service";
 import {Router} from "@angular/router";
+import jwtDecode from "jwt-decode";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,8 @@ export class AppComponent implements OnInit{
   title = 'untitled';
 
   isLoggedIn: boolean = false;
+
+  rightsList: string[] = [];
 
   constructor(public authService: AuthService, private router: Router) {
     this.isLoggedIn = this.authService.isAuthenticated();
@@ -29,6 +32,15 @@ export class AppComponent implements OnInit{
       }
     );
   }
-ngOnInit(): void {
+
+  hasPermission(requiredPermissions: string[]) {
+    return (requiredPermissions).some((right) => this.rightsList.includes(right))
   }
+
+  ngOnInit(): void {
+    jwtDecode(sessionStorage.getItem("accessToken")!);
+    let token = jwtDecode<{sub: string, permissions: string[]}>(sessionStorage.getItem("accessToken")!)
+    let rightsList = token.permissions;
+  }
+
 }
