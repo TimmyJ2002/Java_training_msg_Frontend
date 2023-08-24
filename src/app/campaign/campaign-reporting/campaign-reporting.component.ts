@@ -24,10 +24,12 @@ export class CampaignReportingComponent implements OnInit{
       this.filteredCampaigns = this.campaigns;
     } else {
       this.filteredCampaigns = this.campaigns.filter(campaign =>
-        campaign.purpose.toLowerCase().includes(this.searchQuery.toLowerCase())
+        campaign.purpose.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        campaign.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
   }
+
 
   constructor(private campaignService: CampaignService,
               private languageService: LanguageService) { }
