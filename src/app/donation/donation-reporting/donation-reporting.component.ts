@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../../services/auth.service";
 import {LanguageService} from "../../services/language.service";
+import jwtDecode from "jwt-decode";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -19,6 +20,7 @@ export class DonationReportingComponent implements OnInit{
   selectedCurrency: string = '';
   searchQuery: string = '';
   status: boolean = false;
+  rightsList: string[] = [];
 
   constructor(private donationService: DonationService, private authService: AuthService,
               private languageService: LanguageService,
@@ -103,6 +105,17 @@ export class DonationReportingComponent implements OnInit{
   editDonation(donation: Donation) {
     sessionStorage.setItem("donationToEdit", JSON.stringify(donation));
     this.router.navigateByUrl("/donation/updateDonation")
+  }
+
+  getPermission(): void {
+    jwtDecode(sessionStorage.getItem("accessToken")!);
+    let token = jwtDecode<{sub: string, permissions: string[]}>(sessionStorage.getItem("accessToken")!)
+    this.rightsList = token.permissions;
+  }
+
+  hasPermission(requiredPermissions: string[]) {
+    this.getPermission();
+    return (requiredPermissions).some((right) => this.rightsList.includes(right))
   }
 
 }
