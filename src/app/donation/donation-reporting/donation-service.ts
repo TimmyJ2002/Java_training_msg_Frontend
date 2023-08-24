@@ -63,7 +63,8 @@ export class DonationService {
   exportSelectedDonations(selectedDonations: any[]){
     let headerList=["id","amount","currency","createdBy","createdDate","approved","approvedBy","approveDate","notes"]
     let newHeaders = ["ID:", "Amount", "Currency","Created By","Created Date","Approved","Approved By","Approve Date","Notes"];
-    this.exporting.exportSelected(selectedDonations,headerList,newHeaders);
+    let fileName = "donation-reporting.csv";
+    this.exporting.exportSelected(selectedDonations,headerList,newHeaders, fileName);
   }
 
 }
