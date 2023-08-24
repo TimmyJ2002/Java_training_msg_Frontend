@@ -34,4 +34,9 @@ export class CampaignReportingComponent implements OnInit{
   getTranslatedMessage(key: string): string {
     return this.languageService.getTranslation(key);
   }
+  exportSelectedCampaigns() {
+    // Perform further actions, such as exporting to CSV
+    console.log(this.filteredCampaigns)
+    this.campaignService.exportSelectedCampaigns(this.filteredCampaigns);
+  }
 }

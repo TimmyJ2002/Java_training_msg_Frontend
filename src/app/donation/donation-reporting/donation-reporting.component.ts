@@ -22,6 +22,9 @@ export class DonationReportingComponent implements OnInit{
   status: boolean = false;
   rightsList: string[] = [];
 
+  // New array to store selected donations
+  selectedDonations: any[] = [];
+
   constructor(private donationService: DonationService, private authService: AuthService,
               private languageService: LanguageService,
               private router: Router) { }
@@ -105,6 +108,10 @@ export class DonationReportingComponent implements OnInit{
   editDonation(donation: Donation) {
     sessionStorage.setItem("donationToEdit", JSON.stringify(donation));
     this.router.navigateByUrl("/donation/updateDonation")
+  }
+  exportSelectedDonations() {
+    // Perform further actions, such as exporting to CSV
+    this.donationService.exportSelectedDonations(this.filteredDonations);
   }
 
   getPermission(): void {

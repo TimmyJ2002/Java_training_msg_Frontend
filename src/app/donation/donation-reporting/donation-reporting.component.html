@@ -24,7 +24,9 @@
     <option value="RON">{{ getTranslatedMessage('@@ron') }}</option>
   </select>
 </div>
-
+<div>
+  <button id="exportButton" class="exportButton" (click)="exportSelectedDonations()">{{getTranslatedMessage('@@exportAsCSV')}}</button>
+</div>
 <ul>
   <li class="donation-item" *ngFor="let donation of filteredDonations">
     <div>
@@ -38,7 +40,7 @@
       <p class="donation-notes">{{ getTranslatedMessage('@@notes') }}: {{ donation.notes }}</p>
       <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved && hasPermission(['DONATION_MANAGEMENT'])">{{ getTranslatedMessage('@@deleteButton') }}</button>
       <button class="approve-button" *ngIf="!donation.approved && hasPermission(['DONATION_APPROVE'])" (click)="approveDonation(donation)">{{ getTranslatedMessage('@@approveButton') }}</button>
+      <button mat-stroked-button *ngIf="!donation.approved && hasPermission(['DONATION_MANAGEMENT'])" (click)="editDonation(donation)">Edit</button>
     </div>
-    <button mat-stroked-button *ngIf="!donation.approved && hasPermission(['DONATION_MANAGEMENT'])" (click)="editDonation(donation)">Edit</button>
   </li>
 </ul>

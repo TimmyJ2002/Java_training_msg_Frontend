@@ -30,7 +30,7 @@
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_REPORTING', 'DONATION_APPROVE', 'DONATION_MANAGEMENT'])" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@donationReporting') }}</a>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_MANAGEMENT'])" routerLink="/donation/addDonation" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@addDonation')}}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_MANAGEMENT'])" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaignReporting') }}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['CAMP_REPORTING'])" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaignReporting') }}</a>
 
   <ng-template #loginLink>
     <a routerLink="/login" routerLinkActive="active" aria-current="page">{{ getTranslatedMessage('@@login') }}</a>
