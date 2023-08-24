@@ -38,14 +38,6 @@ export class AppComponent implements OnInit {
                 private notificationService: NotificationService,
                 public dialog: MatDialog,
                 private languageService: LanguageService) {
-        this.isLoggedIn = this.authService.isAuthenticated();
-      this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
-        if (isLoggedIn) {
-          this.startPeriodicNotifications();
-        } else {
-          this.stopPeriodicNotifications();
-        }
-      });
     }
 
   private startPeriodicNotifications(): void {
@@ -123,8 +115,15 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.switchLanguage('en');
-
+      this.switchLanguage('en');
+      this.isLoggedIn = this.authService.isAuthenticated();
+      this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+        if (isLoggedIn) {
+          this.startPeriodicNotifications();
+        } else {
+          this.stopPeriodicNotifications();
+        }
+      });
   }
 
   ngOnDestroy(): void {
