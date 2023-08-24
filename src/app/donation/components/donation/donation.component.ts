@@ -82,7 +82,7 @@ export class DonationComponent {
         //   campaign,
         //   donator
         // };
-        this.donationService.addDonation(Number.parseInt(formValue.amount), formValue.currency, formValue.campaign!.id, formValue.donator!.id, formValue.notes).subscribe();
+        this.donationService.addDonation(Number.parseInt(formValue.amount), formValue.currency, formValue.donator!.id, formValue.campaign!.id, formValue.notes).subscribe();
       }
     }
     this.donationForm.reset();
