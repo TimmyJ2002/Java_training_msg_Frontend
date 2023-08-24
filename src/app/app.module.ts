@@ -42,6 +42,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {NotificationModule} from "./notification/notification.module";
+import {MatBadgeModule} from "@angular/material/badge";
 
 registerLocaleData(localeRo);
 
@@ -87,7 +88,8 @@ registerLocaleData(localeRo);
     MatIconModule,
     MatMenuModule,
     MatDialogModule,
-    NotificationModule
+    NotificationModule,
+    MatBadgeModule
   ],
   exports: [
     RouterModule,

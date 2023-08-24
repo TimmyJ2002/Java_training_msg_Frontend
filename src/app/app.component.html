@@ -45,9 +45,17 @@
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">{{ getTranslatedMessage('@@logout') }}</a>
 
-  <mat-icon (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
+  <mat-icon matBadge="{{ unReadNotificationsCount }}" matBadgeColor="primary" (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngFor="let notification of notifications" (click)="openDialog(notification)">{{notification.title}}</button>
+    <button mat-menu-item *ngFor="let notification of notifications" [ngClass]="{ 'unread-notification': notification.isRead }" (click)="openDialog(notification)">
+      <ng-container *ngIf="notification.isRead; else unreadIcon">
+        <mat-icon>fiber_manual_record</mat-icon> <!-- Display the icon for read notifications -->
+      </ng-container>
+      <ng-template #unreadIcon>
+        <mat-icon>check</mat-icon> <!-- Display the icon for unread notifications -->
+      </ng-template>
+      {{notification.title}}
+    </button>
   </mat-menu>
 </nav>
 <router-outlet></router-outlet>

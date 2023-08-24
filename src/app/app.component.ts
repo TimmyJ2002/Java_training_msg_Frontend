@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
         { value: 'ro', viewValue: 'Romanian' }
     ];
     rightsList: string[] = [];
+    unReadNotificationsCount: number = 0;
 
     constructor(public authService: AuthService,
                 private router: Router,
@@ -51,9 +52,12 @@ export class AppComponent implements OnInit {
     );
   }
 
+
+
     getNotifications() {
         this.notificationService.getNotifications().subscribe(notifications => {
             this.notifications = notifications;
+            this.unReadNotificationsCount = notifications.filter(notification => !notification.isRead).length;
         })
     }
 
@@ -66,7 +70,7 @@ export class AppComponent implements OnInit {
         this.notificationService.markNotificationAsRead(notification.id, notification)
             .subscribe(() => {
             });
-        console.log("marked as read");
+
 
     }
 
