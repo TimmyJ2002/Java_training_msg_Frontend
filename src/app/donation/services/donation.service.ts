@@ -16,11 +16,12 @@ export class DonationService {
               donatorID: number,
               campaignID: number,
               notes: string) {
+    console.log({amount, currency, campaignID, donatorID, notes})
     return this.http.post<{amount: number,
       currency: string,
       donatorID: number,
       campaignID: number,
-      notes: string}>(this.url + "/addDonation", {amount, currency, campaignID, donatorID, notes})
+      notes: string}>(this.url + "/addDonation", {amount, currency, donatorID, campaignID, notes})
   }
 
   updateDonation(donationID: number,
@@ -29,7 +30,6 @@ export class DonationService {
                  donatorID: number,
                  campaignID: number,
                  notes: string){
-    console.log({donationID, amount, currency, campaignID, donatorID, notes})
     return this.http.post<{donationID: number,
       amount: number,
       currency: string,

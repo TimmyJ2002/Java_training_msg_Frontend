@@ -9,7 +9,7 @@ import {CampaignEditListComponent} from "./component/campaign-edit-list/campaign
 import {RightGuard} from "../../../util/Guards/rights_guards";
 
 export const routes: Routes = [
-  {path: 'campaign-reporting', component: CampaignReportingComponent},
+  {path: 'campaign-reporting', component: CampaignReportingComponent, canActivate: [RightGuard], data: {right:['CAMP_MANAGEMENT', 'CAMP_REPORTING']}},
   {path: 'campaign/create', component: CampaignCreateComponent, canActivate: [RightGuard], data: {right:['CAMP_MANAGEMENT']}},
   {path: 'campaign/update/:id', component: CampaignEditComponent, canActivate: [RightGuard], data: {right:['CAMP_MANAGEMENT']}},
   {path: 'campaign/delete', component: CampaignDeleteComponent, canActivate: [RightGuard], data: {right:['CAMP_MANAGEMENT']}},

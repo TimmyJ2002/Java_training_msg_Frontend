@@ -38,6 +38,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {RightGuard} from "../../util/Guards/rights_guards";
 import {registerLocaleData} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatDialogModule} from "@angular/material/dialog";
+import {NotificationModule} from "./notification/notification.module";
+import {MatBadgeModule} from "@angular/material/badge";
 
 registerLocaleData(localeRo);
 
@@ -79,7 +84,12 @@ registerLocaleData(localeRo);
     MatSelectModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDialogModule,
+    NotificationModule,
+    MatBadgeModule
   ],
   exports: [
     RouterModule,

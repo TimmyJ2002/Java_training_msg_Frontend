@@ -12,7 +12,7 @@ import {LanguageService} from "../../../../services/language.service";
 export class PermissionManagementComponent implements OnInit {
 
   rolesList: Role[] = [];
-  displayedColumns: string[] = ['id', 'name'];
+  displayedColumns: string[] = ['name'];
   selectedRole: Role | null = null;
   selectedRights: string[] = [];
   possibleRights: string[] = [
@@ -55,6 +55,8 @@ export class PermissionManagementComponent implements OnInit {
         });
       })
     }
+    this.selectedRights = [];
+
   }
 
   constructor(private permissionManagementService: PermissionManagementService,

@@ -43,7 +43,7 @@ export class DonationComponent {
     combineLatest([this.donatorService.getDonors(), this.campaignService.getCampaigns()])
       .pipe(take(1))
       .subscribe(([donors, campaigns]) => {
-        this.donatorList = donors;
+        this.donatorList = donors.filter(donator => donator.active);
         this.campaignList = campaigns;
       })
   }
@@ -82,7 +82,7 @@ export class DonationComponent {
         //   campaign,
         //   donator
         // };
-        this.donationService.addDonation(Number.parseInt(formValue.amount), formValue.currency, formValue.campaign!.id, formValue.donator!.id, formValue.notes).subscribe();
+        this.donationService.addDonation(Number.parseInt(formValue.amount), formValue.currency, formValue.donator!.id, formValue.campaign!.id, formValue.notes).subscribe();
       }
     }
     this.donationForm.reset();

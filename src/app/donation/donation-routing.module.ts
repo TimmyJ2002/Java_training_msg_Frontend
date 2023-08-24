@@ -8,9 +8,9 @@ import {RightGuard} from "../../../util/Guards/rights_guards";
 
 
 const routes: Routes = [
-  { path: 'donation-reporting', component: DonationReportingComponent, canActivate: [RightGuard], data: {right:['PERMISSION_MANAGEMENT']}},
-  { path: 'donation/addDonation', component: DonationComponent},
-  { path: 'donation/updateDonation', component: EditDonationComponent}
+  { path: 'donation-reporting', component: DonationReportingComponent, canActivate: [RightGuard], data: {right:['DONATION_REPORTING', 'DONATION_APPROVE', 'DONATION_MANAGEMENT']}},
+  { path: 'donation/addDonation', component: DonationComponent, canActivate: [RightGuard], data: {right:['DONATION_MANAGEMENT']}},
+  { path: 'donation/updateDonation', component: EditDonationComponent, canActivate: [RightGuard], data: {right:['DONATION_MANAGEMENT']}}
 ];
 @NgModule({
   declarations: [],
