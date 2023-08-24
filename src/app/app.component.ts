@@ -91,7 +91,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.switchLanguage('en');
-        this.getNotifications();
+       // this.getNotifications();
   }
 }
 
