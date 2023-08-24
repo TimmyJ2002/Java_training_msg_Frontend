@@ -83,5 +83,6 @@
   "@@selectCampaignToEdit": "Choose a campaign to edit:",
   "@@editCampaignSuccessfull": "Campaign successfully edited!",
   "@@campaign": "Campaign",
-  "@@deleteMessage": "Are you sure you want to delete?"
+  "@@deleteMessage": "Are you sure you want to delete?",
+  "@@exportAsCSV": "Export as CSV"
 }

@@ -25,7 +25,7 @@
   </select>
 </div>
 <div>
-  <button id="exportButton" class="exportButton" (click)="exportSelectedDonations()">Export as CSV</button>
+  <button id="exportButton" class="exportButton" (click)="exportSelectedDonations()">{{getTranslatedMessage('@@exportAsCSV')}}</button>
 </div>
 <ul>
   <li class="donation-item" *ngFor="let donation of filteredDonations">
