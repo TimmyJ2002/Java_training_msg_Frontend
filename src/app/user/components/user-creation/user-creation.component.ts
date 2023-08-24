@@ -90,7 +90,7 @@ export class UserCreationComponent implements OnInit {
         this.userService.createUser(user).subscribe(
             () => {
                 console.log('User created successfully');
-                this.successMessage = 'User created successfully! ' + "User with username: " + +"was created";
+                this.successMessage = 'User created successfully! ' ;
 
                 this.userForm.reset();
             },

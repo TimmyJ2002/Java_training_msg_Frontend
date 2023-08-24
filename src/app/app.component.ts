@@ -3,7 +3,7 @@ import {AuthService} from "./services/auth.service";
 import {Router} from "@angular/router";
 import jwtDecode from "jwt-decode";
 import {LanguageService} from "./services/language.service";
-import {Subscription} from "rxjs";
+import {interval, Subject, Subscription, switchMap, takeUntil} from "rxjs";
 import {TranslateService} from '@ngx-translate/core';
 import {translate} from "@angular/localize/tools";
 import {Notification} from  "./notification/models/notification";
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
     ];
     rightsList: string[] = [];
     unReadNotificationsCount: number = 0;
+    private unsubscribe$ = new Subject<void>();
 
     constructor(public authService: AuthService,
                 private router: Router,
@@ -36,7 +37,33 @@ export class AppComponent implements OnInit {
                 public dialog: MatDialog,
                 private languageService: LanguageService) {
         this.isLoggedIn = this.authService.isAuthenticated();
+      this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+        if (isLoggedIn) {
+          this.startPeriodicNotifications();
+        } else {
+          this.stopPeriodicNotifications();
+        }
+      });
     }
+
+  private startPeriodicNotifications(): void {
+    interval(5000)
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        switchMap(() => this.notificationService.getNotifications())
+      )
+      .subscribe((notifications) => {
+        this.notifications = notifications;
+        this.unReadNotificationsCount = notifications.filter(
+          (notification) => !notification.isRead
+        ).length;
+      });
+  }
+
+  private stopPeriodicNotifications(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   logout() {
     this.authService.logout().subscribe(
@@ -95,7 +122,13 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.switchLanguage('en');
-       // this.getNotifications();
+
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from the interval and clean up when the component is destroyed
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
 

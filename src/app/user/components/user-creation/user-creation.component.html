@@ -64,11 +64,12 @@
 
 
   <div *ngIf="successMessage" class="success-message">
-    <strong>{{ successMessage }} </strong>
+    <strong><mat-icon>check_circle_outline</mat-icon>{{ successMessage }} </strong>
   </div>
 
   <div *ngIf="errorMessage" class="error-message">
-    <strong>{{ errorMessage }} </strong>
+
+    <strong><mat-icon>error_outline</mat-icon>{{ errorMessage }} </strong>
   </div>
 
 
