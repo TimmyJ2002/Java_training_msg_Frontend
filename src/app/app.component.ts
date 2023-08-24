@@ -11,6 +11,7 @@ import {NotificationService} from "./notification/services/notification.service"
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {NotificationDialogComponent} from "./notification/components/notification-dialog/notification-dialog.component";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
     rightsList: string[] = [];
     unReadNotificationsCount: number = 0;
     private unsubscribe$ = new Subject<void>();
+    isChecked: boolean = false;
 
     constructor(public authService: AuthService,
                 private router: Router,
@@ -130,6 +132,7 @@ export class AppComponent implements OnInit {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
 }
 
 

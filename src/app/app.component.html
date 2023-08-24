@@ -1,20 +1,8 @@
 <nav>
-<!--  <div class="language-dropdown">-->
-<!--    <button class="language-button">-->
-<!--      {{ selectedLanguage === 'en' ? getTranslatedMessage('@@english') : getTranslatedMessage('@@romanian') }}-->
-<!--    </button>-->
-<!--    <div class="dropdown-content">-->
-<!--      <a (click)="switchLanguage('en')" id="englishLink">{{ getTranslatedMessage('@@english') }}</a>-->
-<!--      <a (click)="switchLanguage('ro')" id="romanianLink">{{ getTranslatedMessage('@@romanian') }}</a>-->
-<!--    </div>-->
-<!--  </div>-->
-  <mat-form-field>
-    <mat-select placeholder="English">
-      <mat-option *ngFor="let language of languages" [value]="language.value" (click)="switchLanguage(language.value)">
-        {{ language.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <mat-button-toggle-group #group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style" (change) = "switchLanguage($event.value)">
+    <mat-button-toggle value="en">EN</mat-button-toggle>
+    <mat-button-toggle value="ro">RO</mat-button-toggle>
+  </mat-button-toggle-group>
 
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@createUser')}}</a>

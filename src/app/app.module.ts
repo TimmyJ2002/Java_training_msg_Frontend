@@ -43,6 +43,10 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {NotificationModule} from "./notification/notification.module";
 import {MatBadgeModule} from "@angular/material/badge";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 registerLocaleData(localeRo);
 
@@ -89,7 +93,11 @@ registerLocaleData(localeRo);
     MatMenuModule,
     MatDialogModule,
     NotificationModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatPaginatorModule,
+    MatGridListModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule
   ],
   exports: [
     RouterModule,
