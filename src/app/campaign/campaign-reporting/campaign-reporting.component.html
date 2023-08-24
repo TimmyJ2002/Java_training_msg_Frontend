@@ -4,7 +4,9 @@
     <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
   </div>
 </div>
-
+<div>
+  <button id="exportButton" class="exportButton" (click)="exportSelectedCampaigns()">{{getTranslatedMessage('@@exportAsCSV')}}</button>
+</div>
 <ul>
   <li class="campaign-item" *ngFor="let campaign of filteredCampaigns">
     <div>

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ExportUtils {
-  exportSelected(selectedData: any[], headerList: any[], newHeaderList: any[]) {
+  exportSelected(selectedData: any[], headerList: any[], newHeaderList: any[], fileName:string) {
     let csvData = this.convertToCSV(selectedData, headerList, newHeaderList);
     let blob = new Blob(['\ufeff' + csvData], {type: 'text/csv;charset=utf-8;'});
     let dwldLink = document.createElement("a");
@@ -14,7 +14,7 @@ export class ExportUtils {
       dwldLink.setAttribute("target", "_blank");
     }
     dwldLink.setAttribute("href", url);
-    dwldLink.setAttribute("download", "donation-reporting.csv");
+    dwldLink.setAttribute("download", fileName);
     dwldLink.style.visibility = "hidden";
     document.body.appendChild(dwldLink);
     dwldLink.click();
