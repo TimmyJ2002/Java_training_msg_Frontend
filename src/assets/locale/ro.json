@@ -83,5 +83,6 @@
   "@@selectCampaignToEdit": "Alege o campanie pentru a fi editată:",
   "@@editCampaignSuccessfull": "Campanie editată cu succes!",
   "@@campaign": "Campanie",
-  "@@deleteMessage": "Ești sigur că vrei să ștergi?"
+  "@@deleteMessage": "Ești sigur că vrei să ștergi?",
+  "@@exportAsCSV": "Exporteaza in format CSV"
 }
