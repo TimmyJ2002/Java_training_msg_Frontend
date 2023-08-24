@@ -45,16 +45,11 @@ export class DonationService {
     );
   }
 
-  deleteDonation(id_donation: string): boolean {
-    if (confirm(`Are you sure you want to delete the selected donation?`)) {
-      console.log(id_donation);
-      const params = new HttpParams().set('id', id_donation);
-      this.http.post(this.baseUrl, null, { params }).subscribe(() => {
-        // Do something after successful deletion, such as updating the donation list
-      });
-      return true; //adik s-o sters cv
-    }
-    return false;
+  deleteDonation(id_donation: string) {
+    const params = new HttpParams().set('id', id_donation);
+    this.http.post(this.baseUrl, null, { params }).subscribe(() => {
+      // Do something after successful deletion, such as updating the donation list
+    });
   }
 
 }

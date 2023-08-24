@@ -14,6 +14,7 @@ import {
 } from "../../../components/permission_management/services/permission-management.service";
 import {LanguageService} from "../../../services/language.service";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -41,7 +42,8 @@ export class UserCreationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private permissionManagementService: PermissionManagementService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private _snackBar: MatSnackBar
   ) {
   }
 
@@ -89,15 +91,17 @@ export class UserCreationComponent implements OnInit {
 
         this.userService.createUser(user).subscribe(
             () => {
-                console.log('User created successfully');
-                this.successMessage = 'User created successfully! ' + "User with username: " + +"was created";
-
-                this.userForm.reset();
+              this._snackBar.open("User created successfully!", "Close")
+              this.userForm.reset();
+              this.userForm.controls['firstName'].setErrors(null);
+              this.userForm.controls['lastName'].setErrors(null);
+              this.userForm.controls['email'].setErrors(null);
+              this.userForm.controls['mobileNumber'].setErrors(null);
+              this.userForm.controls['roles'].setErrors(null);
             },
             (error) => {
-                console.error('Failed to create User:', error);
-                this.errorMessage = error;
-                this.userForm.reset();
+              this._snackBar.open("User could not be created", "Close")
+              this.userForm.reset();
             }
         ).add(() => {
             this.isCreatingUser = false;

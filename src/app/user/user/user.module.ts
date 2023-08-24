@@ -11,6 +11,7 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 
@@ -32,6 +33,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatSelectModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatSnackBarModule
   ],
   exports: [
     UserRoutingModule

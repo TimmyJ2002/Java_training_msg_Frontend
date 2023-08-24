@@ -7,6 +7,7 @@ import {CampaignService} from "../../../campaign/services/campaign.service";
 import {Donation} from "../../models/donation";
 import {DonationService} from "../../services/donation.service";
 import {combineLatest, take} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 interface EditDonationForm {
   amount: FormControl<string>;
@@ -33,7 +34,8 @@ export class EditDonationComponent {
     private formBuilder: FormBuilder,
     private donatorService: CreateDonatorService,
     private campaignService: CampaignService,
-    private donationService: DonationService
+    private donationService: DonationService,
+    private _snackBar: MatSnackBar
   ) {
   }
 
@@ -85,7 +87,24 @@ export class EditDonationComponent {
         formValue.currency,
         formValue.donator!.id,
         formValue.campaign!.id,
-        formValue.notes).subscribe();
+        formValue.notes).subscribe(
+        () => {
+          this.donationForm.reset();
+          this.donationForm.controls['amount'].setErrors(null);
+          this.donationForm.controls['currency'].setErrors(null);
+          this.donationForm.controls['donator']!.setErrors(null);
+          this.donationForm.controls['campaign']!.setErrors(null);
+          this._snackBar.open("Donation updated successfully!", "Close");
+        },
+        (error) => {
+          this.donationForm.reset();
+          this.donationForm.controls['amount'].setErrors(null);
+          this.donationForm.controls['currency'].setErrors(null);
+          this.donationForm.controls['donator']!.setErrors(null);
+          this.donationForm.controls['campaign']!.setErrors(null);
+          this._snackBar.open("Donation could not be updated", "Close");
+        }
+      );
     }
     this.donationForm.reset();
   }

@@ -4,10 +4,10 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Valid
 import {CreateDonatorService} from "../../../donator/services/createdonator.service";
 import {Campaign} from "../../../campaign/model/campaign";
 import {CampaignService} from "../../../campaign/services/campaign.service";
-import {Donation} from "../../models/donation";
 import {DonationService} from "../../services/donation.service";
 import {combineLatest, take} from "rxjs";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 interface AddDonationForm {
   amount: FormControl<string>;
@@ -34,7 +34,8 @@ export class DonationComponent {
     private donatorService: CreateDonatorService,
     private campaignService: CampaignService,
     private donationService: DonationService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private _snackBar: MatSnackBar
   ) {
   }
 
@@ -74,15 +75,23 @@ export class DonationComponent {
       const donator = formValue.donator;
 
       if (campaign && donator) {
-        // delete formValue.donator;
-        // delete formValue.campaign;
-        // const donation: Donation = {
-        //   ...formValue,
-        //   amount: isNaN(Number.parseInt(formValue.amount)) ? undefined : Number.parseInt(formValue.amount),
-        //   campaign,
-        //   donator
-        // };
-        this.donationService.addDonation(Number.parseInt(formValue.amount), formValue.currency, formValue.donator!.id, formValue.campaign!.id, formValue.notes).subscribe();
+        this.donationService.addDonation(Number.parseInt(formValue.amount), formValue.currency, formValue.donator!.id, formValue.campaign!.id, formValue.notes).subscribe(
+          () => {
+            this.donationForm.reset();
+            this.donationForm.controls['amount'].setErrors(null);
+            this.donationForm.controls['currency'].setErrors(null);
+            this.donationForm.controls['donator']!.setErrors(null);
+            this.donationForm.controls['campaign']!.setErrors(null);
+            this._snackBar.open("Donation created successfully!", "Close");
+          },
+          (error) => {
+            this.donationForm.reset();
+            this.donationForm.controls['amount'].setErrors(null);
+            this.donationForm.controls['currency'].setErrors(null);
+            this.donationForm.controls['donator']!.setErrors(null);
+            this.donationForm.controls['campaign']!.setErrors(null);
+            this._snackBar.open("Donation could not be created", "Close");
+          });
       }
     }
     this.donationForm.reset();

@@ -77,7 +77,7 @@
   "@@deletecampaignDuplicate": "Campania nu se poate șterge, pentru că are donații!",
   "@@choose": "Alege",
   "@@editCampaign": "Editează o campanie",
-  "@@completeFormForEdit": "Completează formularul cu modificările dorite.",
+  "@@completeFormForEdit": "Completează formularul cu modificările dorite. Toate câmpurile care sunt lăsate goale revin la ultima lor valoare.",
   "@@duplicateCampaignName": "Numele campaniei este deja existent!",
   "@@seeCampaignsListButton": "Vezi lista completă a campanilor",
   "@@selectCampaignToEdit": "Alege o campanie pentru a fi editată:",
