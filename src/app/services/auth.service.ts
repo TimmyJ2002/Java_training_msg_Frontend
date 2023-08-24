@@ -57,7 +57,6 @@ export class AuthService implements OnInit{
           }
         }),
         catchError(error => {
-          alert("Incorrect username or password");
           this.failedLogins++;
           if (this.failedLogins >= 5){
             alert("Your account has been deactivated, because you entered the wrong password for 5 times")

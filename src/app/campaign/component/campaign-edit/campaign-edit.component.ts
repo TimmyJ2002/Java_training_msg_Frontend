@@ -6,6 +6,7 @@ import {Campaign} from "../../model/campaign";
 import {CampaignUtilsService} from "../../services/campaign-utils.service";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-campaign-edit',
@@ -28,7 +29,8 @@ export class CampaignEditComponent implements OnInit {
               private formBuilder: FormBuilder,
               private campaignService: CampaignService,
               private campaignUtilsService: CampaignUtilsService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) {
     this.campaignForm = this.formBuilder.group( {
       name:[''],
       purpose: ['']
@@ -53,7 +55,7 @@ export class CampaignEditComponent implements OnInit {
   updateCampaign() {
     this.campaignService.updateCampaign(this.campaignDetails.id, this.campaignDetails).subscribe(
       (response) => {
-        console.log('Campaign updated:', response);
+        this._snackBar.open('Campaign successfully edited!', 'Close')
         this.isSuccess = true;
         setTimeout(() => {
           this.router.navigate(['/campaign/list'], {
@@ -62,7 +64,7 @@ export class CampaignEditComponent implements OnInit {
         }, 500);
       },
       (error) => {
-        console.error('Error updating campaign: ', error);
+        this._snackBar.open('Campaign could not be edited', 'Close')
         this.isDuplicate = true;
       }
     );
