@@ -117,13 +117,13 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
       this.switchLanguage('en');
       this.isLoggedIn = this.authService.isAuthenticated();
-      // this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
-      //   if (isLoggedIn) {
-      //     this.startPeriodicNotifications();
-      //   } else {
-      //     this.stopPeriodicNotifications();
-      //   }
-      // });
+      this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+        if (isLoggedIn) {
+          this.startPeriodicNotifications();
+        } else {
+          this.stopPeriodicNotifications();
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -131,6 +131,8 @@ export class AppComponent implements OnInit {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
+  protected readonly sessionStorage = sessionStorage;
 
 }
 

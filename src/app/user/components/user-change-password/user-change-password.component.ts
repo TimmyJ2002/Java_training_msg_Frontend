@@ -35,7 +35,7 @@ export class UserChangePasswordComponent implements OnInit{
     this.authService.changePassword(newPassword).subscribe(
       (response) => {
         console.log('Password changed successfully:', response.message);
-
+        this.router.navigate(['/donation-reporting']);
         // Update the login count
         this.authService.updateUserLoginCount(0).subscribe(
           () => {

@@ -30,6 +30,7 @@ export class AuthService implements OnInit{
       .pipe(
         tap((response: any) => {
           if (response.loginCount === -1) {
+            sessionStorage.setItem("changedPassword", String(false));
             window.location.href = '/change-password';
           } else if (response.deactivated === true) {
             alert("Your account has been deactivated. Please contact support.");
@@ -91,7 +92,7 @@ export class AuthService implements OnInit{
       'Authorization': `Bearer ${token}`
     });
 
-
+    sessionStorage.setItem('changedPassword', String(true));
     return this.http.post(url, requestBody, { headers });
   }
 
