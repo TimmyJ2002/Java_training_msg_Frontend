@@ -111,7 +111,7 @@
   "@@areYouSureDonation": "Are you sure you want to delete the selected donation?",
   "@@donationDeletedSuccessfully": "Donation successfully deleted!",
   "@@donationCannotDelete": "Donation could not be deleted",
-  "@@markAsRead": "Mark as read",
+  "@@markAsRead": "Mark as unread",
   "@@passNoMatch": "Passwords don't match!",
   "@@passEditSuccessfully": "Password changed successfully",
   "@@passCannotEdit": "Error changing password",

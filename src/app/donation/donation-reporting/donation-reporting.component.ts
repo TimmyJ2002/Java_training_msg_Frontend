@@ -110,7 +110,7 @@ export class DonationReportingComponent implements OnInit{
         }
       },
       (error) => {
-        this._snackBar.open(this.getTranslatedMessage("@donationCannotApprove"), this.getTranslatedMessage("@@close"))
+        this._snackBar.open(this.getTranslatedMessage("@@donationCannotApprove"), this.getTranslatedMessage("@@close"))
       }
     );
   }
