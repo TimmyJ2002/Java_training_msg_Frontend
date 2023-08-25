@@ -92,7 +92,7 @@ export class UserCreationComponent implements OnInit {
 
         this.userService.createUser(user).subscribe(
             () => {
-              this._snackBar.open(this.getTranslatedMessage("@@userCreated"), this.getTranslatedMessage("@@close"))
+              this._snackBar.open(this.getTranslatedMessage("@@userCreated"), this.getTranslatedMessage("@@close"), {duration: 3000})
               this.userForm.reset();
               this.userForm.controls['firstName'].setErrors(null);
               this.userForm.controls['lastName'].setErrors(null);
@@ -101,7 +101,7 @@ export class UserCreationComponent implements OnInit {
               this.userForm.controls['roles'].setErrors(null);
             },
             (error) => {
-              this._snackBar.open(this.getTranslatedMessage("@@userCannotCreate"), this.getTranslatedMessage("@@close"))
+              this._snackBar.open(this.getTranslatedMessage("@@userCannotCreate"), this.getTranslatedMessage("@@close"), {duration: 3000})
               this.userForm.reset();
             }
         ).add(() => {

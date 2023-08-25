@@ -33,13 +33,13 @@ export class CampaignCreateComponent implements OnInit {
       const campaignData = this.campaignForm.value;
         this.campaignService.createCampaign(campaignData).subscribe(
           (response) => {
-            this._snackBar.open(this.getTranslatedMessage("@@createCampaignSuccessfull"), this.getTranslatedMessage("@@close"))
+            this._snackBar.open(this.getTranslatedMessage("@@createCampaignSuccessfull"), this.getTranslatedMessage("@@close") , {duration: 3000})
             this.isSuccess = true;
             formDirective.resetForm();
             this.campaignForm.reset();
           },
           (error) => {
-            this._snackBar.open(this.getTranslatedMessage("@@cannotCreateCampaign"), this.getTranslatedMessage("@@close"))
+            this._snackBar.open(this.getTranslatedMessage("@@cannotCreateCampaign"), this.getTranslatedMessage("@@close"), {duration: 3000})
             this.isDuplicate = true;
           }
         );

@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit{
         if (error.message == "Account inactive"){
           alert("Account is inactive");
         }
-        this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"));
+        this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"), {duration: 3000});
       }
     );
   }

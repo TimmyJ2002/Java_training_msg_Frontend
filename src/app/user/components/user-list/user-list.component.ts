@@ -89,9 +89,7 @@ export class UserListComponent implements OnInit {
     if (hasInvalidFields) {
       console.log('Invalid fields detected.');
 
-      this._snackBar.open('Invalid fields detected. Please correct them.', 'Close', {
-        duration: 3000
-      });
+      this._snackBar.open('Invalid fields detected. Please correct them.', 'Close', {duration: 3000});
 
       // Mark invalid fields as touched
       invalidFieldNames.forEach(fieldName => {
@@ -116,7 +114,7 @@ export class UserListComponent implements OnInit {
     this.userService.updateUser(user.id, editedUser) // Use editedUser, not editedUserData
       .subscribe(
         (response) => {
-          this._snackBar.open(this.getTranslatedMessage("@@userEdited"), this.getTranslatedMessage("@@close"));
+          this._snackBar.open(this.getTranslatedMessage("@@userEdited"), this.getTranslatedMessage("@@close"), {duration: 3000});
           // Update the local data in the users array
           const updatedUserIndex = this.users.findIndex(u => u.id === user.id);
           if (updatedUserIndex !== -1) {
@@ -125,7 +123,7 @@ export class UserListComponent implements OnInit {
           this.editUserId = null;
         },
         (error) => {
-          this._snackBar.open(this.getTranslatedMessage("@@userCannotEdit"), this.getTranslatedMessage("@@close"));
+          this._snackBar.open(this.getTranslatedMessage("@@userCannotEdit"), this.getTranslatedMessage("@@close"), {duration: 3000});
         }
       );
   }
@@ -143,16 +141,16 @@ export class UserListComponent implements OnInit {
       .subscribe(
         (response) => {
           if (user.active) {
-            this._snackBar.open("User successfully activated!", "Close");
+            this._snackBar.open("User successfully activated!", "Close", {duration: 3000});
           } else {
-            this._snackBar.open("User successfully deactivated!", "Close");
+            this._snackBar.open("User successfully deactivated!", "Close", {duration: 3000});
           }
         },
         (error) => {
           if (user.active) {
-            this._snackBar.open("User could not be activated!", "Close");
+            this._snackBar.open("User could not be activated!", "Close", {duration: 3000});
           } else {
-            this._snackBar.open("User could not be deactivated!", "Close");
+            this._snackBar.open("User could not be deactivated!", "Close", {duration: 3000});
           }
           // Revert the change if there was an error
           user.active = !user.active;

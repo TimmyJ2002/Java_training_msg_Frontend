@@ -53,10 +53,10 @@ export class PermissionManagementComponent implements OnInit {
         this.permissionManagementService.loadRoles().subscribe((role) => {
           this.rolesList = role;
         });
-        this._snackBar.open(this.getTranslatedMessage("@@roleEditedSuccessfully"), this.getTranslatedMessage("@@close"));
+        this._snackBar.open(this.getTranslatedMessage("@@roleEditedSuccessfully"), this.getTranslatedMessage("@@close"), {duration: 3000});
       },
       () => {
-          this._snackBar.open("Role's rights could not be updated", this.getTranslatedMessage("@@close"));
+          this._snackBar.open("Role's rights could not be updated", this.getTranslatedMessage("@@close"), {duration: 3000});
       })
     }
     this.selectedRights = [];
