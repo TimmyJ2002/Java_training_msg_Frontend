@@ -1,9 +1,9 @@
 <nav>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@createUser')}}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['PERMISSION_MANAGEMENT'])" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@rights')}}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT']) && sessionStorage.getItem('changedPassword') === 'true'" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT']) && sessionStorage.getItem('changedPassword') === 'true'" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@createUser')}}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['PERMISSION_MANAGEMENT']) && sessionStorage.getItem('changedPassword') === 'true'" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@rights')}}</a>
 
-  <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['BENEF_MANAGEMENT'])">
+  <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['BENEF_MANAGEMENT']) && sessionStorage.getItem('changedPassword') === 'true'">
     <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@donor') }}</a>
     <div class="dropdown-content">
       <a routerLink="/donator/create" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@create') }}</a>
@@ -11,14 +11,14 @@
       <a routerLink="/donator/delete" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@delete') }}</a>
     </div>
   </div>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_REPORTING', 'DONATION_APPROVE', 'DONATION_MANAGEMENT'])" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@donationReporting') }}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_MANAGEMENT'])" routerLink="/donation/addDonation" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@addDonation')}}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['CAMP_REPORTING'])" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaignReporting') }}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_REPORTING', 'DONATION_APPROVE', 'DONATION_MANAGEMENT']) && sessionStorage.getItem('changedPassword') === 'true'" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@donationReporting') }}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_MANAGEMENT']) && sessionStorage.getItem('changedPassword') === 'true'" routerLink="/donation/addDonation" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@addDonation')}}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['CAMP_REPORTING']) && sessionStorage.getItem('changedPassword') === 'true'" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaignReporting') }}</a>
 
   <ng-template #loginLink>
     <a routerLink="/login" routerLinkActive="active" aria-current="page">{{ getTranslatedMessage('@@login') }}</a>
   </ng-template>
-  <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['CAMP_MANAGEMENT'])">
+  <div class="dropdown" *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['CAMP_MANAGEMENT']) && sessionStorage.getItem('changedPassword') === 'true'">
     <a routerLink="campaign/create" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaign') }}</a>
     <div class="dropdown-content">
       <a routerLink="/campaign/create">{{ getTranslatedMessage('@@create') }}</a>
@@ -36,7 +36,7 @@
     <mat-button-toggle value="ro" class="langButton">RO</mat-button-toggle>
   </mat-button-toggle-group>
 
-  <mat-icon aria-hidden="false" matBadge="{{ unReadNotificationsCount }}" matBadgeColor="primary" (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
+  <mat-icon aria-hidden="false" matBadge="{{ unReadNotificationsCount }}" matBadgeColor="primary" (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async) && sessionStorage.getItem('changedPassword') === 'true'">notifications_none</mat-icon>
   <mat-menu #menu="matMenu">
     <button mat-menu-item *ngFor="let notification of notifications" [ngClass]="{ 'unread-notification': !notification.isRead }" (click)="openDialog(notification)">
      <mat-list>
