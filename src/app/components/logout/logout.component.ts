@@ -15,7 +15,7 @@ export class LogoutComponent {
   logout() {
     this.authService.logout().subscribe(
       (response) => {
-        console.log('Logged out successfully', response);
+       // console.log('Logged out successfully', response);
         this.authService.clearAccessToken();
       },
       (error) => {

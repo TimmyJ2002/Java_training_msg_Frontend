@@ -28,7 +28,7 @@ export class CreateDonatorService {
 
     this.http.post((`${this.editUrl}/${donatorDetails.id}`),donatorDetails).subscribe(
       () => {
-        console.log('Donator information updated successfully');
+       // console.log('Donator information updated successfully');
       },
       error => {
         console.error('Error updating donator information:', error);

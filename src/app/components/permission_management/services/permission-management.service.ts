@@ -19,7 +19,7 @@ export class PermissionManagementService {
   }
 
   loadRoleRights(): Observable<RoleRight[]> {
-    console.log('ok');
+
     return this.http.get<RoleRight[]>(this.url + "/rights").pipe(
       tap(roleRights => this.roleRightsList$.next(roleRights))
     );

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit{
       (response) => {
         const accessToken = response.accessToken;
         this.authService.saveAccessToken(accessToken);
-        console.log('Access Token:', accessToken);
+       // console.log('Access Token:', accessToken);
         this.loginForm.reset();
         this.router.navigate(['/donation-reporting']);
       },
