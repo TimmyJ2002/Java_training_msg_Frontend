@@ -23,7 +23,7 @@ export class LanguageService {
 
   private loadTranslations(language: string) {
     const translationPath = `assets/locale/${language}.json`;
-    console.log(language)
+   // console.log(language)
     this.http.get(translationPath).subscribe((translations) => {
       this.translations[language] = translations;
     });

@@ -6,9 +6,9 @@
   <div class="form-field"> <h2 class="form-title">User Creation</h2></div>
   <div class="form-field">
     <mat-form-field >
-      <input matInput placeholder="First Name" formControlName="firstName">
+      <input matInput placeholder="First Name*" formControlName="firstName">
       <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">First Name is required</mat-error>
-      <mat-error *ngIf="userForm.get('firstName')?.hasError('pattern')">Please enter valid Name</mat-error>
+      <mat-error *ngIf="userForm.get('firstName')?.hasError('pattern')">Please enter valid Name (ex: Dorel)</mat-error>
     </mat-form-field>
   </div>
 
@@ -17,9 +17,9 @@
     <!--  <input type="text" id="lastName" formControlName="lastName" />-->
 
     <mat-form-field >
-      <input matInput placeholder="Last Name" formControlName="lastName">
+      <input matInput placeholder="Last Name*" formControlName="lastName">
       <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
-      <mat-error *ngIf="userForm.get('lastName')?.hasError('pattern')">Please enter valid Name</mat-error>
+      <mat-error *ngIf="userForm.get('lastName')?.hasError('pattern')">Please enter valid Name (ex: Popescu)</mat-error>
     </mat-form-field>
   </div>
 
@@ -28,7 +28,7 @@
     <!--  <input type="email" id="email" formControlName="email" />-->
 
     <mat-form-field >
-      <input matInput placeholder="E-mail" formControlName="email">
+      <input matInput placeholder="E-mail*" formControlName="email">
       <mat-error *ngIf="userForm.get('email')?.hasError('required')">E-mail is requiered</mat-error>
       <mat-error *ngIf="userForm.get('email')?.hasError('pattern')">Please enter valid E-mail (ex: abcd@mail.com)</mat-error>
     </mat-form-field>
@@ -49,7 +49,6 @@
     <mat-label>Roles</mat-label>
     <mat-select formControlName="roles" multiple >
       <mat-option *ngFor="let role of rolesList" [value]="role.name">{{role.name}}</mat-option>
-
     </mat-select>
   </mat-form-field>
 

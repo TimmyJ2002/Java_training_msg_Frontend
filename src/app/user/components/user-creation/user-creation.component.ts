@@ -63,15 +63,16 @@ export class UserCreationComponent implements OnInit {
             firstName: ['', [
                 Validators.required,
                 Validators.maxLength(50), // Change the length limit as needed
-                Validators.pattern(/^[a-zA-Z\s]*$/) // Allows only alphabetic characters and spaces
+                Validators.pattern(/^[A-Z][a-z]*$/),
+
             ]],
             lastName: ['', [
                 Validators.required,
                 Validators.maxLength(50), // Change the length limit as needed
-                Validators.pattern(/^[a-zA-Z\s]*$/) // Allows only alphabetic characters and spaces
+                Validators.pattern(/^[/^[A-Z][a-z]*$/) // Allows only alphabetic characters and spaces
             ]],
             email: ['', [Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]],
-            mobileNumber: ['', [Validators.required, Validators.pattern(/^(00407\d{8}|07\d{8}|\+407\d{8})$/)]],
+            mobileNumber: ['', [ Validators.pattern(/^(00407\d{8}|07\d{8}|\+407\d{8})$/)]],
 
             roles: [[], [Validators.required, Validators.minLength(1)]]
         });

@@ -55,8 +55,8 @@ export class UserListComponent implements OnInit{
 
   saveUser(user: User): void {
     const editedUserData = this.userEditData[user.id];
-    console.log('Saving user with ID:', user.id);
-    console.log('Edited user data:', editedUserData);
+   // console.log('Saving user with ID:', user.id);
+   // console.log('Edited user data:', editedUserData);
 
     this.userService.updateUser(user.id, editedUserData)
       .subscribe(
