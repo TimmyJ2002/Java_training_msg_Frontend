@@ -32,6 +32,9 @@
     </div>
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">{{ getTranslatedMessage('@@logout') }}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/change-password" routerLinkActive="active" aria-current="page" [hidden]="true">
+    Change password
+  </a>
 
   <mat-icon aria-hidden="false" matBadge="{{ unReadNotificationsCount }}" matBadgeColor="primary" (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
   <mat-menu #menu="matMenu">

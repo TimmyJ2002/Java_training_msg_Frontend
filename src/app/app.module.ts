@@ -46,6 +46,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {AuthGuard} from "./components/login/auth.guard";
+import {UserChangePasswordComponent} from "./user/components/user-change-password/user-change-password.component";
 
 registerLocaleData(localeRo);
 
@@ -63,7 +65,6 @@ registerLocaleData(localeRo);
     EditDonationComponent,
     CampaignReportingComponent,
     CampaignCreateComponent,
-
   ],
   imports: [
     BrowserModule,

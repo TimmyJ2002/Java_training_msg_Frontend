@@ -25,25 +25,6 @@ export class AuthService implements OnInit{
     return !!accessToken;
   }
 
-  // login(credentials: any): Observable<any> {
-  //   return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
-  //     .pipe(
-  //       tap((response: any) => {
-  //         if (response.loginCount === -1) {
-  //           window.location.href = '/change-password';
-  //         } else {
-  //           this.isLoggedInSubject.next(true);
-  //         }
-  //       }),
-  //       catchError(error => {
-  //         if(error == 500 || error == 403){
-  //           alert("Incorrect username or password");
-  //         }
-  //         return throwError(error);
-  //       })
-  //     );
-  // }
-
   login(credentials: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
       .pipe(
