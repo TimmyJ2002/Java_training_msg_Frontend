@@ -36,7 +36,7 @@ export class EditDonatorComponent implements OnInit {
   saveDonator(): void {
     if (this.donatorDetails.firstName !== '' && this.donatorDetails.lastName !== '') {
       this.donatorService.saveDonator(this.donatorDetails);
-      this._snackBar.open('Donor successfully added!', 'Close')
+      this._snackBar.open(this.getTranslatedMessage("@@donorCreatedSuccessfully"), this.getTranslatedMessage("@@close"))
       this.missingFields = false;
     } else {
       this.missingFields = true;

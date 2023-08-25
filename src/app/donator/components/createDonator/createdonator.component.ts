@@ -36,10 +36,10 @@ export class CreateDonatorComponent implements OnInit{
       //console.log(formData)
       this.donatorService.addDonor(formData).subscribe(
         (response) => {
-          this._snackBar.open('Donor added successfully!', 'Close');
+          this._snackBar.open(this.getTranslatedMessage("@@donorCreatedSuccessfully"), this.getTranslatedMessage("@@close"));
         },
         (error) => {
-          this._snackBar.open('Error adding donor', 'Close');
+          this._snackBar.open(this.getTranslatedMessage("@@donorCannotCreate"), this.getTranslatedMessage("@@close"));
         }
       );
       this.isSuccess = true;

@@ -3,6 +3,7 @@ import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
 import {LanguageService} from "../../../services/language.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Role} from "../../../components/permission_management/models/role";
 
 @Component({
   selector: 'app-user-list',
@@ -60,7 +61,7 @@ export class UserListComponent implements OnInit{
     this.userService.updateUser(user.id, editedUserData)
       .subscribe(
         (response) => {
-          this._snackBar.open('User successfully edited!', 'Close');
+          this._snackBar.open(this.getTranslatedMessage("@@userEdited"), this.getTranslatedMessage("@@close"));
           // Update the local data in the users array
           const updatedUserIndex = this.users.findIndex(u => u.id === user.id);
           if (updatedUserIndex !== -1) {
@@ -69,12 +70,14 @@ export class UserListComponent implements OnInit{
           this.editUserId = null;
         },
         (error) => {
-          this._snackBar.open('User could not be edited!', 'Close');
+          this._snackBar.open(this.getTranslatedMessage("@@userCannotEdit"), this.getTranslatedMessage("@@close"));
         }
       );
   }
 
-
+  getRoleNames(roles: Role[]): string {
+    return roles.map(role => role.name).join(', ');
+  }
 
 
   toggleActivation(user: User): void {
