@@ -3,6 +3,7 @@ import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
 import {LanguageService} from "../../../services/language.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Role} from "../../../components/permission_management/models/role";
 
 @Component({
   selector: 'app-user-list',
@@ -74,7 +75,9 @@ export class UserListComponent implements OnInit{
       );
   }
 
-
+  getRoleNames(roles: Role[]): string {
+    return roles.map(role => role.name).join(', ');
+  }
 
 
   toggleActivation(user: User): void {
