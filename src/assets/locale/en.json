@@ -84,5 +84,6 @@
   "@@editCampaignSuccessfull": "Campaign successfully edited!",
   "@@campaign": "Campaign",
   "@@deleteMessage": "Are you sure you want to delete?",
-  "@@exportAsCSV": "Export as CSV"
+  "@@exportAsCSV": "Export as CSV",
+  "@@saveEditDonation": "Save updated Donation"
 }

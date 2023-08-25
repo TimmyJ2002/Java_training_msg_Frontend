@@ -33,6 +33,7 @@ input {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  width: 160px;
 }
 
 .createButton:hover {background-color: #e64a19;

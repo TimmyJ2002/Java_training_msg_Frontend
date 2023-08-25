@@ -8,6 +8,7 @@ import {Donation} from "../../models/donation";
 import {DonationService} from "../../services/donation.service";
 import {combineLatest, take} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {LanguageService} from "../../../services/language.service";
 
 interface EditDonationForm {
   amount: FormControl<string>;
@@ -35,7 +36,8 @@ export class EditDonationComponent {
     private donatorService: CreateDonatorService,
     private campaignService: CampaignService,
     private donationService: DonationService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private languageService: LanguageService
   ) {
   }
 
@@ -129,5 +131,9 @@ export class EditDonationComponent {
 
   donatorAutocompleteFormatterFn = (donator: Donator): string => donator ? `${donator.lastName} ${donator.firstName}` : '';
   campaignAutocompleteFormatterFn = (campaign: Campaign): string => campaign ? `${campaign.name}` : '';
+
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
 
 }

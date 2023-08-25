@@ -1,9 +1,4 @@
 <nav>
-  <mat-button-toggle-group #group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style" (change) = "switchLanguage($event.value)">
-    <mat-button-toggle value="en">EN</mat-button-toggle>
-    <mat-button-toggle value="ro">RO</mat-button-toggle>
-  </mat-button-toggle-group>
-
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@createUser')}}</a>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['PERMISSION_MANAGEMENT'])" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@rights')}}</a>
@@ -32,6 +27,11 @@
     </div>
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">{{ getTranslatedMessage('@@logout') }}</a>
+
+  <mat-button-toggle-group #group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style" (change) = "switchLanguage($event.value)" id="languageSelector">
+    <mat-button-toggle value="en" class="langButton">EN</mat-button-toggle>
+    <mat-button-toggle value="ro" class="langButton">RO</mat-button-toggle>
+  </mat-button-toggle-group>
 
   <mat-icon aria-hidden="false" matBadge="{{ unReadNotificationsCount }}" matBadgeColor="primary" (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
   <mat-menu #menu="matMenu">

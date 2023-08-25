@@ -84,5 +84,6 @@
   "@@editCampaignSuccessfull": "Campanie editată cu succes!",
   "@@campaign": "Campanie",
   "@@deleteMessage": "Ești sigur că vrei să ștergi?",
-  "@@exportAsCSV": "Exporteaza in format CSV"
+  "@@exportAsCSV": "Exporteaza in format CSV",
+  "@@saveEditDonation": "Salvați donația actualizată"
 }
