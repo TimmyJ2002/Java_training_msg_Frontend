@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
   showPopup: boolean = false;
-  pulseAnimation: boolean = true;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
               private languageService: LanguageService,
@@ -37,16 +36,15 @@ export class LoginComponent implements OnInit{
           this.loginForm.reset();
           this.showPopup = true;
         }
+        this.router.navigate(['/donation-reporting'])
       },
       (error) => {
+        if (error.message == "Account inactive"){
+          alert("Account is inactive");
+        }
         this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"));
       }
     );
-  }
-
-  hidePopup() {
-    this.showPopup = false;
-    this.router.navigate(['/donation-reporting']);
   }
   ngOnInit(): void {
   }

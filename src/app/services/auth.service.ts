@@ -32,9 +32,10 @@ export class AuthService implements OnInit{
           if (response.loginCount === -1) {
             sessionStorage.setItem("changedPassword", String(false));
             window.location.href = '/change-password';
-          } else if (response.deactivated === true) {
-            alert("Your account has been deactivated. Please contact support.");
+          } else if (response.message === "account is inactive") {
+            alert("Account is inactive");
           } else {
+            sessionStorage.setItem("changedPassword", String(true));
             this.isLoggedInSubject.next(true);
           }
         }),
