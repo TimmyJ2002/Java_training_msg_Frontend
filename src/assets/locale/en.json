@@ -85,6 +85,8 @@
   "@@campaign": "Campaign",
   "@@deleteMessage": "Are you sure you want to delete?",
   "@@exportAsCSV": "Export as CSV",
+  "@@saveEditDonation": "Save updated Donation",
+  "@@exportAsCSV": "Export as CSV",
   "@@enterValue": "You must enter a value",
   "@@notValidName": "Not a valid name",
   "@@cannotCreateCampaign": "Campaign could not be created",

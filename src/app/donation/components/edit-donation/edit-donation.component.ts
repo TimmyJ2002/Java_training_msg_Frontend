@@ -37,7 +37,7 @@ export class EditDonationComponent {
     private campaignService: CampaignService,
     private donationService: DonationService,
     private _snackBar: MatSnackBar,
-    private languageService:LanguageService
+    private languageService: LanguageService
   ) {
   }
 

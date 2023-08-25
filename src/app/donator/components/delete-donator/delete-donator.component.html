@@ -2,13 +2,13 @@
 <table id="donorTable">
   <thead>
   <tr>
-    <th id="fullNameHeader">{{ getTranslatedMessage('@@fullName') }}</th>
+    <th id="fullNameHeader" class="donorListRow">{{ getTranslatedMessage('@@fullName') }}</th>
     <th>{{ getTranslatedMessage('@@actionHeader') }}</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let donor of donors" id="donorRow">
-    <td>{{ (donor.firstName ? donor.firstName + ' ' : '') +
+    <td class="donorListRow">{{ (donor.firstName ? donor.firstName + ' ' : '') +
     (donor.lastName ? donor.lastName + ' ' : '') +
     (donor.additionalName ? donor.additionalName + ' ' : '') +
     (donor.maidenName ? donor.maidenName : '') }}

@@ -2,19 +2,19 @@
 <table id="donorTable">
   <thead>
   <tr>
-    <th id="fullNameHeader">{{getTranslatedMessage('@@fullName')}}:</th>
-    <th id="additionalNameHeader">{{getTranslatedMessage('@@additionalName')}}</th>
-    <th id="maidenNameHeader">{{getTranslatedMessage('@@maidenName')}}</th>
+    <th id="fullNameHeader" class="donorListRow">{{getTranslatedMessage('@@fullName')}}:</th>
+    <th id="additionalNameHeader" class="donorListRow">{{getTranslatedMessage('@@additionalName')}}</th>
+    <th id="maidenNameHeader" class="donorListRow">{{getTranslatedMessage('@@maidenName')}}</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let donor of donors" id="donorRow"
       (dblclick)="navigateToEditDonator(donor)">
-    <td>
+    <td class="donorListRow">
         {{ donor.firstName + ' ' + donor.lastName }}
     </td>
-    <td id="additionalName">{{ donor.additionalName }}</td>
-    <td id="maidenName">{{ donor.maidenName }}</td>
+    <td id="additionalName" class="donorListRow">{{ donor.additionalName }}</td>
+    <td id="maidenName" class="donorListRow">{{ donor.maidenName }}</td>
   </tr>
   </tbody>
 </table>

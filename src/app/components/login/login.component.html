@@ -9,5 +9,5 @@
     <input type="password" id="password" formControlName="password" required>
   </div>
   <p>{{ getTranslatedMessage('@@completeForm') }}</p>
-  <button class="loginButton" mat-fab color="primary" type="submit" [disabled]="!loginForm.valid">{{ getTranslatedMessage('@@loginButton') }}</button>
+  <button class="loginButton" mat-stroked-button color="primary" type="submit" [disabled]="!loginForm.valid">{{ getTranslatedMessage('@@loginButton') }}</button>
 </form>
