@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit{
     this.userService.updateUser(user.id, editedUserData)
       .subscribe(
         (response) => {
-          this._snackBar.open('User successfully edited!', 'Close');
+          this._snackBar.open(this.getTranslatedMessage("@@userEdited"), this.getTranslatedMessage("@@close"));
           // Update the local data in the users array
           const updatedUserIndex = this.users.findIndex(u => u.id === user.id);
           if (updatedUserIndex !== -1) {
@@ -69,7 +69,7 @@ export class UserListComponent implements OnInit{
           this.editUserId = null;
         },
         (error) => {
-          this._snackBar.open('User could not be edited!', 'Close');
+          this._snackBar.open(this.getTranslatedMessage("@@userCannotEdit"), this.getTranslatedMessage("@@close"));
         }
       );
   }

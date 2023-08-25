@@ -31,14 +31,14 @@ export class CampaignCreateComponent implements OnInit {
       const campaignData = this.campaignForm.value;
         this.campaignService.createCampaign(campaignData).subscribe(
           (response) => {
-            this._snackBar.open('Campaign created successfully!', 'Close')
+            this._snackBar.open(this.getTranslatedMessage("@@campaignSuccessfully"), this.getTranslatedMessage("@@close"))
             this.isSuccess = true;
             this.campaignForm.reset();
             this.campaignForm.controls['name'].setErrors(null);
             this.campaignForm.controls['purpose'].setErrors(null);
           },
           (error) => {
-            this._snackBar.open('Campaign could not be created', 'Close')
+            this._snackBar.open(this.getTranslatedMessage("@@cannotCreateCampaign"), this.getTranslatedMessage("@@close"))
             this.isDuplicate = true;
           }
         );
@@ -63,9 +63,9 @@ export class CampaignCreateComponent implements OnInit {
 
   getErrorMessage() {
     if (this.campaignForm.hasError('required')) {
-      return 'You must enter a value';
+      return this.getTranslatedMessage('@@enterValue');
     }
-    return this.campaignForm.hasError('name') ? 'Not a valid name' : '';
+    return this.campaignForm.hasError('name') ? this.getTranslatedMessage("@@notValidName") : '';
   }
 
   getTranslatedMessage(key: string): string {
