@@ -1,20 +1,29 @@
-<h2>{{getTranslatedMessage('@@selectDonorForEdit')}}</h2>
-<table id="donorTable">
-  <thead>
-  <tr>
-    <th id="fullNameHeader" class="donorListRow">{{getTranslatedMessage('@@fullName')}}:</th>
-    <th id="additionalNameHeader" class="donorListRow">{{getTranslatedMessage('@@additionalName')}}</th>
-    <th id="maidenNameHeader" class="donorListRow">{{getTranslatedMessage('@@maidenName')}}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let donor of donors" id="donorRow"
-      (dblclick)="navigateToEditDonator(donor)">
-    <td class="donorListRow">
-        {{ donor.firstName + ' ' + donor.lastName }}
-    </td>
-    <td id="additionalName" class="donorListRow">{{ donor.additionalName }}</td>
-    <td id="maidenName" class="donorListRow">{{ donor.maidenName }}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="donorList">
+  <table mat-table [dataSource]="donors" id="donorList">
+
+    <ng-container matColumnDef="donorFullName">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@donationID') }}</th>
+      <td mat-cell *matCellDef="let donor">{{ donor.firstName + ' ' + donor.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="additionalName">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@approved') }}</th>
+      <td mat-cell *matCellDef="let donor">{{ donor.additionalName }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="maidenName">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@notes') }}</th>
+      <td mat-cell *matCellDef="let donor">{{ donor.maidenName }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      (click)="selectedDonator=row"
+      (dblclick)="navigateToEditDonator(selectedDonator!)"
+      [class.role-row-is-clicked]="selectedDonator==row"
+      *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+  </table>
+</div>

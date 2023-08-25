@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth.service";
 import {LanguageService} from "../../services/language.service";
 import jwtDecode from "jwt-decode";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -78,6 +79,7 @@ export class DonationReportingComponent implements OnInit{
     if (confirm(`Are you sure you want to delete the selected donation?`)) {
       this.status = true;
       this.donationService.deleteDonation(id);
+      delete this.filteredDonations[this.filteredDonations.findIndex(d => d.id === ID)];
       this._snackBar.open(this.getTranslatedMessage("@@donationDeletedSuccessfully"), this.getTranslatedMessage("@@close"), {duration: 3000});
     } else {
       this.status = false;
@@ -88,7 +90,6 @@ export class DonationReportingComponent implements OnInit{
       this.filteredDonations = this.filteredDonations.filter(donation => donation.id !== id);
     }
   }
-
 
   approveDonation(donation: any): void {
     this.donationService.approveDonation(donation.id).subscribe(

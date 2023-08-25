@@ -14,6 +14,7 @@ export class DeleteDonatorComponent implements OnInit{
   donors: any[] = [];
   donator: Donator | null = null;
   status: boolean = false;
+  displayedColumns: string[] = ['fullName', 'action'];
 
   constructor(private donorService: CreateDonatorService,
               private languageService: LanguageService,
