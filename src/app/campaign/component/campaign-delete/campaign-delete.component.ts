@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CampaignService} from "../../services/campaign.service";
 import {Campaign} from "../../model/campaign";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-campaign-delete',
@@ -19,7 +20,8 @@ export class CampaignDeleteComponent implements OnInit {
   translatedMessage: string = '';
 
   constructor(private campaignService: CampaignService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -42,16 +44,17 @@ export class CampaignDeleteComponent implements OnInit {
     if (confirm(this.getTranslatedMessage('@@deleteMessage'))) {
       this.campaignService.deleteCampaign(campaign.id).subscribe(
         (response) => {
-          console.log('Campaign deleted:', response);
-          this.isSuccess = true;
+          this._snackBar.open(this.getTranslatedMessage("@@campaignDeleteSuccessfully"), this.getTranslatedMessage("@@close"))
           this.loadCampaigns();
         },
         (error) => {
-          console.error('Error deleting campaign: ', error);
+          this._snackBar.open(this.getTranslatedMessage("@@campaignCannotDelete"),this.getTranslatedMessage("@@close") )
           this.isFailure = true;
         }
       );
       this.clearBoolean();
+    } else {
+      this._snackBar.open(this.getTranslatedMessage("@@campaignCannotDelete"), this.getTranslatedMessage("@@close"))
     }
   }
 

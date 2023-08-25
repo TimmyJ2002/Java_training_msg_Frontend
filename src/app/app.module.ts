@@ -9,7 +9,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app-routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CreateDonatorComponent} from "./donator/components/createDonator/createdonator.component";
-import {LogoutComponent} from './components/logout/logout.component';
 // import { UserDetailsComponent } from './user/components/user-details/user-details.component';
 import {
   PermissionManagementComponent
@@ -29,15 +28,24 @@ import {CampaignDeleteComponent} from "./campaign/component/campaign-delete/camp
 import {CampaignReportingComponent} from "./campaign/campaign-reporting/campaign-reporting.component";
 import {CampaignCreateComponent} from "./campaign/component/campaign-create/campaign-create.component";
 import {Interceptor} from "../../util/interceptors/interceptor";
-import { EditDonationComponent } from './donation/components/edit-donation/edit-donation.component';
+import {EditDonationComponent} from './donation/components/edit-donation/edit-donation.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import { CampaignEditListComponent } from './campaign/component/campaign-edit-list/campaign-edit-list.component';
+import {CampaignEditListComponent} from './campaign/component/campaign-edit-list/campaign-edit-list.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {RightGuard} from "../../util/Guards/rights_guards";
 import {registerLocaleData} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatDialogModule} from "@angular/material/dialog";
+import {NotificationModule} from "./notification/notification.module";
+import {MatBadgeModule} from "@angular/material/badge";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 registerLocaleData(localeRo);
 
@@ -47,7 +55,6 @@ registerLocaleData(localeRo);
     LoginComponent,
     PermissionManagementComponent,
     CreateDonatorComponent,
-    LogoutComponent,
     DonationReportingComponent,
     CampaignEditComponent,
     CampaignDeleteComponent,
@@ -79,7 +86,16 @@ registerLocaleData(localeRo);
     MatSelectModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDialogModule,
+    NotificationModule,
+    MatBadgeModule,
+    MatPaginatorModule,
+    MatGridListModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule
   ],
   exports: [
     RouterModule,

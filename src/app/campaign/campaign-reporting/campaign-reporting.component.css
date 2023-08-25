@@ -33,6 +33,8 @@
   padding: 15px;
   display: flex;
   align-items: center;
+  align-self: center;
+  width: 95%;
 }
 
 .campaign-item p {
@@ -52,3 +54,23 @@
 .campaign-name {
   color: maroon;
 }
+.exportButton {
+  padding: 10px 20px;
+  background-color: #e64a19;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  width: 200px;
+}
+
+/* Add a hover effect for the button */
+.exportButton:hover {
+  background-color: #e64a19;
+}
+
+.exportButton-style {
+  margin-bottom: 10px; /* Add desired padding between buttons */
+}
+

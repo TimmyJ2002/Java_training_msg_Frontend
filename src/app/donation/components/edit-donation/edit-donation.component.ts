@@ -7,8 +7,10 @@ import {CampaignService} from "../../../campaign/services/campaign.service";
 import {Donation} from "../../models/donation";
 import {DonationService} from "../../services/donation.service";
 import {combineLatest, take} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {LanguageService} from "../../../services/language.service";
 
-interface AddDonationForm {
+interface EditDonationForm {
   amount: FormControl<string>;
   currency: FormControl<string>;
   donator?: FormControl<Donator | null>;
@@ -22,7 +24,7 @@ interface AddDonationForm {
   styleUrls: ['./edit-donation.component.css']
 })
 export class EditDonationComponent {
-  donationForm!: FormGroup<AddDonationForm>;
+  donationForm!: FormGroup<EditDonationForm>;
   donatorList: Donator[] = [];
   campaignList: Campaign[] = [];
   filteredDonators: Donator[] = [];
@@ -33,7 +35,9 @@ export class EditDonationComponent {
     private formBuilder: FormBuilder,
     private donatorService: CreateDonatorService,
     private campaignService: CampaignService,
-    private donationService: DonationService
+    private donationService: DonationService,
+    private _snackBar: MatSnackBar,
+    private languageService: LanguageService
   ) {
   }
 
@@ -43,20 +47,20 @@ export class EditDonationComponent {
     combineLatest([this.donatorService.getDonors(), this.campaignService.getCampaigns()])
       .pipe(take(1))
       .subscribe(([donors, campaigns]) => {
-        this.donatorList = donors;
+        this.donatorList = donors.filter(donator => donator.active);
         this.campaignList = campaigns;
         this.donationForm.patchValue({
           amount: this.selectedDonation!.amount!.toString(),
           currency: this.selectedDonation?.currency,
-          // donator: this.selectedDonation?.donator,
-          // campaign: this.selectedDonation?.campaign,
+          donator: this.selectedDonation?.donator,
+          campaign: this.selectedDonation?.campaign,
           notes: this.selectedDonation?.notes
         })
       });
   }
 
   private initDonationForm() {
-    this.donationForm = this.formBuilder.group<AddDonationForm>({
+    this.donationForm = this.formBuilder.group<EditDonationForm>({
       amount: new FormControl('',
         {
           validators: [Validators.required, this.validateNumber(), Validators.pattern(/^(?!0\d)(\d+)$/)],
@@ -85,7 +89,24 @@ export class EditDonationComponent {
         formValue.currency,
         formValue.donator!.id,
         formValue.campaign!.id,
-        formValue.notes).subscribe();
+        formValue.notes).subscribe(
+        () => {
+          this.donationForm.reset();
+          this.donationForm.controls['amount'].setErrors(null);
+          this.donationForm.controls['currency'].setErrors(null);
+          this.donationForm.controls['donator']!.setErrors(null);
+          this.donationForm.controls['campaign']!.setErrors(null);
+          this._snackBar.open(this.getTranslatedMessage("@@donationEditedSuccessfully"), this.getTranslatedMessage("@@close"));
+        },
+        (error) => {
+          this.donationForm.reset();
+          this.donationForm.controls['amount'].setErrors(null);
+          this.donationForm.controls['currency'].setErrors(null);
+          this.donationForm.controls['donator']!.setErrors(null);
+          this.donationForm.controls['campaign']!.setErrors(null);
+          this._snackBar.open(this.getTranslatedMessage("@@donationCannotEdit"), this.getTranslatedMessage("@@close"));
+        }
+      );
     }
     this.donationForm.reset();
   }
@@ -110,5 +131,8 @@ export class EditDonationComponent {
 
   donatorAutocompleteFormatterFn = (donator: Donator): string => donator ? `${donator.lastName} ${donator.firstName}` : '';
   campaignAutocompleteFormatterFn = (campaign: Campaign): string => campaign ? `${campaign.name}` : '';
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
 
 }

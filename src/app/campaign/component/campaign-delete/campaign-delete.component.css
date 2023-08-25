@@ -72,6 +72,10 @@ input {
   color: #FFFFFF;
 }
 
+.donorListRow {
+  width: 900px;
+}
 
-
-
+.deleteMessage {
+  padding: 0px 150px !important;
+}

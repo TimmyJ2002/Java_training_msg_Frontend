@@ -3,6 +3,7 @@ import {Role} from "../../models/role";
 import {PermissionManagementService} from "../../services/permission-management.service";
 import {RoleRight} from "../../models/right";
 import {LanguageService} from "../../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-permission-management',
@@ -12,7 +13,7 @@ import {LanguageService} from "../../../../services/language.service";
 export class PermissionManagementComponent implements OnInit {
 
   rolesList: Role[] = [];
-  displayedColumns: string[] = ['id', 'name'];
+  displayedColumns: string[] = ['name'];
   selectedRole: Role | null = null;
   selectedRights: string[] = [];
   possibleRights: string[] = [
@@ -53,12 +54,19 @@ export class PermissionManagementComponent implements OnInit {
         this.permissionManagementService.loadRoles().subscribe((role) => {
           this.rolesList = role;
         });
+        this._snackBar.open(this.getTranslatedMessage("@@roleEditedSuccessfully"), this.getTranslatedMessage("@@close"));
+      },
+      () => {
+          this._snackBar.open("Role's rights could not be updated", this.getTranslatedMessage("@@close"));
       })
     }
+    this.selectedRights = [];
+
   }
 
   constructor(private permissionManagementService: PermissionManagementService,
-              private languageService: LanguageService) { }
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) { }
 
   protected readonly screenLeft = screenLeft;
 

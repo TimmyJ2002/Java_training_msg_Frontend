@@ -19,7 +19,6 @@
   </div>
 
   <p>{{ getTranslatedMessage('@@mandatoryFieldsMessage') }}</p>
-  <div *ngIf="isSuccess" style="color: green;">{{ getTranslatedMessage('@@successMessage') }}</div>
   <div *ngIf="missingFields" style="color: red;">{{ getTranslatedMessage('@@missingFieldsMessage') }}</div>
   <button class="createButton" color="primary" type="submit" [disabled]="!donorForm.valid">
     {{ getTranslatedMessage('@@addDonorButton') }}

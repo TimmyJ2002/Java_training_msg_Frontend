@@ -1,21 +1,4 @@
 <nav>
-<!--  <div class="language-dropdown">-->
-<!--    <button class="language-button">-->
-<!--      {{ selectedLanguage === 'en' ? getTranslatedMessage('@@english') : getTranslatedMessage('@@romanian') }}-->
-<!--    </button>-->
-<!--    <div class="dropdown-content">-->
-<!--      <a (click)="switchLanguage('en')" id="englishLink">{{ getTranslatedMessage('@@english') }}</a>-->
-<!--      <a (click)="switchLanguage('ro')" id="romanianLink">{{ getTranslatedMessage('@@romanian') }}</a>-->
-<!--    </div>-->
-<!--  </div>-->
-  <mat-form-field>
-    <mat-select placeholder="English">
-      <mat-option *ngFor="let language of languages" [value]="language.value" (click)="switchLanguage(language.value)">
-        {{ language.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@users')}}</a>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['USER_MANAGEMENT'])" routerLink="/create-user" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@createUser')}}</a>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['PERMISSION_MANAGEMENT'])" routerLink="/rights" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@rights')}}</a>
@@ -30,7 +13,7 @@
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_REPORTING', 'DONATION_APPROVE', 'DONATION_MANAGEMENT'])" routerLink="/donation-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@donationReporting') }}</a>
   <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_MANAGEMENT'])" routerLink="/donation/addDonation" routerLinkActive="active" ariaCurrentWhenActive="page">{{getTranslatedMessage('@@addDonation')}}</a>
-  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['DONATION_MANAGEMENT'])" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaignReporting') }}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async) && hasPermission(['CAMP_REPORTING'])" routerLink="/campaign-reporting" routerLinkActive="active" ariaCurrentWhenActive="page">{{ getTranslatedMessage('@@campaignReporting') }}</a>
 
   <ng-template #loginLink>
     <a routerLink="/login" routerLinkActive="active" aria-current="page">{{ getTranslatedMessage('@@login') }}</a>
@@ -45,6 +28,27 @@
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">{{ getTranslatedMessage('@@logout') }}</a>
 
+  <mat-button-toggle-group #group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style" (change) = "switchLanguage($event.value)" id="languageSelector">
+    <mat-button-toggle value="en" class="langButton">EN</mat-button-toggle>
+    <mat-button-toggle value="ro" class="langButton">RO</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-icon aria-hidden="false" matBadge="{{ unReadNotificationsCount }}" matBadgeColor="primary" (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async)">notifications_none</mat-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let notification of notifications" [ngClass]="{ 'unread-notification': !notification.isRead }" (click)="openDialog(notification)">
+     <mat-list>
+
+      <ng-container *ngIf="notification.isRead; else unreadIcon">
+        <mat-icon>check</mat-icon> <!-- Display the icon for read notifications -->
+      </ng-container>
+      <ng-template #unreadIcon>
+        <mat-icon>fiber_manual_record</mat-icon> <!-- Display the icon for unread notifications -->
+      </ng-template>
+      {{notification.title}}
+
+      </mat-list>
+    </button>
+  </mat-menu>
 </nav>
 <router-outlet></router-outlet>
 

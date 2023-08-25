@@ -7,6 +7,8 @@
       <th>{{getTranslatedMessage('@@lastName')}}</th>
       <th>E-Mail</th>
       <th>{{getTranslatedMessage('@@phoneNumber')}}</th>
+      <th>{{getTranslatedMessage('@@username')}}</th>
+      <th>{{getTranslatedMessage('@@roles')}}</th>
       <th>{{getTranslatedMessage('@@actionHeader')}}</th>
     </tr>
     </thead>
@@ -45,8 +47,24 @@
         </ng-template>
       </td>
       <td>
+        <ng-container *ngIf="user.id !== editUserId; else editUsernameField">
+          {{ user.username }}
+        </ng-container>
+        <ng-template #editUsernameField>
+          <span *ngIf="user.id !== editUserId">{{ user.username }}</span>
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="user.id !== editUserId; else editRolesField">
+          {{ getRoleNames(user.roles) }}
+        </ng-container>
+        <ng-template #editRolesField>
+          <span *ngIf="user.id !== editUserId">{{ getRoleNames(user.roles) }}</span>
+        </ng-template>
+      </td>
+      <td>
         <button class="edit-button" (click)="editOrSaveUser(user)">
-          {{ editUserId === user.id ? getTranslatedMessage('@@save') : getTranslatedMessage('@@edit') }}
+          {{ editUserId === user.id ? getTranslatedMessage('@@saveButton') : getTranslatedMessage('@@edit') }}
         </button>
 
       </td>

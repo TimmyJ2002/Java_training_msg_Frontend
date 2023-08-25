@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../../services/auth.service";
 import {LanguageService} from "../../services/language.service";
+import jwtDecode from "jwt-decode";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -19,10 +21,18 @@ export class DonationReportingComponent implements OnInit{
   selectedCurrency: string = '';
   searchQuery: string = '';
   status: boolean = false;
+  rightsList: string[] = [];
+  displayedColumns: string[] = ['donationID', 'amount', 'currency', 'campaign', 'donator', 'approved', 'notes'];
+  selectedDonation: Donation;
+  isApproved: boolean = false;
+
+  // New array to store selected donations
+  selectedDonations: any[] = [];
 
   constructor(private donationService: DonationService, private authService: AuthService,
               private languageService: LanguageService,
-              private router: Router) { }
+              private router: Router,
+              private _snackBar: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -63,8 +73,16 @@ export class DonationReportingComponent implements OnInit{
       );
     }
   }
-  deleteDonation(id: string): void{
-    this.status = this.donationService.deleteDonation(id);
+  deleteDonation(ID: number): void{
+    let id = ID.toString();
+    if (confirm(`Are you sure you want to delete the selected donation?`)) {
+      this.status = true;
+      this.donationService.deleteDonation(id);
+      this._snackBar.open(this.getTranslatedMessage("@@donationDeletedSuccessfully"), this.getTranslatedMessage("@@close"));
+    } else {
+      this.status = false;
+      this._snackBar.open(this.getTranslatedMessage("@@donationCannotDelete"), this.getTranslatedMessage("@@close"));
+    }
     if(this.status) {
       this.donations = this.donations.filter(donation => donation.id !== id);
       this.filteredDonations = this.filteredDonations.filter(donation => donation.id !== id);
@@ -73,15 +91,16 @@ export class DonationReportingComponent implements OnInit{
 
 
   approveDonation(donation: any): void {
-
     this.donationService.approveDonation(donation.id).subscribe(
       () => {
-        console.log('Donation approved successfully');
+        this._snackBar.open(this.getTranslatedMessage("@@donationApproved"), this.getTranslatedMessage("@@close"))
 
         // Update the approval status locally
         const approvedDonationIndex = this.donations.findIndex((d) => d.id === donation.id);
         if (approvedDonationIndex !== -1) {
           this.donations[approvedDonationIndex].approved = true;
+          this.selectedDonation.approved = true;
+          this.onSelected();
         }
 
         // Optionally, update filteredDonations as well
@@ -91,7 +110,7 @@ export class DonationReportingComponent implements OnInit{
         }
       },
       (error) => {
-        console.error('Error approving donation:', error);
+        this._snackBar.open(this.getTranslatedMessage("@donationCannotApprove"), this.getTranslatedMessage("@@close"))
       }
     );
   }
@@ -104,5 +123,35 @@ export class DonationReportingComponent implements OnInit{
     sessionStorage.setItem("donationToEdit", JSON.stringify(donation));
     this.router.navigateByUrl("/donation/updateDonation")
   }
+  exportSelectedDonations() {
+    // Perform further actions, such as exporting to CSV
+    this.donationService.exportSelectedDonations(this.filteredDonations);
+  }
 
+  getPermission(): void {
+    jwtDecode(sessionStorage.getItem("accessToken")!);
+    let token = jwtDecode<{sub: string, permissions: string[]}>(sessionStorage.getItem("accessToken")!)
+    this.rightsList = token.permissions;
+  }
+
+  hasPermission(requiredPermissions: string[]) {
+    this.getPermission();
+    return (requiredPermissions).some((right) => this.rightsList.includes(right))
+  }
+
+  onSelected() {
+    this.isApproved = this.selectedDonation.approved!;
+    const approveBtn = document.getElementById('approveButton') as HTMLButtonElement;
+    const editBtn = document.getElementById('editButton') as HTMLButtonElement;
+    const deleteBtn = document.getElementById('deleteButton') as HTMLButtonElement;
+    if (!this.isApproved) {
+      approveBtn?.removeAttribute('disabled');
+      editBtn?.removeAttribute('disabled');
+      deleteBtn?.removeAttribute('disabled');
+    } else {
+      approveBtn?.setAttribute('disabled', '');
+      editBtn?.setAttribute('disabled', '');
+      deleteBtn?.setAttribute('disabled', '');
+    }
+  }
 }

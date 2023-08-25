@@ -16,7 +16,6 @@
   </div>
   <p>{{getTranslatedMessage('@@completeForm')}}</p>
   <p>{{getTranslatedMessage('@@requiredFields')}}</p>
-  <div *ngIf="isSuccess" style="color: green;">{{getTranslatedMessage('@@createCampaignSuccessfull')}}</div>
   <div *ngIf="isDuplicate" style="color: red;">{{getTranslatedMessage('@@createCampaignDuplicate')}}</div>
   <button class="addButton" color="primary" type="submit">{{getTranslatedMessage('@@addCampaignButton')}}</button>
 </form>

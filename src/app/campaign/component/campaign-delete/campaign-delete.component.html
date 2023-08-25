@@ -1,18 +1,19 @@
 <h2>{{getTranslatedMessage('@@deleteCampaign')}}</h2>
 
-<p>{{getTranslatedMessage('@@selectCampaignToDelete')}}</p>
+<br>
+<p class="deleteMessage">{{getTranslatedMessage('@@selectCampaignToDelete')}}</p>
 <div *ngIf="isSuccess" style="color: green;">{{getTranslatedMessage('@@deleteCampaignSuccessfull')}} </div>
 <div *ngIf="isFailure" style="color: red;">{{getTranslatedMessage('@@deletecampaignDuplicate')}}</div>
 <table id="campaignTable">
   <thead>
   <tr>
-    <th id="nameH"> {{getTranslatedMessage('@@campaignName')}} </th>
+    <th id="nameH" class="donorListRow"> {{getTranslatedMessage('@@campaignName')}} </th>
     <th id="purposeH"> {{getTranslatedMessage('@@choose')}} </th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let campaign of campaigns" id="campaignRow">
-    <td id="name"> <strong>{{campaign.name + ': '}}</strong>{{campaign.purpose}} </td>
+    <td id="name" class="donorListRow"> <strong>{{campaign.name + ': '}}</strong>{{campaign.purpose}} </td>
     <td><button class="deleteButton" type="submit" (click)="deleteCampaign(campaign)">{{getTranslatedMessage('@@delete')}}</button></td>
   </tr>
   </tbody>

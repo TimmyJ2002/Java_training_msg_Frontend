@@ -1,44 +1,89 @@
-<div class="filter-search-container">
-  <div class="filter-container">
-    <label class="filter-label" for="filterCriteria">{{ getTranslatedMessage('@@filterBy') }}</label>
-    <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">
-      <option value="selectCriteria">{{ getTranslatedMessage('@@selectCriteria') }}</option>
-      <option value="Approved">{{ getTranslatedMessage('@@approved') }}</option>
-      <option value="Not approved">{{ getTranslatedMessage('@@notApproved') }}</option>
-      <option value="currency">{{ getTranslatedMessage('@@currency') }}</option>
-      <!-- Add more filtering criteria options here -->
+<div id="utilsContainer">
+  <div class="filter-search-container">
+    <div class="filter-container">
+      <label class="filter-label" for="filterCriteria">{{ getTranslatedMessage('@@filterBy') }}</label>
+      <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">
+        <option value="selectCriteria">{{ getTranslatedMessage('@@selectCriteria') }}</option>
+        <option value="Approved">{{ getTranslatedMessage('@@approved') }}</option>
+        <option value="Not approved">{{ getTranslatedMessage('@@notApproved') }}</option>
+        <option value="currency">{{ getTranslatedMessage('@@currency') }}</option>
+        <!-- Add more filtering criteria options here -->
+      </select>
+    </div>
+
+    <div class="search-container">
+      <label class="search-label" for="searchInput">{{ getTranslatedMessage('@@search') }}</label>
+      <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
+    </div>
+  </div>
+
+  <div *ngIf="selectedFilterCriteria === 'currency'">
+    <label class="filter-label" for="currencyFilter">{{ getTranslatedMessage('@@selectCurrency') }}</label>
+    <select class="filter-dropdown" id="currencyFilter" [(ngModel)]="selectedCurrency" (ngModelChange)="applyFilter()">
+      <option value="EUR">{{ getTranslatedMessage('@@eur') }}</option>
+      <option value="USD">{{ getTranslatedMessage('@@usd') }}</option>
+      <option value="RON">{{ getTranslatedMessage('@@ron') }}</option>
     </select>
   </div>
-
-  <div class="search-container">
-    <label class="search-label" for="searchInput">{{ getTranslatedMessage('@@search') }}</label>
-    <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
+  <div class="donRepButtons">
+    <button id="exportButton" class="exportButton" (click)="exportSelectedDonations()">{{getTranslatedMessage('@@exportAsCSV')}}</button>
+    <div class="editBtns">
+      <button id="deleteButton" mat-stroked-button class="delete-button" (click)="deleteDonation(selectedDonation.id!)" *ngIf="hasPermission(['DONATION_MANAGEMENT'])" [disabled]="true">{{ getTranslatedMessage('@@deleteButton') }}</button>
+      <button id="approveButton" mat-stroked-button class="approve-button" *ngIf="hasPermission(['DONATION_APPROVE'])" (click)="approveDonation(selectedDonation)" [disabled]="true">{{ getTranslatedMessage('@@approveButton') }}</button>
+      <button id="editButton" class="editButton" mat-stroked-button *ngIf="hasPermission(['DONATION_MANAGEMENT'])" (click)="editDonation(selectedDonation)" [disabled]="true">{{ getTranslatedMessage('@@edit') }}</button>
+    </div>
   </div>
 </div>
+<br>
+<div id="donationReportingGrid">
+  <table mat-table [dataSource]="filteredDonations" class="mat-elevation-z8 demo-table">
 
-<div *ngIf="selectedFilterCriteria === 'currency'">
-  <label class="filter-label" for="currencyFilter">{{ getTranslatedMessage('@@selectCurrency') }}</label>
-  <select class="filter-dropdown" id="currencyFilter" [(ngModel)]="selectedCurrency" (ngModelChange)="applyFilter()">
-    <option value="EUR">{{ getTranslatedMessage('@@eur') }}</option>
-    <option value="USD">{{ getTranslatedMessage('@@usd') }}</option>
-    <option value="RON">{{ getTranslatedMessage('@@ron') }}</option>
-  </select>
+    <ng-container matColumnDef="donationID">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@donationID') }}</th>
+      <td mat-cell *matCellDef="let element">{{element.id}}</td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@amount') }}</th>
+      <td mat-cell *matCellDef="let element">{{element.amount}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="currency">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@currency') }}</th>
+      <td mat-cell *matCellDef="let element">{{element.currency}}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="campaign">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@campaign') }}</th>
+      <td mat-cell *matCellDef="let element">{{element.campaign.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="donator">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@donor') }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.donator.lastName + ' ' + element.donator.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="approved">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@approved') }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.approved }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef class="donationRow">{{ getTranslatedMessage('@@notes') }}</th>
+      <td mat-cell *matCellDef="let element">{{element.notes}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      (click)="selectedDonation=row"
+      (click)="onSelected()"
+      [class.role-row-is-clicked]="selectedDonation==row"
+      *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+  </table>
 </div>
-
-<ul>
-  <li class="donation-item" *ngFor="let donation of filteredDonations">
-    <div>
-      <p class="donation-id">{{ getTranslatedMessage('@@donationID') }}: {{ donation.id }}</p>
-      <p class="donation-amount">{{ getTranslatedMessage('@@amount') }}: {{ donation.amount }}</p>
-      <p class="donation-currency">{{ getTranslatedMessage('@@currency') }}: {{ donation.currency }}</p>
-      <p class="donation-created">{{ getTranslatedMessage('@@createdDate') }}: {{ donation.createdDate }}</p>
-      <p class="donation-approval" [style.color]="donation.approved ? 'green' : 'red'">
-        {{ getTranslatedMessage('@@approvedStatus') }}: {{ donation.approved }}
-      </p>
-      <p class="donation-notes">{{ getTranslatedMessage('@@notes') }}: {{ donation.notes }}</p>
-      <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved">{{ getTranslatedMessage('@@deleteButton') }}</button>
-      <button class="approve-button" *ngIf="!donation.approved" (click)="approveDonation(donation)">{{ getTranslatedMessage('@@approveButton') }}</button>
-    </div>
-    <button mat-stroked-button disabled="{{donation.approved}}" (click)="editDonation(donation)">Edit</button>
-  </li>
-</ul>

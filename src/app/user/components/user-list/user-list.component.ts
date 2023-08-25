@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Role} from "../../../components/permission_management/models/role";
 
 @Component({
   selector: 'app-user-list',
@@ -15,7 +17,8 @@ export class UserListComponent implements OnInit{
   userEditData: { [userId: number]: Partial<User> } = {};
 
   constructor(private userService:UserService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) {
   }
   ngOnInit(): void {
     this.userService.getUsers().subscribe(users => {
@@ -58,7 +61,7 @@ export class UserListComponent implements OnInit{
     this.userService.updateUser(user.id, editedUserData)
       .subscribe(
         (response) => {
-          console.log('Response:', response);
+          this._snackBar.open(this.getTranslatedMessage("@@userEdited"), this.getTranslatedMessage("@@close"));
           // Update the local data in the users array
           const updatedUserIndex = this.users.findIndex(u => u.id === user.id);
           if (updatedUserIndex !== -1) {
@@ -67,12 +70,14 @@ export class UserListComponent implements OnInit{
           this.editUserId = null;
         },
         (error) => {
-          console.error('Error:', error);
+          this._snackBar.open(this.getTranslatedMessage("@@userCannotEdit"), this.getTranslatedMessage("@@close"));
         }
       );
   }
 
-
+  getRoleNames(roles: Role[]): string {
+    return roles.map(role => role.name).join(', ');
+  }
 
 
   toggleActivation(user: User): void {
@@ -83,10 +88,18 @@ export class UserListComponent implements OnInit{
     this.userService.updateUser(user.id, user)
       .subscribe(
         (response) => {
-          console.log('Response:', response);
+          if (user.active) {
+            this._snackBar.open("User successfully activated!", "Close");
+          } else {
+            this._snackBar.open("User successfully deactivated!", "Close");
+          }
         },
         (error) => {
-          console.error('Error:', error);
+          if (user.active) {
+            this._snackBar.open("User could not be activated!", "Close");
+          } else {
+            this._snackBar.open("User could not be deactivated!", "Close");
+          }
           // Revert the change if there was an error
           user.active = !user.active;
         }

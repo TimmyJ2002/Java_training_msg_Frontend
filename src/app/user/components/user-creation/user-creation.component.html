@@ -45,15 +45,6 @@
     </mat-form-field>
   </div>
 
-  <!-- <mat-form-field>
-     <mat-label>Roles</mat-label>
-     <mat-select [formControl]="rolesControl" multiple>
-       <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
-     </mat-select>
-   </mat-form-field>-->
-
-
-
   <mat-form-field class="form-field">
     <mat-label>Roles</mat-label>
     <mat-select formControlName="roles" multiple >
@@ -62,20 +53,9 @@
     </mat-select>
   </mat-form-field>
 
-
-  <div *ngIf="successMessage" class="success-message">
-    <strong>{{ successMessage }} </strong>
-  </div>
-
-  <div *ngIf="errorMessage" class="error-message">
-    <strong>{{ errorMessage }} </strong>
-  </div>
-
-
   <div class="form-message" *ngIf=" userForm.invalid && userForm.dirty">
     Complete the form before submission.
   </div>
-
 
   <button class="addButton" type="submit" [disabled]=!userForm.valid>Create new User</button>
 

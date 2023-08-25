@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {CreateDonatorService} from "../../services/createdonator.service";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class CreateDonatorComponent implements OnInit{
     });
   constructor(private fb: FormBuilder,
               private donatorService: CreateDonatorService,
-              private languageService: LanguageService) { }
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) { }
   onSubmit() {
     if (this.donorForm.value.firstName === '' || this.donorForm.value.lastName === '') {
       this.missingFields = true;
@@ -34,10 +36,10 @@ export class CreateDonatorComponent implements OnInit{
       //console.log(formData)
       this.donatorService.addDonor(formData).subscribe(
         (response) => {
-          console.log('Donor added successfully:', response);
+          this._snackBar.open(this.getTranslatedMessage("@@donorCreatedSuccessfully"), this.getTranslatedMessage("@@close"));
         },
         (error) => {
-          console.error('Error adding donor:', error);
+          this._snackBar.open(this.getTranslatedMessage("@@donorCannotCreate"), this.getTranslatedMessage("@@close"));
         }
       );
       this.isSuccess = true;

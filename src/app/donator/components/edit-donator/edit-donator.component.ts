@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Donator} from "../../models/donator";
 import {CreateDonatorService} from "../../services/createdonator.service";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-edit-donator',
@@ -12,13 +13,13 @@ import {LanguageService} from "../../../services/language.service";
 export class EditDonatorComponent implements OnInit {
   // @ts-ignore
   id: number;
-  isSuccess: boolean = false;
   missingFields: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private donatorService: CreateDonatorService,
               private router: Router,
-              private languageService:LanguageService) {
+              private languageService:LanguageService,
+              private _snackBar: MatSnackBar) {
   }
 
   donatorDetails: Donator = new Donator(-1,"Firstname","Lastname","Additionalname","Maidenname", true);
@@ -29,15 +30,14 @@ export class EditDonatorComponent implements OnInit {
       const donorId = +params.get('id');
       this.donatorService.getDonor(donorId).subscribe((donatorData: Donator) => {
         this.donatorDetails = donatorData;
-
       });
     });
   }
   saveDonator(): void {
     if (this.donatorDetails.firstName !== '' && this.donatorDetails.lastName !== '') {
       this.donatorService.saveDonator(this.donatorDetails);
+      this._snackBar.open(this.getTranslatedMessage("@@donorCreatedSuccessfully"), this.getTranslatedMessage("@@close"))
       this.missingFields = false;
-      this.isSuccess = true;
     } else {
       this.missingFields = true;
     }

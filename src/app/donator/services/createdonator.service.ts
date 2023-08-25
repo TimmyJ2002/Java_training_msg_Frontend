@@ -35,15 +35,10 @@ export class CreateDonatorService {
       }
     );
   }
-  deleteDonor(donor: Donator): boolean {
-    if (confirm(`Are you sure you want to delete ${donor.firstName} ${donor.lastName}?`)) {
-      console.log(donor);
-      this.http.post(this.deleteUrl, donor).subscribe(() => {
-        // Do something after successful deletion, such as updating the donor list
-      });
-      return true; //adik s-o sters cv
-    }
-    return false;
+  deleteDonor(donor: Donator) {
+     this.http.post(this.deleteUrl, donor).subscribe(() => {
+      // Do something after successful deletion, such as updating the donor list
+    });
   }
 
 }

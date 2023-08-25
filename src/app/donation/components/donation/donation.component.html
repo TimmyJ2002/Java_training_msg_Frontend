@@ -1,74 +1,65 @@
-<form [formGroup]="donationForm" (ngSubmit)="onSubmit()" class="donationForm">
-  <mat-form-field>
-    <mat-label>{{getTranslatedMessage('@@amount')}}</mat-label>
-    <input formControlName="amount" matInput>
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>{{getTranslatedMessage('@@selectCurrency')}}</mat-label>
-    <mat-select formControlName="currency">
-      <mat-option value="EUR">EUR</mat-option>
-      <mat-option value="RON">RON</mat-option>
-      <mat-option value="USD">USD</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <br>
-  <!--  <mat-form-field>-->
-  <!--    <mat-label>Donator</mat-label>-->
-  <!--    <mat-select formControlName="donator">-->
-  <!--      <mat-option *ngFor="let donator of donatorList" [value]="donator.id">{{donator.lastName + " " + donator.firstName}}</mat-option>-->
-  <!--    </mat-select>-->
-  <!--  </mat-form-field>-->
+<br>
+<div id="addDonation">
+  <form [formGroup]="donationForm" (ngSubmit)="onSubmit()" class="donationForm">
+    <mat-form-field>
+      <mat-label>{{getTranslatedMessage('@@amount')}}</mat-label>
+      <input formControlName="amount" matInput>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>{{getTranslatedMessage('@@selectCurrency')}}</mat-label>
+      <mat-select formControlName="currency">
+        <mat-option value="EUR">EUR</mat-option>
+        <mat-option value="RON">RON</mat-option>
+        <mat-option value="USD">USD</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
 
-  <mat-form-field>
-    <mat-label>{{getTranslatedMessage('@@donators')}}</mat-label>
-    <input #donatorAutoCompleteInput
-           type="text"
-           placeholder="Pick one"
-           aria-label="Number"
-           matInput
-           formControlName="donator"
-           [matAutocomplete]="auto1"
-           (focus)="filterDonators(donatorAutoCompleteInput.value)"
-           (input)="filterDonators(donatorAutoCompleteInput.value)"
-    >
-    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="donatorAutocompleteFormatterFn">
-      <mat-option *ngFor="let donator of filteredDonators" [value]="donator">
-        {{donator.lastName + " " + donator.firstName}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <br>
-  <!--  <mat-form-field>-->
-  <!--    <mat-label>Campaign</mat-label>-->
-  <!--    <mat-select formControlName="campaign">-->
-  <!--      <mat-option *ngFor="let campaign of campaignList" [value]="campaign.id">{{campaign.name}}</mat-option>-->
-  <!--    </mat-select>-->
-  <!--  </mat-form-field>-->
+    <mat-form-field>
+      <mat-label>{{getTranslatedMessage('@@donators')}}</mat-label>
+      <input #donatorAutoCompleteInput
+             type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             matInput
+             formControlName="donator"
+             [matAutocomplete]="auto1"
+             (focus)="filterDonators(donatorAutoCompleteInput.value)"
+             (input)="filterDonators(donatorAutoCompleteInput.value)"
+      >
+      <mat-autocomplete #auto1="matAutocomplete" [displayWith]="donatorAutocompleteFormatterFn">
+        <mat-option *ngFor="let donator of filteredDonators" [value]="donator">
+          {{donator.lastName + " " + donator.firstName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br>
 
-  <mat-form-field>
-    <mat-label>{{getTranslatedMessage('@@campaigns')}}</mat-label>
-    <input #campaignsAutoCompleteInput
-          type="text"
-           placeholder="Pick one"
-           aria-label="Number"
-           formControlName="campaign"
-           matInput
-           [matAutocomplete]="auto2"
-           (focus)="filterCampaigns(campaignsAutoCompleteInput.value)"
-           (input)="filterCampaigns(campaignsAutoCompleteInput.value)"
-    >
-    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="campaignAutocompleteFormatterFn">
-      <mat-option *ngFor="let campaign of filteredCampaigns" [value]="campaign">
-        {{campaign.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{getTranslatedMessage('@@campaigns')}}</mat-label>
+      <input #campaignsAutoCompleteInput
+            type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             formControlName="campaign"
+             matInput
+             [matAutocomplete]="auto2"
+             (focus)="filterCampaigns(campaignsAutoCompleteInput.value)"
+             (input)="filterCampaigns(campaignsAutoCompleteInput.value)"
+      >
+      <mat-autocomplete #auto2="matAutocomplete" [displayWith]="campaignAutocompleteFormatterFn">
+        <mat-option *ngFor="let campaign of filteredCampaigns" [value]="campaign">
+          {{campaign.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
 
-  <br>
-  <mat-form-field>
-    <mat-label>{{getTranslatedMessage('@@notes')}}</mat-label>
-    <textarea matInput formControlName="notes"></textarea>
-  </mat-form-field>
-  <button type="submit" [disabled]=!donationForm.valid>{{getTranslatedMessage('@@createNewDonation')}}</button>
-</form>
+    <br>
+    <mat-form-field>
+      <mat-label>{{getTranslatedMessage('@@notes')}}</mat-label>
+      <textarea matInput formControlName="notes" maxlength="255"></textarea>
+    </mat-form-field>
+    <button mat-raised-button class="addDonation" type="submit" [disabled]=!donationForm.valid>{{getTranslatedMessage('@@createNewDonation')}}</button>
+  </form>
+</div>

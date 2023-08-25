@@ -4,6 +4,7 @@ import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {LanguageService} from "../../services/language.service";
 import {AppComponent} from "../../app.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit{
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) {
     this.loginForm = this.fb.group({
       username: [''],
       password: ['']
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/donation-reporting']);
       },
       (error) => {
-        console.error('Login Error:', error);
+        this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"));
       }
     );
   }
