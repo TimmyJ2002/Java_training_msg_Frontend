@@ -19,7 +19,7 @@
           {{ user.firstName }}
         </ng-container>
         <ng-template #editFirstNameField>
-          <input type="text" [(ngModel)]="userEditData[user.id].firstName" />
+          <input type="text" [formControl]="userEditData[user.id]['firstName']" [ngClass]="{ 'invalid-field': userEditData[user.id]['firstName'].invalid }" />
         </ng-template>
       </td>
       <td>
@@ -27,7 +27,7 @@
           {{ user.lastName }}
         </ng-container>
         <ng-template #editLastNameField>
-          <input type="text" [(ngModel)]="userEditData[user.id].lastName" />
+          <input type="text" [formControl]="userEditData[user.id]['lastName']" [ngClass]="{ 'invalid-field': userEditData[user.id]['lastName'].invalid }" />
         </ng-template>
       </td>
       <td>
@@ -35,7 +35,7 @@
           {{ user.email }}
         </ng-container>
         <ng-template #editEmailField>
-          <input type="email" [(ngModel)]="userEditData[user.id].email" />
+          <input type="text" [formControl]="userEditData[user.id]['email']" [ngClass]="{ 'invalid-field': userEditData[user.id]['email'].invalid }" />
         </ng-template>
       </td>
       <td>
@@ -43,7 +43,7 @@
           {{ user.mobileNumber }}
         </ng-container>
         <ng-template #editPhoneNumberField>
-          <input type="text" [(ngModel)]="userEditData[user.id].mobileNumber" />
+          <input type="text" [formControl]="userEditData[user.id]['mobileNumber']" [ngClass]="{ 'invalid-field': userEditData[user.id]['mobileNumber'].invalid }" />
         </ng-template>
       </td>
       <td>

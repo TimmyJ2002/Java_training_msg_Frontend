@@ -14,6 +14,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
+  showPopup: boolean = false;
+  pulseAnimation: boolean = true;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
               private languageService: LanguageService,
@@ -23,20 +25,28 @@ export class LoginComponent implements OnInit{
       password: ['']
     });
   }
+
   onSubmit() {
     const credentials = this.loginForm.value;
     this.authService.login(credentials).subscribe(
       (response) => {
         const accessToken = response.accessToken;
-        this.authService.saveAccessToken(accessToken);
-        console.log('Access Token:', accessToken);
-        this.loginForm.reset();
-        this.router.navigate(['/donation-reporting']);
+        if (accessToken) {
+          this.authService.saveAccessToken(accessToken);
+          console.log('Access Token:', accessToken);
+          this.loginForm.reset();
+          this.showPopup = true;
+        }
       },
       (error) => {
         this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"));
       }
     );
+  }
+
+  hidePopup() {
+    this.showPopup = false;
+    this.router.navigate(['/donation-reporting']);
   }
   ngOnInit(): void {
   }

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Role} from "../../models/role";
 import {PermissionManagementService} from "../../services/permission-management.service";
-import {RoleRight} from "../../models/right";
 import {LanguageService} from "../../../../services/language.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 

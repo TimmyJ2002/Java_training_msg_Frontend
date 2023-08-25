@@ -55,3 +55,7 @@ tr:hover {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.invalid-field {
+  border: 1px solid red;
+}

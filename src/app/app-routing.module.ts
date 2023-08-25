@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'donator/edit', component: DonatorListComponent, canActivate: [RightGuard], data: {right:['BENEF_MANAGEMENT']} },
   { path: 'donator/edit/:id', component: EditDonatorComponent, canActivate: [RightGuard], data: {right:['BENEF_MANAGEMENT']} },
   { path: 'donator/delete', component: DeleteDonatorComponent, canActivate: [RightGuard], data: {right:['BENEF_MANAGEMENT']} },
-  // { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
   // { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 

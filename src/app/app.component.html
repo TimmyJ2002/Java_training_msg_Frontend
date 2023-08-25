@@ -27,6 +27,9 @@
     </div>
   </div>
   <a *ngIf="(authService.isLoggedIn$ | async); else loginLink" (click)="logout()" aria-current="page">{{ getTranslatedMessage('@@logout') }}</a>
+  <a *ngIf="(authService.isLoggedIn$ | async)" routerLink="/change-password" routerLinkActive="active" aria-current="page" [hidden]="true">
+    Change password
+  </a>
 
   <mat-button-toggle-group #group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style" (change) = "switchLanguage($event.value)" id="languageSelector">
     <mat-button-toggle value="en" class="langButton">EN</mat-button-toggle>
