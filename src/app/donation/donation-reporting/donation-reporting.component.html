@@ -27,8 +27,26 @@
 <div>
   <button id="exportButton" class="exportButton" (click)="exportSelectedDonations()">{{getTranslatedMessage('@@exportAsCSV')}}</button>
 </div>
-<ul>
-  <li class="donation-item" *ngFor="let donation of filteredDonations">
+<!--<ul>-->
+<!--  <li class="donation-item" *ngFor="let donation of filteredDonations">-->
+<!--    <div>-->
+<!--      <p class="donation-id">{{ getTranslatedMessage('@@donationID') }}: {{ donation.id }}</p>-->
+<!--      <p class="donation-amount">{{ getTranslatedMessage('@@amount') }}: {{ donation.amount }}</p>-->
+<!--      <p class="donation-currency">{{ getTranslatedMessage('@@currency') }}: {{ donation.currency }}</p>-->
+<!--      <p class="donation-created">{{ getTranslatedMessage('@@createdDate') }}: {{ donation.createdDate }}</p>-->
+<!--      <p class="donation-approval" [style.color]="donation.approved ? 'green' : 'red'">-->
+<!--        {{ getTranslatedMessage('@@approvedStatus') }}: {{ donation.approved }}-->
+<!--      </p>-->
+<!--      <p class="donation-notes">{{ getTranslatedMessage('@@notes') }}: {{ donation.notes }}</p>-->
+<!--      <button class="delete-button" (click)="deleteDonation(donation.id)" *ngIf="!donation.approved && hasPermission(['DONATION_MANAGEMENT'])">{{ getTranslatedMessage('@@deleteButton') }}</button>-->
+<!--      <button class="approve-button" *ngIf="!donation.approved && hasPermission(['DONATION_APPROVE'])" (click)="approveDonation(donation)">{{ getTranslatedMessage('@@approveButton') }}</button>-->
+<!--      <button mat-stroked-button *ngIf="!donation.approved && hasPermission(['DONATION_MANAGEMENT'])" (click)="editDonation(donation)">Edit</button>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->
+
+<mat-grid-list cols="4" id="donationReportingGrid">
+  <mat-grid-tile *ngFor="let donation of filteredDonations">
     <div>
       <p class="donation-id">{{ getTranslatedMessage('@@donationID') }}: {{ donation.id }}</p>
       <p class="donation-amount">{{ getTranslatedMessage('@@amount') }}: {{ donation.amount }}</p>
@@ -42,5 +60,5 @@
       <button class="approve-button" *ngIf="!donation.approved && hasPermission(['DONATION_APPROVE'])" (click)="approveDonation(donation)">{{ getTranslatedMessage('@@approveButton') }}</button>
       <button mat-stroked-button *ngIf="!donation.approved && hasPermission(['DONATION_MANAGEMENT'])" (click)="editDonation(donation)">Edit</button>
     </div>
-  </li>
-</ul>
+  </mat-grid-tile>
+</mat-grid-list>

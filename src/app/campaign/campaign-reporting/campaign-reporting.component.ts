@@ -37,7 +37,7 @@ export class CampaignReportingComponent implements OnInit{
     return this.languageService.getTranslation(key);
   }
   exportSelectedCampaigns() {
-    // Perform further actions, such as exporting to CSV
+// Perform further actions, such as exporting to CSV
     console.log(this.filteredCampaigns)
     this.campaignService.exportSelectedCampaigns(this.filteredCampaigns);
   }
