@@ -13,6 +13,7 @@ nav a {
   border-radius: 4px;
   transition: background-color 0.3s ease;
   margin-right: 30px;
+  width: 100px;
 }
 
 nav a:hover {
@@ -30,6 +31,7 @@ nav a:last-child {
 .dropdown {
   position: relative;
   display: inline-block;
+  width: 100px;
 }
 
 .dropdown-content {
@@ -61,24 +63,6 @@ nav a:last-child {
 mat-icon{
   color: white;
 }
-.language-dropdown {
-  position: relative;
-  display: inline-block;
-  margin-left: 30px; /* Add some margin to separate it from other navigation links */
-}
-
-.language-button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  color: #333;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.language-button:hover {
-  background-color: #555;
-}
 
 
 .dropdown-content {
@@ -106,11 +90,12 @@ mat-icon{
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 132px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
   top: 100%;
   left: 0;
+  width: 132px;
 }
 
 .dropdown-content a {
@@ -124,9 +109,6 @@ mat-icon{
   background-color: #ddd;
 }
 
-.language-dropdown:hover .dropdown-content {
-  display: block;
-}
 /* In your component's CSS file or in a global CSS file */
 .mat-form-field {
   margin: 0; /* Optional: adjust margins as needed */
@@ -151,4 +133,9 @@ mat-icon{
   padding: 5px 10px; /* Add some padding for spacing */
   border-radius: 4px; /* Add rounded corners */
   transition: background-color 0.3s; /* Smooth transition for background color change */
+}
+
+.mat-button-toggle-group {
+  height: 30px;
+  align-items: center;
 }

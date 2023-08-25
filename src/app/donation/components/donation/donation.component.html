@@ -60,6 +60,6 @@
       <mat-label>{{getTranslatedMessage('@@notes')}}</mat-label>
       <textarea matInput formControlName="notes" maxlength="255"></textarea>
     </mat-form-field>
-    <button mat-raised-button type="submit" [disabled]=!donationForm.valid>{{getTranslatedMessage('@@createNewDonation')}}</button>
+    <button mat-raised-button class="addDonation" type="submit" [disabled]=!donationForm.valid>{{getTranslatedMessage('@@createNewDonation')}}</button>
   </form>
 </div>

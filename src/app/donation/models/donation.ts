@@ -9,6 +9,7 @@ export class Donation {
     public notes: string,
     public id?: number,
     public amount?: number,
+    public approved?: boolean
   ) {
   }
 

@@ -34,3 +34,7 @@
 .selected-row {
   background-color: #e64a19;
 }
+
+.donorListRow {
+  width: 200px;
+}

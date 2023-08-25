@@ -22,6 +22,9 @@ export class DonationReportingComponent implements OnInit{
   searchQuery: string = '';
   status: boolean = false;
   rightsList: string[] = [];
+  displayedColumns: string[] = ['donationID', 'amount', 'currency', 'campaign', 'donator', 'approved', 'notes'];
+  selectedDonation: Donation;
+  isApproved: boolean = false;
 
   // New array to store selected donations
   selectedDonations: any[] = [];
@@ -70,8 +73,9 @@ export class DonationReportingComponent implements OnInit{
       );
     }
   }
-  deleteDonation(id: string): void{
-    if (this.getTranslatedMessage("@@areYouSureDonation")) {
+  deleteDonation(ID: number): void{
+    let id = ID.toString();
+    if (confirm(`Are you sure you want to delete the selected donation?`)) {
       this.status = true;
       this.donationService.deleteDonation(id);
       this._snackBar.open(this.getTranslatedMessage("@@donationDeletedSuccessfully"), this.getTranslatedMessage("@@close"));
@@ -87,7 +91,6 @@ export class DonationReportingComponent implements OnInit{
 
 
   approveDonation(donation: any): void {
-
     this.donationService.approveDonation(donation.id).subscribe(
       () => {
         this._snackBar.open(this.getTranslatedMessage("@@donationApproved"), this.getTranslatedMessage("@@close"))
@@ -96,6 +99,8 @@ export class DonationReportingComponent implements OnInit{
         const approvedDonationIndex = this.donations.findIndex((d) => d.id === donation.id);
         if (approvedDonationIndex !== -1) {
           this.donations[approvedDonationIndex].approved = true;
+          this.selectedDonation.approved = true;
+          this.onSelected();
         }
 
         // Optionally, update filteredDonations as well
@@ -134,4 +139,19 @@ export class DonationReportingComponent implements OnInit{
     return (requiredPermissions).some((right) => this.rightsList.includes(right))
   }
 
+  onSelected() {
+    this.isApproved = this.selectedDonation.approved!;
+    const approveBtn = document.getElementById('approveButton') as HTMLButtonElement;
+    const editBtn = document.getElementById('editButton') as HTMLButtonElement;
+    const deleteBtn = document.getElementById('deleteButton') as HTMLButtonElement;
+    if (!this.isApproved) {
+      approveBtn?.removeAttribute('disabled');
+      editBtn?.removeAttribute('disabled');
+      deleteBtn?.removeAttribute('disabled');
+    } else {
+      approveBtn?.setAttribute('disabled', '');
+      editBtn?.setAttribute('disabled', '');
+      deleteBtn?.setAttribute('disabled', '');
+    }
+  }
 }
