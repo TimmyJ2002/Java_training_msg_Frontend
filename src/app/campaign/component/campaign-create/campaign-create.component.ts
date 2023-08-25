@@ -33,7 +33,7 @@ export class CampaignCreateComponent implements OnInit {
       const campaignData = this.campaignForm.value;
         this.campaignService.createCampaign(campaignData).subscribe(
           (response) => {
-            this._snackBar.open(this.getTranslatedMessage("@@campaignSuccessfully"), this.getTranslatedMessage("@@close"))
+            this._snackBar.open(this.getTranslatedMessage("@@createCampaignSuccessfull"), this.getTranslatedMessage("@@close"))
             this.isSuccess = true;
             formDirective.resetForm();
             this.campaignForm.reset();

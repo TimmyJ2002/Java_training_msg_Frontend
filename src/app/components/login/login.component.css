@@ -27,7 +27,7 @@ input {
 
 .loginButton {
   background-color: #ff5722;
-  color: #fff;
+  color: #fff !important;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
