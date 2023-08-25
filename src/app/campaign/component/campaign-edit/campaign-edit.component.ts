@@ -55,7 +55,7 @@ export class CampaignEditComponent implements OnInit {
   updateCampaign() {
     this.campaignService.updateCampaign(this.campaignDetails.id, this.campaignDetails).subscribe(
       (response) => {
-        this._snackBar.open('Campaign successfully edited!', 'Close')
+        this._snackBar.open(this.getTranslatedMessage("@@editCampaignSuccessfull"), this.getTranslatedMessage("@@close"))
         this.isSuccess = true;
         setTimeout(() => {
           this.router.navigate(['/campaign/list'], {
@@ -64,7 +64,7 @@ export class CampaignEditComponent implements OnInit {
         }, 500);
       },
       (error) => {
-        this._snackBar.open('Campaign could not be edited', 'Close')
+        this._snackBar.open(this.getTranslatedMessage("@@campaignCannotEdit"), this.getTranslatedMessage("@@close"))
         this.isDuplicate = true;
       }
     );

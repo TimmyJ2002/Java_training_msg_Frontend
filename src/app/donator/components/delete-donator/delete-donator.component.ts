@@ -32,7 +32,7 @@ export class DeleteDonatorComponent implements OnInit{
     if (confirm(`Are you sure you want to delete ${donor.firstName} ${donor.lastName}?`)) {
       this.status = true;
       this.donorService.deleteDonor(donor);
-      this._snackBar.open('Donor successfully deleted!', 'Close')
+      this._snackBar.open(this.getTranslatedMessage("@@donorDeletedSuccessfully"), this.getTranslatedMessage("@@close"))
     } else {
       this.status = false;
     }

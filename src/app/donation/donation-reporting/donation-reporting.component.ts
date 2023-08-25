@@ -71,13 +71,13 @@ export class DonationReportingComponent implements OnInit{
     }
   }
   deleteDonation(id: string): void{
-    if (confirm(`Are you sure you want to delete the selected donation?`)) {
+    if (this.getTranslatedMessage("@@areYouSureDonation")) {
       this.status = true;
       this.donationService.deleteDonation(id);
-      this._snackBar.open("Donation successfully deleted!", 'Close');
+      this._snackBar.open(this.getTranslatedMessage("@@donationDeletedSuccessfully"), this.getTranslatedMessage("@@close"));
     } else {
       this.status = false;
-      this._snackBar.open("Donation was not deleted!", 'Close');
+      this._snackBar.open(this.getTranslatedMessage("@@donationCannotDelete"), this.getTranslatedMessage("@@close"));
     }
     if(this.status) {
       this.donations = this.donations.filter(donation => donation.id !== id);
@@ -90,7 +90,7 @@ export class DonationReportingComponent implements OnInit{
 
     this.donationService.approveDonation(donation.id).subscribe(
       () => {
-        this._snackBar.open('Donation successfully approved!', 'Close')
+        this._snackBar.open(this.getTranslatedMessage("@@donationApproved"), this.getTranslatedMessage("@@close"))
 
         // Update the approval status locally
         const approvedDonationIndex = this.donations.findIndex((d) => d.id === donation.id);
@@ -105,7 +105,7 @@ export class DonationReportingComponent implements OnInit{
         }
       },
       (error) => {
-        this._snackBar.open('Donation could not be approved', 'Close')
+        this._snackBar.open(this.getTranslatedMessage("@donationCannotApprove"), this.getTranslatedMessage("@@close"))
       }
     );
   }

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {HttpHeaders} from "@angular/common/http";
+import {LanguageService} from "../../../services/language.service";
 
 @Component({
   selector: 'app-user-change-password',
@@ -13,7 +14,8 @@ export class UserChangePasswordComponent implements OnInit{
 
   changePasswordForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
+              private languageService: LanguageService) {
     this.changePasswordForm = this.fb.group({
       password: [''],
       passwordConfirm: ['']
@@ -26,7 +28,7 @@ export class UserChangePasswordComponent implements OnInit{
 
     if (newPassword !== passwordConfirm) {
       // Passwords don't match, show error or handle accordingly
-      alert("Passwords don't match!");
+      alert(this.getTranslatedMessage("@@passNoMatch"));
       return;
     }
 
@@ -45,12 +47,12 @@ export class UserChangePasswordComponent implements OnInit{
             alert("Error updating logincount ");
           }
         );
-        alert("Password changed successfully");
+        alert(this.getTranslatedMessage("@@passEditSuccessfully"));
         this.router.navigate(['/users']);
       },
       (error) => {
         console.error('Error changing password:', error);
-        alert("Error changing password");
+        alert(this.getTranslatedMessage("@@passCannotEdit"));
       }
     );
   }
@@ -58,5 +60,7 @@ export class UserChangePasswordComponent implements OnInit{
 
   ngOnInit(): void {
   }
-
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
 }

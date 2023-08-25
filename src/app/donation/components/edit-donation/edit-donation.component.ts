@@ -8,6 +8,7 @@ import {Donation} from "../../models/donation";
 import {DonationService} from "../../services/donation.service";
 import {combineLatest, take} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {LanguageService} from "../../../services/language.service";
 
 interface EditDonationForm {
   amount: FormControl<string>;
@@ -35,7 +36,8 @@ export class EditDonationComponent {
     private donatorService: CreateDonatorService,
     private campaignService: CampaignService,
     private donationService: DonationService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private languageService:LanguageService
   ) {
   }
 
@@ -94,7 +96,7 @@ export class EditDonationComponent {
           this.donationForm.controls['currency'].setErrors(null);
           this.donationForm.controls['donator']!.setErrors(null);
           this.donationForm.controls['campaign']!.setErrors(null);
-          this._snackBar.open("Donation updated successfully!", "Close");
+          this._snackBar.open(this.getTranslatedMessage("@@donationEditedSuccessfully"), this.getTranslatedMessage("@@close"));
         },
         (error) => {
           this.donationForm.reset();
@@ -102,7 +104,7 @@ export class EditDonationComponent {
           this.donationForm.controls['currency'].setErrors(null);
           this.donationForm.controls['donator']!.setErrors(null);
           this.donationForm.controls['campaign']!.setErrors(null);
-          this._snackBar.open("Donation could not be updated", "Close");
+          this._snackBar.open(this.getTranslatedMessage("@@donationCannotEdit"), this.getTranslatedMessage("@@close"));
         }
       );
     }
@@ -129,5 +131,8 @@ export class EditDonationComponent {
 
   donatorAutocompleteFormatterFn = (donator: Donator): string => donator ? `${donator.lastName} ${donator.firstName}` : '';
   campaignAutocompleteFormatterFn = (campaign: Campaign): string => campaign ? `${campaign.name}` : '';
+  getTranslatedMessage(key: string): string {
+    return this.languageService.getTranslation(key);
+  }
 
 }

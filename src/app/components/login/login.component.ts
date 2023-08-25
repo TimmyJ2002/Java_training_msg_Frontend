@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/donation-reporting']);
       },
       (error) => {
-        this._snackBar.open('Wrong username or password', 'Close');
+        this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"));
       }
     );
   }
