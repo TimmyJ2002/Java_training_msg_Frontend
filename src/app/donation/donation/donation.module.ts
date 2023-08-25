@@ -6,6 +6,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 
@@ -14,12 +15,13 @@ import {MatButtonModule} from "@angular/material/button";
     DonationComponent
   ],
     imports: [
-        CommonModule,
-        MatInputModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatButtonModule
+      CommonModule,
+      MatInputModule,
+      MatSelectModule,
+      ReactiveFormsModule,
+      MatAutocompleteModule,
+      MatButtonModule,
+      MatSnackBarModule
     ]
 })
 export class DonationModule { }

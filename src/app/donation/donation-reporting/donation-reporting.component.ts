@@ -6,6 +6,7 @@ import {HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../../services/auth.service";
 import {LanguageService} from "../../services/language.service";
 import jwtDecode from "jwt-decode";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -27,7 +28,8 @@ export class DonationReportingComponent implements OnInit{
 
   constructor(private donationService: DonationService, private authService: AuthService,
               private languageService: LanguageService,
-              private router: Router) { }
+              private router: Router,
+              private _snackBar: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -69,7 +71,14 @@ export class DonationReportingComponent implements OnInit{
     }
   }
   deleteDonation(id: string): void{
-    this.status = this.donationService.deleteDonation(id);
+    if (this.getTranslatedMessage("@@areYouSureDonation")) {
+      this.status = true;
+      this.donationService.deleteDonation(id);
+      this._snackBar.open(this.getTranslatedMessage("@@donationDeletedSuccessfully"), this.getTranslatedMessage("@@close"));
+    } else {
+      this.status = false;
+      this._snackBar.open(this.getTranslatedMessage("@@donationCannotDelete"), this.getTranslatedMessage("@@close"));
+    }
     if(this.status) {
       this.donations = this.donations.filter(donation => donation.id !== id);
       this.filteredDonations = this.filteredDonations.filter(donation => donation.id !== id);
@@ -81,7 +90,7 @@ export class DonationReportingComponent implements OnInit{
 
     this.donationService.approveDonation(donation.id).subscribe(
       () => {
-        console.log('Donation approved successfully');
+        this._snackBar.open(this.getTranslatedMessage("@@donationApproved"), this.getTranslatedMessage("@@close"))
 
         // Update the approval status locally
         const approvedDonationIndex = this.donations.findIndex((d) => d.id === donation.id);
@@ -96,7 +105,7 @@ export class DonationReportingComponent implements OnInit{
         }
       },
       (error) => {
-        console.error('Error approving donation:', error);
+        this._snackBar.open(this.getTranslatedMessage("@donationCannotApprove"), this.getTranslatedMessage("@@close"))
       }
     );
   }

@@ -3,6 +3,7 @@ import {Donator} from "../../models/donator";
 import {CreateDonatorService} from "../../services/createdonator.service";
 import {Router} from "@angular/router";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-delete-donator',
@@ -15,7 +16,8 @@ export class DeleteDonatorComponent implements OnInit{
   status: boolean = false;
 
   constructor(private donorService: CreateDonatorService,
-              private languageService: LanguageService) {}
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.status = false;
@@ -26,10 +28,16 @@ export class DeleteDonatorComponent implements OnInit{
       this.donors = donors.filter(donator => donator.active); //nu stiu de ce nu merge cu isActive...ma rog, asa merge
     });
   }
-  deleteDonor(d: Donator): void{
-    this.status = this.donorService.deleteDonor(d);
-    if(this.status)
-      this.donors = this.donors.filter(donator => donator.id !== d.id);
+  deleteDonor(donor: Donator): void{
+    if (confirm(`Are you sure you want to delete ${donor.firstName} ${donor.lastName}?`)) {
+      this.status = true;
+      this.donorService.deleteDonor(donor);
+      this._snackBar.open(this.getTranslatedMessage("@@donorDeletedSuccessfully"), this.getTranslatedMessage("@@close"))
+    } else {
+      this.status = false;
+    }
+      if (this.status)
+        this.donors = this.donors.filter(donator => donator.id !== donor.id);
   }
   getTranslatedMessage(key: string): string {
     return this.languageService.getTranslation(key);

@@ -24,10 +24,12 @@ export class CampaignReportingComponent implements OnInit{
       this.filteredCampaigns = this.campaigns;
     } else {
       this.filteredCampaigns = this.campaigns.filter(campaign =>
-        campaign.purpose.toLowerCase().includes(this.searchQuery.toLowerCase())
+        campaign.purpose.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        campaign.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
   }
+
 
   constructor(private campaignService: CampaignService,
               private languageService: LanguageService) { }
@@ -35,7 +37,7 @@ export class CampaignReportingComponent implements OnInit{
     return this.languageService.getTranslation(key);
   }
   exportSelectedCampaigns() {
-    // Perform further actions, such as exporting to CSV
+// Perform further actions, such as exporting to CSV
     console.log(this.filteredCampaigns)
     this.campaignService.exportSelectedCampaigns(this.filteredCampaigns);
   }
