@@ -186,7 +186,7 @@ button:disabled:hover {
 .editBtns {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 8px;
 }
 

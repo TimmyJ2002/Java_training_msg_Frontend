@@ -59,7 +59,7 @@
   <button class="addButton" type="submit" [disabled]=!userForm.valid>Create new User</button>
 
   <div class="spinner-overlay" *ngIf="isCreatingUser">
-    <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
   </div>
 </form>
 
