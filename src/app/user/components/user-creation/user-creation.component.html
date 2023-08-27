@@ -30,7 +30,7 @@
 
       <mat-form-field >
         <input matInput placeholder="E-mail*" formControlName="email">
-        <mat-error *ngIf="userForm.get('email')?.hasError('required')">E-mail is requiered</mat-error>
+        <mat-error *ngIf="userForm.get('email')?.hasError('required')">E-mail is required</mat-error>
         <mat-error *ngIf="userForm.get('email')?.hasError('pattern')">Please enter valid E-mail (ex: abcd@mail.com)</mat-error>
       </mat-form-field>
     </div>
