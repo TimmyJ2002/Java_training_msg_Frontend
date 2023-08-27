@@ -39,10 +39,14 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/donation-reporting'])
       },
       (error) => {
-        if (error.message == "Account inactive"){
-          alert("Account is inactive");
+        console.log(error)
+        if (error.error.message == "Account is inactive"){
+          this._snackBar.open('Account is inactive', this.getTranslatedMessage("@@close"), {duration: 3000});
+        } else if (error.error.message == 'Your account has been deactivated') {
+          this._snackBar.open('Your account has been deactivated, because you entered the wrong password for 5 times', this.getTranslatedMessage("@@close"), {duration: 3000});
+        } else {
+          this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"), {duration: 3000})
         }
-        this._snackBar.open('Wrong username or password', this.getTranslatedMessage("@@close"), {duration: 3000});
       }
     );
   }

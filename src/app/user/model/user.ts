@@ -11,4 +11,5 @@ export interface User {
   mobileNumber: string;
   roles: Role[];
   active: boolean;
+  loginCount?: number;
 }

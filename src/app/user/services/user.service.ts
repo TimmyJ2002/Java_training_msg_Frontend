@@ -19,6 +19,14 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}`);
   }
 
+  getByID(userID: number): Observable<User> {
+    return this.http.get<User>("http://localhost:8080/users/find_by_id/" + userID);
+  }
+
+  getByUsername(username: string): Observable<User> {
+    return this.http.get<User>("http://localhost:8080/users/find_by_username/" + username);
+  }
+
   createUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.createUserBE}`, user).pipe(
       catchError((error) => {

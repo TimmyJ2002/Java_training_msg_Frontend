@@ -1,6 +1,10 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {LanguageService} from "./language.service";
+import {UserService} from "../user/services/user.service";
+import {User} from "../user/model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +20,8 @@ export class AuthService implements OnInit{
   public username = '';
 
   private failedLogins = 0;
+
+  private userTryingToLogin: User;
 
   constructor(private http: HttpClient) {
   }
@@ -40,9 +46,14 @@ export class AuthService implements OnInit{
           }
         }),
         catchError(error => {
-          this.failedLogins++;
-          if (this.failedLogins >= 5){
-            alert("Your account has been deactivated, because you entered the wrong password for 5 times")
+          if (this,this.failedLogins <=5) {
+            this.failedLogins++;
+            console.log(this.failedLogins)
+          }
+          console.log(this.failedLogins)
+          if (this.failedLogins === 5){
+            console.log(this.failedLogins)
+            error.error.message = 'Your account has been deactivated';
           }
           return throwError(error);
         })
@@ -123,4 +134,5 @@ export class AuthService implements OnInit{
       );
     }
   }
+
 }
