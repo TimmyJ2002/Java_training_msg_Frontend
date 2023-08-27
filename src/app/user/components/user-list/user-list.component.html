@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let user of users">
-      <td>
+      <td class="firstName">
         <ng-container *ngIf="user.id !== editUserId; else editFirstNameField">
           {{ user.firstName }}
         </ng-container>
@@ -22,7 +22,7 @@
           <input type="text" [formControl]="userEditData[user.id]['firstName']" [ngClass]="{ 'invalid-field': userEditData[user.id]['firstName'].invalid }" />
         </ng-template>
       </td>
-      <td>
+      <td class="lastName">
         <ng-container *ngIf="user.id !== editUserId; else editLastNameField">
           {{ user.lastName }}
         </ng-container>
@@ -30,7 +30,7 @@
           <input type="text" [formControl]="userEditData[user.id]['lastName']" [ngClass]="{ 'invalid-field': userEditData[user.id]['lastName'].invalid }" />
         </ng-template>
       </td>
-      <td>
+      <td class="email">
         <ng-container *ngIf="user.id !== editUserId; else editEmailField">
           {{ user.email }}
         </ng-container>
@@ -38,7 +38,7 @@
           <input type="text" [formControl]="userEditData[user.id]['email']" [ngClass]="{ 'invalid-field': userEditData[user.id]['email'].invalid }" />
         </ng-template>
       </td>
-      <td>
+      <td class="phone">
         <ng-container *ngIf="user.id !== editUserId; else editPhoneNumberField">
           {{ user.mobileNumber }}
         </ng-container>
@@ -46,7 +46,7 @@
           <input type="text" [formControl]="userEditData[user.id]['mobileNumber']" [ngClass]="{ 'invalid-field': userEditData[user.id]['mobileNumber'].invalid }" />
         </ng-template>
       </td>
-      <td>
+      <td class="username">
         <ng-container *ngIf="user.id !== editUserId; else editUsernameField">
           {{ user.username }}
         </ng-container>
@@ -54,22 +54,23 @@
           <span *ngIf="user.id !== editUserId">{{ user.username }}</span>
         </ng-template>
       </td>
-      <td>
+      <td class="roles">
         <ng-container *ngIf="user.id !== editUserId; else editRolesField">
           {{ getRoleNames(user.roles) }}
+          <span class="tooltip-text">{{ getRoleNames(user.roles) }}</span>
         </ng-container>
         <ng-template #editRolesField>
           <span *ngIf="user.id !== editUserId">{{ getRoleNames(user.roles) }}</span>
         </ng-template>
       </td>
-      <td>
+      <td class="edit">
         <button class="edit-button" (click)="editOrSaveUser(user)">
           {{ editUserId === user.id ? getTranslatedMessage('@@saveButton') : getTranslatedMessage('@@edit') }}
         </button>
 
       </td>
-      <td>
-        <button [class]="user.active ? 'activation-button deactivate' : 'activation-button reactivate'" (click)="toggleActivation(user)">
+      <td class="toggleActive">
+        <button class="active" [class]="user.active ? 'activation-button deactivate' : 'activation-button reactivate'" (click)="toggleActivation(user)">
           {{ user.active ? getTranslatedMessage('@@deactivateButton') : getTranslatedMessage('@@reactivateButton') }}
         </button>
 
