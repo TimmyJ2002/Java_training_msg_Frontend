@@ -6,6 +6,11 @@
   padding: 0px 20px;
 }
 
+.filters {
+  display: flex;
+  padding: 0px 10px;
+}
+
 .search-label {
   margin-right: 10px;
   height: 35px;
@@ -26,7 +31,6 @@
 
 .filter-label {
   font-size: 16px;
-  font-weight: bold;
   margin-right: 10px;
 }
 
@@ -152,7 +156,9 @@
 #utilsContainer {
   padding-top: 10px;
   background-color: white;
-  width: 100%;
+  width: 80%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 #donationReportingGrid {
@@ -171,7 +177,7 @@ tr.mat-mdc-row:nth-child(odd) {
 }
 
 .role-row-is-clicked {
-  background-color: lightgreen !important;
+  background-color: orangered !important;
 }
 
 button:disabled {

@@ -13,6 +13,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -23,20 +24,21 @@ import {MatIconModule} from "@angular/material/icon";
     UserCreationComponent,
     UserChangePasswordComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-    UserRoutingModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatSnackBarModule,
-    MatIconModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        HttpClientModule,
+        UserRoutingModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatSnackBarModule,
+        MatIconModule,
+        MatButtonModule
+    ],
   exports: [
     UserRoutingModule
   ]

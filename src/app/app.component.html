@@ -31,10 +31,12 @@
     Change password
   </a>
 
-  <mat-button-toggle-group #group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style" (change) = "switchLanguage($event.value)" id="languageSelector">
-    <mat-button-toggle value="en" class="langButton">EN</mat-button-toggle>
-    <mat-button-toggle value="ro" class="langButton">RO</mat-button-toggle>
-  </mat-button-toggle-group>
+  <div class="langSelector">
+    <mat-button-toggle-group #group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style" (change) = "switchLanguage($event.value)" id="languageSelector">
+      <mat-button-toggle value="en" class="langButton">EN</mat-button-toggle>
+      <mat-button-toggle value="ro" class="langButton">RO</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 
   <mat-icon aria-hidden="false" matBadge="{{ unReadNotificationsCount }}" matBadgeColor="warn" (click)="getNotifications()" [matMenuTriggerFor]="menu" *ngIf="(authService.isLoggedIn$ | async) && sessionStorage.getItem('changedPassword') === 'true'">notifications_none</mat-icon>
   <mat-menu #menu="matMenu">

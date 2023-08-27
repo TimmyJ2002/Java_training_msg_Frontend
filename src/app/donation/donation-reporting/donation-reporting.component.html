@@ -1,29 +1,32 @@
 <div id="utilsContainer">
-  <div class="filter-search-container">
-    <div class="filter-container">
-      <label class="filter-label" for="filterCriteria">{{ getTranslatedMessage('@@filterBy') }}</label>
-      <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">
-        <option value="selectCriteria">{{ getTranslatedMessage('@@selectCriteria') }}</option>
-        <option value="Approved">{{ getTranslatedMessage('@@approved') }}</option>
-        <option value="Not approved">{{ getTranslatedMessage('@@notApproved') }}</option>
-        <option value="currency">{{ getTranslatedMessage('@@currency') }}</option>
-        <!-- Add more filtering criteria options here -->
-      </select>
-    </div>
+  <div class="filters">
 
-    <div class="search-container">
-      <label class="search-label" for="searchInput">{{ getTranslatedMessage('@@search') }}</label>
-      <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
-    </div>
-  </div>
+    <div class="filter-search-container">
+      <div class="filter-container">
+        <label class="filter-label" for="filterCriteria">{{ getTranslatedMessage('@@filterBy') }}</label>
+        <select class="filter-dropdown" id="filterCriteria" [(ngModel)]="selectedFilterCriteria" (ngModelChange)="applyFilter()">
+          <option value="selectCriteria">{{ getTranslatedMessage('@@selectCriteria') }}</option>
+          <option value="Approved">{{ getTranslatedMessage('@@approved') }}</option>
+          <option value="Not approved">{{ getTranslatedMessage('@@notApproved') }}</option>
+          <option value="currency">{{ getTranslatedMessage('@@currency') }}</option>
+          <!-- Add more filtering criteria options here -->
+        </select>
+      </div>
 
-  <div *ngIf="selectedFilterCriteria === 'currency'">
-    <label class="filter-label" for="currencyFilter">{{ getTranslatedMessage('@@selectCurrency') }}</label>
-    <select class="filter-dropdown" id="currencyFilter" [(ngModel)]="selectedCurrency" (ngModelChange)="applyFilter()">
-      <option value="EUR">{{ getTranslatedMessage('@@eur') }}</option>
-      <option value="USD">{{ getTranslatedMessage('@@usd') }}</option>
-      <option value="RON">{{ getTranslatedMessage('@@ron') }}</option>
-    </select>
+      <div *ngIf="selectedFilterCriteria === 'currency'" class="currencyDropdown">
+        <label class="filter-label" for="currencyFilter">{{ getTranslatedMessage('@@selectCurrency') }}</label>
+        <select class="filter-dropdown" id="currencyFilter" [(ngModel)]="selectedCurrency" (ngModelChange)="applyFilter()">
+          <option value="EUR">{{ getTranslatedMessage('@@eur') }}</option>
+          <option value="USD">{{ getTranslatedMessage('@@usd') }}</option>
+          <option value="RON">{{ getTranslatedMessage('@@ron') }}</option>
+        </select>
+      </div>
+
+      <div class="search-container">
+        <label class="search-label" for="searchInput">{{ getTranslatedMessage('@@search') }}</label>
+        <input class="search-input" type="text" id="searchInput" [(ngModel)]="searchQuery" (input)="applySearch()">
+      </div>
+    </div>
   </div>
   <div class="donRepButtons">
     <button id="exportButton" class="exportButton" (click)="exportSelectedDonations()">{{getTranslatedMessage('@@exportAsCSV')}}</button>

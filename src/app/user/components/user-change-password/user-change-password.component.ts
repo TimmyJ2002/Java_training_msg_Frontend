@@ -4,6 +4,7 @@ import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {HttpHeaders} from "@angular/common/http";
 import {LanguageService} from "../../../services/language.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-user-change-password',
@@ -15,7 +16,8 @@ export class UserChangePasswordComponent implements OnInit{
   changePasswordForm: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private _snackBar: MatSnackBar) {
     this.changePasswordForm = this.fb.group({
       password: [''],
       passwordConfirm: ['']

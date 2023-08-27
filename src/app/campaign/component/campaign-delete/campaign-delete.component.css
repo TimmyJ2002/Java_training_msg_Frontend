@@ -1,7 +1,3 @@
-h2 {
-  text-align: center;
-}
-
 form {
   max-width: 300px;
   margin: 0 auto;
@@ -26,40 +22,42 @@ input {
 }
 
 .deleteButton {
-  background-color: #ff5722;
-  color: #fff;
-  border: none;
-  padding: 5px 20px;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
   display: inline-block;
-  align-items: center;
-  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 0.5em;
+  padding-top: .5em;
+  padding-bottom: .5em;
+  color: #fff;
+  background-color: #ff5c5c;
+  border-radius: 5px;
+  border: solid #cccccc 1px;
+  box-shadow: 2px 2px 1px #888888;
   clear: right;
+  float: right;
 }
 
 .deleteButton:hover {background-color: #e64a19;
 }
 
 #campaignTable {
-  width: 80%;
-  margin: 0 auto;
-  border-collapse: collapse;
-  border: 2px solid #e64a19;
+  align-self: center;
+  overflow: auto;
+  width: 70%;
+  max-height: 75% !important;
+  border-style: solid;
+  border-width: thin;
+  border-color: #555555;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #campaignTable th,
 #campaignTable td {
-  border: 1px solid black;
   padding: 8px;
   text-align: center;
-}
-
-#campaignTable th {
-  background-color: #e64a19;
-  color: white;
 }
 
 #campaignTable a {
@@ -73,9 +71,22 @@ input {
 }
 
 .donorListRow {
-  width: 900px;
+  width: 90%;
 }
 
 .deleteMessage {
-  padding: 0px 150px !important;
+  padding: 0px 15% !important;
+}
+
+tr.mat-mdc-row:nth-child(odd) {
+  background-color: #e1e2e3;
+}
+
+h2 {
+  margin-top: 5vh;
+  text-align: left;
+}
+
+.role-row-is-clicked {
+  background-color: orangered !important;
 }

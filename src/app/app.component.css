@@ -34,17 +34,6 @@ nav a:last-child {
   width: 100px;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  z-index: 1;
-  top: 100%; /* Position the dropdown below the link */
-  left: 0; /* Align the dropdown with the link */
-}
-
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -62,16 +51,6 @@ nav a:last-child {
 
 mat-icon{
   color: white;
-}
-
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #fff;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
 }
 
 .dropdown-content a {
@@ -92,7 +71,7 @@ mat-icon{
   background-color: #f9f9f9;
   min-width: 132px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 1020;
   top: 100%;
   left: 0;
   width: 132px;
@@ -138,4 +117,8 @@ mat-icon{
 .mat-button-toggle-group {
   height: 30px;
   align-items: center;
+}
+
+.langSelector {
+  padding-right: 20px;
 }

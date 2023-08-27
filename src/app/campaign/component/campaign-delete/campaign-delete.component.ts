@@ -18,6 +18,7 @@ export class CampaignDeleteComponent implements OnInit {
   isSuccess: boolean = false;
   isFailure: boolean = false;
   translatedMessage: string = '';
+  displayedColumns: string[] = ['campaignName', 'action'];
 
   constructor(private campaignService: CampaignService,
               private languageService: LanguageService,
