@@ -20,6 +20,7 @@ export class AuthService implements OnInit{
   public username = '';
 
   private failedLogins = 0;
+  private loginsMap: Map<string, number> = new Map<string, number>;
 
   private userTryingToLogin: User;
 
@@ -31,7 +32,15 @@ export class AuthService implements OnInit{
     return !!accessToken;
   }
 
-  login(credentials: any): Observable<any> {
+  login(credentials: { username:string, password:string }): Observable<any> {
+    console.log(credentials)
+    if (this.loginsMap.get(credentials.username) != undefined) {
+      this.failedLogins = this.loginsMap.get(credentials.username)!;
+    } else {
+      console.log('wow')
+      this.loginsMap.set(credentials.username, 0);
+      this.failedLogins = 0;
+    }
     return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
       .pipe(
         tap((response: any) => {
@@ -41,6 +50,7 @@ export class AuthService implements OnInit{
           } else if (response.message === "account is inactive") {
             alert("Account is inactive");
           } else {
+            this.loginsMap.clear();
             sessionStorage.setItem("changedPassword", String(true));
             this.isLoggedInSubject.next(true);
           }
@@ -48,6 +58,7 @@ export class AuthService implements OnInit{
         catchError(error => {
           if (this.failedLogins <=5) {
             this.failedLogins++;
+            this.loginsMap.set(credentials.username, this.failedLogins);
             console.log(this.failedLogins)
           }
           console.log(this.failedLogins)
