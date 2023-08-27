@@ -120,3 +120,7 @@ input {
 .userCreationDiv {
   padding: 5% 0%;
 }
+
+#email-field{
+  margin-bottom: 20px;
+}

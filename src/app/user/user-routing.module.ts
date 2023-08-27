@@ -7,11 +7,12 @@ import {UserChangePasswordComponent} from "./components/user-change-password/use
 import {UserCreationComponent} from "./components/user-creation/user-creation.component";
 import {RightGuard} from "../../../util/Guards/rights_guards";
 import {AuthGuard} from "../components/login/auth.guard";
+import {ChangePasswordGuard} from "./components/user-change-password/change-password.guard";
 
 
 const routes: Routes = [
   { path: 'users', component: UserListComponent, canActivate: [RightGuard], data: {right:['USER_MANAGEMENT']}},
-  { path: 'change-password', component: UserChangePasswordComponent},
+  { path: 'change-password', component: UserChangePasswordComponent,  canActivate: [ChangePasswordGuard]},
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
   { path: 'create-user', component: UserCreationComponent, canActivate: [RightGuard], data: {right:['USER_MANAGEMENT']}}
 
