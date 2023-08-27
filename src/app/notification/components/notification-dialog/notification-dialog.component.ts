@@ -26,7 +26,7 @@ export class NotificationDialogComponent implements OnInit{
     this.notificationService.markNotificationAsRead(notification.id, notification)
         .subscribe(() => {
         });
-    console.log("marked as read");
+
   }
   getTranslatedMessage(key: string): string {
     return this.languageService.getTranslation(key);

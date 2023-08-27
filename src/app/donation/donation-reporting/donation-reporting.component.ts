@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth.service";
 import {LanguageService} from "../../services/language.service";
 import jwtDecode from "jwt-decode";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-donation-reporting',
@@ -78,10 +79,11 @@ export class DonationReportingComponent implements OnInit{
     if (confirm(`Are you sure you want to delete the selected donation?`)) {
       this.status = true;
       this.donationService.deleteDonation(id);
-      this._snackBar.open(this.getTranslatedMessage("@@donationDeletedSuccessfully"), this.getTranslatedMessage("@@close"));
+      delete this.filteredDonations[this.filteredDonations.findIndex(d => d.id === ID)];
+      this._snackBar.open(this.getTranslatedMessage("@@donationDeletedSuccessfully"), this.getTranslatedMessage("@@close"), {duration: 3000});
     } else {
       this.status = false;
-      this._snackBar.open(this.getTranslatedMessage("@@donationCannotDelete"), this.getTranslatedMessage("@@close"));
+      this._snackBar.open(this.getTranslatedMessage("@@donationCannotDelete"), this.getTranslatedMessage("@@close"), {duration: 3000});
     }
     if(this.status) {
       this.donations = this.donations.filter(donation => donation.id !== id);
@@ -89,11 +91,10 @@ export class DonationReportingComponent implements OnInit{
     }
   }
 
-
   approveDonation(donation: any): void {
     this.donationService.approveDonation(donation.id).subscribe(
       () => {
-        this._snackBar.open(this.getTranslatedMessage("@@donationApproved"), this.getTranslatedMessage("@@close"))
+        this._snackBar.open(this.getTranslatedMessage("@@donationApproved"), this.getTranslatedMessage("@@close"), {duration: 3000})
 
         // Update the approval status locally
         const approvedDonationIndex = this.donations.findIndex((d) => d.id === donation.id);
@@ -110,7 +111,7 @@ export class DonationReportingComponent implements OnInit{
         }
       },
       (error) => {
-        this._snackBar.open(this.getTranslatedMessage("@donationCannotApprove"), this.getTranslatedMessage("@@close"))
+        this._snackBar.open(this.getTranslatedMessage("@@donationCannotApprove"), this.getTranslatedMessage("@@close"), {duration: 3000})
       }
     );
   }

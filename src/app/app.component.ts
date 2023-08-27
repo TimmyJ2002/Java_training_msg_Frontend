@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
     }
 
   private startPeriodicNotifications(): void {
-    interval(5000)
+    interval(20000)
       .pipe(
         takeUntil(this.unsubscribe$),
         switchMap(() => this.notificationService.getNotifications())
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     this.authService.logout().subscribe(
       () => {
         this.isLoggedIn = false;
-        console.log('Logged out successfully');
+
         this.authService.clearAccessToken();
         this.router.navigate(['/login']);
       },
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit {
     }
 
     switchLanguage(language: string) {
-        console.log(this.languageService);
+       // console.log(this.languageService);
         this.languageService.setLanguage(language);
     }
     getTranslatedMessage(key: string): string {
@@ -131,6 +131,8 @@ export class AppComponent implements OnInit {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
+  protected readonly sessionStorage = sessionStorage;
 
 }
 

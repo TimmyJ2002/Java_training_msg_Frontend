@@ -1,20 +1,39 @@
-<h2>{{getTranslatedMessage('@@deleteCampaign')}}</h2>
+<h2 class="deleteMessage">{{getTranslatedMessage('@@selectCampaignToDelete')}}</h2>
+<!--<div *ngIf="isSuccess" style="color: green;">{{getTranslatedMessage('@@deleteCampaignSuccessfull')}} </div>-->
+<!--<div *ngIf="isFailure" style="color: red;">{{getTranslatedMessage('@@deletecampaignDuplicate')}}</div>-->
+<!--<table id="campaignTable">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th id="nameH" class="donorListRow"> {{getTranslatedMessage('@@campaignName')}} </th>-->
+<!--    <th id="purposeH"> {{getTranslatedMessage('@@choose')}} </th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngFor="let campaign of campaigns" id="campaignRow">-->
+<!--    <td id="name" class="donorListRow"> <strong>{{campaign.name + ': '}}</strong>{{campaign.purpose}} </td>-->
+<!--    <td><button class="deleteButton" type="submit" (click)="deleteCampaign(campaign)">{{getTranslatedMessage('@@delete')}}</button></td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
 
-<br>
-<p class="deleteMessage">{{getTranslatedMessage('@@selectCampaignToDelete')}}</p>
-<div *ngIf="isSuccess" style="color: green;">{{getTranslatedMessage('@@deleteCampaignSuccessfull')}} </div>
-<div *ngIf="isFailure" style="color: red;">{{getTranslatedMessage('@@deletecampaignDuplicate')}}</div>
-<table id="campaignTable">
-  <thead>
-  <tr>
-    <th id="nameH" class="donorListRow"> {{getTranslatedMessage('@@campaignName')}} </th>
-    <th id="purposeH"> {{getTranslatedMessage('@@choose')}} </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let campaign of campaigns" id="campaignRow">
-    <td id="name" class="donorListRow"> <strong>{{campaign.name + ': '}}</strong>{{campaign.purpose}} </td>
-    <td><button class="deleteButton" type="submit" (click)="deleteCampaign(campaign)">{{getTranslatedMessage('@@delete')}}</button></td>
-  </tr>
-  </tbody>
-</table>
+<div id="campaignTable">
+  <table mat-table [dataSource]="campaigns">
+
+    <ng-container matColumnDef="campaignName">
+      <th mat-header-cell *matHeaderCellDef class="donorListRow">{{ getTranslatedMessage('@@campaignName') }}</th>
+      <td mat-cell *matCellDef="let campaign"><strong>{{campaign.name + ': '}}</strong>{{campaign.purpose}}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>{{ getTranslatedMessage('@@actionHeader') }}</th>
+      <td mat-cell *matCellDef="let campaign" class="deleteButton" (click)="deleteCampaign(campaign)">{{ getTranslatedMessage('@@delete') }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+  </table>
+</div>

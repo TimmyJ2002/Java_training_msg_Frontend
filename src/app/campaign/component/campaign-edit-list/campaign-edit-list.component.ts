@@ -17,6 +17,8 @@ export class CampaignEditListComponent implements OnInit {
   successMessage: string | null = null;
   editedCampaignId: number | null = null;
   translatedMessage: string = '';
+  displayedColumns: string[] = ['campaignName', 'campaignPurpose'];
+  selectedCampaign: Campaign;
 
   constructor(private campaignService: CampaignService,
               private router: Router, private campaignUtilsService: CampaignUtilsService,

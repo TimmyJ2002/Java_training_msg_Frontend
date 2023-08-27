@@ -82,7 +82,7 @@ export class DonationComponent {
             this.donationForm.controls['currency'].setErrors(null);
             this.donationForm.controls['donator']!.setErrors(null);
             this.donationForm.controls['campaign']!.setErrors(null);
-            this._snackBar.open(this.getTranslatedMessage("@@donationCreatedSuccessfully"), this.getTranslatedMessage("@@close"));
+            this._snackBar.open(this.getTranslatedMessage("@@donationCreatedSuccessfully"), this.getTranslatedMessage("@@close"), {duration: 3000});
           },
           (error) => {
             this.donationForm.reset();
@@ -90,7 +90,7 @@ export class DonationComponent {
             this.donationForm.controls['currency'].setErrors(null);
             this.donationForm.controls['donator']!.setErrors(null);
             this.donationForm.controls['campaign']!.setErrors(null);
-            this._snackBar.open(this.getTranslatedMessage("@@donationCannotCreate"), this.getTranslatedMessage("@@close"));
+            this._snackBar.open(this.getTranslatedMessage("@@donationCannotCreate"), this.getTranslatedMessage("@@close"), {duration: 3000});
           });
       }
     }

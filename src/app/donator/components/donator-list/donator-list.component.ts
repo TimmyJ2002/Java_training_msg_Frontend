@@ -3,6 +3,7 @@ import {CreateDonatorService} from "../../services/createdonator.service";
 import {Router} from "@angular/router";
 import {Donator} from "../../models/donator";
 import {LanguageService} from "../../../services/language.service";
+import {Donation} from "../../../donation/models/donation";
 
 @Component({
   selector: 'app-donator-list',
@@ -10,9 +11,10 @@ import {LanguageService} from "../../../services/language.service";
   styleUrls: ['./donator-list.component.css']
 })
 export class DonatorListComponent implements OnInit{
-  donors: any[] = [];
+  donors: Donator[] = [];
   selectedDonator: Donator | null = null; // To store the selected donator
   donator: Donator | null = null;
+  displayedColumns: string[] = ['donorFullName', 'additionalName', 'maidenName'];
 
   constructor(private donorService: CreateDonatorService,
               private router: Router,

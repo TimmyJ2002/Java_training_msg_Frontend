@@ -25,34 +25,17 @@ export class AuthService implements OnInit{
     return !!accessToken;
   }
 
-  // login(credentials: any): Observable<any> {
-  //   return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
-  //     .pipe(
-  //       tap((response: any) => {
-  //         if (response.loginCount === -1) {
-  //           window.location.href = '/change-password';
-  //         } else {
-  //           this.isLoggedInSubject.next(true);
-  //         }
-  //       }),
-  //       catchError(error => {
-  //         if(error == 500 || error == 403){
-  //           alert("Incorrect username or password");
-  //         }
-  //         return throwError(error);
-  //       })
-  //     );
-  // }
-
   login(credentials: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + "/auth/login", credentials, { withCredentials: true })
       .pipe(
         tap((response: any) => {
           if (response.loginCount === -1) {
+            sessionStorage.setItem("changedPassword", String(false));
             window.location.href = '/change-password';
-          } else if (response.deactivated === true) {
-            alert("Your account has been deactivated. Please contact support.");
+          } else if (response.message === "account is inactive") {
+            alert("Account is inactive");
           } else {
+            sessionStorage.setItem("changedPassword", String(true));
             this.isLoggedInSubject.next(true);
           }
         }),
@@ -110,7 +93,7 @@ export class AuthService implements OnInit{
       'Authorization': `Bearer ${token}`
     });
 
-
+    sessionStorage.setItem('changedPassword', String(true));
     return this.http.post(url, requestBody, { headers });
   }
 

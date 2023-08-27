@@ -1,40 +1,69 @@
-#donorTable {
-  width: 80%;
-  margin: 0 auto;
-  border-collapse: collapse;
-  border: 2px solid #e64a19;
+/*#donorTable {*/
+/*  width: 80%;*/
+/*  margin: 0 auto;*/
+/*  border-collapse: collapse;*/
+/*  border: 2px solid #e64a19;*/
+/*}*/
+
+/*#donorTable th,*/
+/*#donorTable td {*/
+/*  border: 1px solid black;*/
+/*  padding: 8px;*/
+/*  text-align: center;*/
+/*}*/
+
+/*#donorTable th {*/
+/*  background-color: #e64a19;*/
+/*  color: white;*/
+/*}*/
+
+/*#donorTable a {*/
+/*  color: #000000;*/
+/*  text-decoration: none;*/
+/*}*/
+
+/*#donorTable a:hover {*/
+/*  text-decoration: underline;*/
+/*  color: #FFFFFF;*/
+/*}*/
+
+/*#donorRow:hover {*/
+/*  background-color: #e64a19;*/
+/*  color: white;*/
+/*}*/
+/*.selected-row {*/
+/*  background-color: #e64a19;*/
+/*}*/
+
+/*.donorListRow {*/
+/*  width: 200px;*/
+/*}*/
+
+#donorList {
+  align-self: center;
+  overflow: auto!important;
+  width: 70%;
+  max-height: 75% !important;
+  border-style: solid;
+  border-width: thin;
+  border-color: #555555;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#donorTable th,
-#donorTable td {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: center;
+.donorList {
 }
 
-#donorTable th {
-  background-color: #e64a19;
-  color: white;
+tr.mat-mdc-row:nth-child(odd) {
+  background-color: #e1e2e3;
 }
 
-#donorTable a {
-  color: #000000;
-  text-decoration: none;
+.role-row-is-clicked {
+  background-color: orangered !important;
 }
 
-#donorTable a:hover {
-  text-decoration: underline;
-  color: #FFFFFF;
-}
-
-#donorRow:hover {
-  background-color: #e64a19;
-  color: white;
-}
-.selected-row {
-  background-color: #e64a19;
-}
-
-.donorListRow {
-  width: 200px;
+h2 {
+  margin-top: 5vh;
+  padding-left: 15%;
 }

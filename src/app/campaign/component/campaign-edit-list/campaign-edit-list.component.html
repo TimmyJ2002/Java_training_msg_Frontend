@@ -1,20 +1,25 @@
-<br>
-<h2>{{getTranslatedMessage('@@editCampaign')}}</h2>
-<br>
-<p class="editMessage">{{getTranslatedMessage('@@selectCampaignToEdit')}}</p>
-<table id="campaignTable">
-  <thead>
-  <tr>
-    <th id="nameH"> {{getTranslatedMessage('@@campaignName')}} </th>
-    <th id="purposeH"> {{getTranslatedMessage('@@campaignPurpose')}} </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let campaign of campaigns" id="campaignRow"
-      [ngClass]="{'edited-row': campaign.id === editedCampaignId}"
-      (dblclick)="navigateToEditCampaign(campaign)">
-    <td id="name"> {{campaign.name}} </td>
-    <td id="purpose"> {{campaign.purpose}} </td>
-  </tr>
-  </tbody>
-</table>
+<h2 class="editMessage">{{getTranslatedMessage('@@selectCampaignToEdit')}}</h2>
+
+<div id="campaignTable">
+  <table mat-table [dataSource]="campaigns">
+
+    <ng-container matColumnDef="campaignName">
+      <th mat-header-cell *matHeaderCellDef>{{ getTranslatedMessage('@@campaignName') }}</th>
+      <td mat-cell *matCellDef="let campaign">{{ campaign.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="campaignPurpose">
+      <th mat-header-cell *matHeaderCellDef>{{ getTranslatedMessage('@@campaignPurpose') }}</th>
+      <td mat-cell *matCellDef="let campaign">{{ campaign.purpose }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      (click)="selectedCampaign=row"
+      [class.role-row-is-clicked]="selectedCampaign==row"
+      (dblclick)="navigateToEditCampaign(selectedCampaign)"
+      *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+  </table>
+</div>

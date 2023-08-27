@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {CampaignService} from "../../services/campaign.service";
 import {LanguageService} from "../../../services/language.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -11,34 +11,35 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class CampaignCreateComponent implements OnInit {
 
+  campaignForm: FormGroup;
   isSuccess: boolean = false;
   isDuplicate: boolean = false;
-  campaignForm: FormGroup;
   translatedMessage: string = '';
+
 
   constructor(private formBuilder: FormBuilder,
               private campaignService: CampaignService,
               private languageService: LanguageService,
               private _snackBar: MatSnackBar) {
-    this.campaignForm = this.formBuilder.group( {
-      name:['', Validators.required],
+    this.campaignForm = this.formBuilder.group({
+      name: ['', Validators.required],
       purpose: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  onSubmit(formData: any, formDirective: FormGroupDirective) {
+    this.campaignForm.markAllAsTouched();
     if (this.campaignForm.valid) {
       const campaignData = this.campaignForm.value;
         this.campaignService.createCampaign(campaignData).subscribe(
           (response) => {
-            this._snackBar.open(this.getTranslatedMessage("@@campaignSuccessfully"), this.getTranslatedMessage("@@close"))
+            this._snackBar.open(this.getTranslatedMessage("@@createCampaignSuccessfull"), this.getTranslatedMessage("@@close") , {duration: 3000})
             this.isSuccess = true;
+            formDirective.resetForm();
             this.campaignForm.reset();
-            this.campaignForm.controls['name'].setErrors(null);
-            this.campaignForm.controls['purpose'].setErrors(null);
           },
           (error) => {
-            this._snackBar.open(this.getTranslatedMessage("@@cannotCreateCampaign"), this.getTranslatedMessage("@@close"))
+            this._snackBar.open(this.getTranslatedMessage("@@cannotCreateCampaign"), this.getTranslatedMessage("@@close"), {duration: 3000})
             this.isDuplicate = true;
           }
         );
@@ -56,16 +57,8 @@ export class CampaignCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageService.selectedLanguage$.subscribe((language) => {
-      // Fetch and set translated content based on the selected language
       this.translatedMessage = this.getTranslatedMessage(language);
     });
-  }
-
-  getErrorMessage() {
-    if (this.campaignForm.hasError('required')) {
-      return this.getTranslatedMessage('@@enterValue');
-    }
-    return this.campaignForm.hasError('name') ? this.getTranslatedMessage("@@notValidName") : '';
   }
 
   getTranslatedMessage(key: string): string {

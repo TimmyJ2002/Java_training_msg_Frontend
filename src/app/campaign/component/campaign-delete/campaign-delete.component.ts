@@ -18,6 +18,7 @@ export class CampaignDeleteComponent implements OnInit {
   isSuccess: boolean = false;
   isFailure: boolean = false;
   translatedMessage: string = '';
+  displayedColumns: string[] = ['campaignName', 'action'];
 
   constructor(private campaignService: CampaignService,
               private languageService: LanguageService,
@@ -44,17 +45,17 @@ export class CampaignDeleteComponent implements OnInit {
     if (confirm(this.getTranslatedMessage('@@deleteMessage'))) {
       this.campaignService.deleteCampaign(campaign.id).subscribe(
         (response) => {
-          this._snackBar.open(this.getTranslatedMessage("@@campaignDeleteSuccessfully"), this.getTranslatedMessage("@@close"))
+          this._snackBar.open(this.getTranslatedMessage("@@campaignDeleteSuccessfully"), this.getTranslatedMessage("@@close"), {duration: 3000})
           this.loadCampaigns();
         },
         (error) => {
-          this._snackBar.open(this.getTranslatedMessage("@@campaignCannotDelete"),this.getTranslatedMessage("@@close") )
+          this._snackBar.open(this.getTranslatedMessage("@@campaignCannotDelete"),this.getTranslatedMessage("@@close"), {duration: 3000} )
           this.isFailure = true;
         }
       );
       this.clearBoolean();
     } else {
-      this._snackBar.open(this.getTranslatedMessage("@@campaignCannotDelete"), this.getTranslatedMessage("@@close"))
+      this._snackBar.open(this.getTranslatedMessage("@@campaignCannotDelete"), this.getTranslatedMessage("@@close"), {duration: 3000})
     }
   }
 

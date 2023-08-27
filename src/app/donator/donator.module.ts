@@ -7,6 +7,7 @@ import {EditDonatorComponent} from "./components/edit-donator/edit-donator.compo
 import {DonatorListComponent} from "./components/donator-list/donator-list.component";
 import {DeleteDonatorComponent} from "./components/delete-donator/delete-donator.component";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -15,14 +16,15 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     DonatorListComponent,
     DeleteDonatorComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-    DonatorRoutingModule,
-    ReactiveFormsModule,
-    MatSnackBarModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        HttpClientModule,
+        DonatorRoutingModule,
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatTableModule
+    ],
   exports: [DonatorRoutingModule]
 })
 export class DonatorModule {

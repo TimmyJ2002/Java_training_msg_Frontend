@@ -1,5 +1,6 @@
 h2 {
-  text-align: center;
+  margin-top: 5vh;
+  text-align: left;
 }
 
 form {
@@ -28,20 +29,12 @@ input {
 #campaignTable {
   width: 80%;
   margin: 0 auto;
-  border-collapse: collapse;
-  border: 2px solid #e64a19;
-}
-
-#campaignTable th,
-#campaignTable td {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: center;
-}
-
-#campaignTable th {
-  background-color: #e64a19;
-  color: white;
+  max-height: 73%;
+  overflow: auto;
+  border-style: solid;
+  border-width: thin;
+  border-color: #555555;
+  border-radius: 5px;
 }
 
 #campaignTable a {
@@ -69,4 +62,12 @@ input {
 
 .editMessage {
   padding: 0px 150px !important;
+}
+
+.role-row-is-clicked {
+  background-color: orangered !important;
+}
+
+tr.mat-mdc-row:nth-child(odd) {
+  background-color: #e1e2e3;
 }

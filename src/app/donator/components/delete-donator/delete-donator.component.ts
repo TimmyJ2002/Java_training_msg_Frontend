@@ -14,6 +14,7 @@ export class DeleteDonatorComponent implements OnInit{
   donors: any[] = [];
   donator: Donator | null = null;
   status: boolean = false;
+  displayedColumns: string[] = ['fullName', 'action'];
 
   constructor(private donorService: CreateDonatorService,
               private languageService: LanguageService,
@@ -32,7 +33,7 @@ export class DeleteDonatorComponent implements OnInit{
     if (confirm(`Are you sure you want to delete ${donor.firstName} ${donor.lastName}?`)) {
       this.status = true;
       this.donorService.deleteDonor(donor);
-      this._snackBar.open(this.getTranslatedMessage("@@donorDeletedSuccessfully"), this.getTranslatedMessage("@@close"))
+      this._snackBar.open(this.getTranslatedMessage("@@donorDeletedSuccessfully"), this.getTranslatedMessage("@@close"), {duration: 3000})
     } else {
       this.status = false;
     }
