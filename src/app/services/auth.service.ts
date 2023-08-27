@@ -46,7 +46,7 @@ export class AuthService implements OnInit{
           }
         }),
         catchError(error => {
-          if (this,this.failedLogins <=5) {
+          if (this.failedLogins <=5) {
             this.failedLogins++;
             console.log(this.failedLogins)
           }
